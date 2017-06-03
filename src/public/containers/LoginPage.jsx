@@ -1,14 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Auth from '../modules/Auth';
-import LoginForm from '../components/LoginForm.jsx';
+import React, { Component } from 'react';
+import Auth from '../../modules/Auth';
+import { Link } from 'react-router-dom';
+import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
-
-class LoginPage extends React.Component {
-
-  /**
-   * Class constructor.
-   */
+class LoginPage extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -103,25 +100,45 @@ class LoginPage extends React.Component {
     });
   }
 
-  /**
-   * Render the component.
-   */
   render() {
     return (
-      <LoginForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        successMessage={this.state.successMessage}
-        user={this.state.user}
-      />
+      <Card className="container">
+        <form action="/" onSubmit={this.processForm}>
+          <h2 className="card-heading">Login</h2>
+
+          {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
+          {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+
+          <div className="field-line">
+            <TextField
+              floatingLabelText="Email"
+              name="email"
+              errorText={this.state.errors.email}
+              onChange={this.changeUser}
+              value={this.state.user.email}
+            />
+          </div>
+
+          <div className="field-line">
+            <TextField
+              floatingLabelText="Password"
+              type="password"
+              name="password"
+              onChange={this.changeUser}
+              errorText={this.state.errors.password}
+              value={this.state.user.password}
+            />
+          </div>
+
+          <div className="button-line">
+            <RaisedButton type="submit" label="Log in" primary />
+          </div>
+
+          <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+        </form>
+      </Card>
     );
   }
-
 }
-
-LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired
-};
 
 export default LoginPage;

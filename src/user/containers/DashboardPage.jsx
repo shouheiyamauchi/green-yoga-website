@@ -1,5 +1,5 @@
 import React from 'react';
-import Auth from '../modules/Auth';
+import Auth from '../../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 
 
@@ -12,8 +12,7 @@ class DashboardPage extends React.Component {
     super(props);
 
     this.state = {
-      secretData: '',
-      user: {}
+      secretData: ''
     };
   }
 

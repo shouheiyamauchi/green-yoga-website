@@ -19,6 +19,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>React App</title>
   </head>
   <body>
@@ -36,5 +43,21 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script type="text/javascript">
+      $( document ).ready(function(){
+        // enable side nav for mobile view
+        $(".button-collapse").sideNav({
+          menuWidth: 300, // Default is 240
+          closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        });
+        // enable parallax
+        $('.parallax').parallax();
+        // enable dynamically adding collapsible
+        $('.collapsible').collapsible();
+      })
+    </script>
   </body>
 </html>

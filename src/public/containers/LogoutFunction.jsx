@@ -1,10 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Auth from '../modules/Auth';
+import { Component } from 'react';
+import Auth from '../../modules/Auth';
 
-
-class LogoutFunction extends React.Component {
-
+class LogoutFunction extends Component {
   componentDidMount() {
     // deauthenticate user, remove details from local storage
     Auth.deauthenticateUser();
@@ -15,15 +12,9 @@ class LogoutFunction extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>Logging out...</p>
-      </div>
+      null
     )
   }
 }
-
-LogoutFunction.contextTypes = {
-  router: PropTypes.object.isRequired
-};
 
 export default LogoutFunction;

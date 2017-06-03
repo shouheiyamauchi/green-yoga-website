@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import routes from './routes.js';
-
 import {
   BrowserRouter as Router,
   Route,
@@ -11,21 +9,83 @@ import {
   Redirect
 } from 'react-router-dom'
 
-// import Base from './components/Base.jsx';
-import HomePage from './components/HomePage.jsx';
-import LoginPage from './containers/LoginPage.jsx';
-import LogoutFunction from './containers/LogoutFunction.jsx';
-import SignUpPage from './containers/SignUpPage.jsx';
-import DashboardPage from './containers/DashboardPage.jsx';
-import Administrator from './components/Administrator.jsx';
+// import authentication storage functions
 import Auth from './modules/Auth';
+
+// import pages available to all visitors
+import HomePage from './public/containers/HomePage.jsx';
+import LoginPage from './public/containers/LoginPage.jsx';
+import LogoutFunction from './public/containers/LogoutFunction.jsx';
+import SignupPage from './public/containers/SignupPage.jsx';
+import Types from './public/containers/Types.jsx';
+
+// import pages available only for signed in users
+import DashboardPage from './user/containers/DashboardPage.jsx';
+
+// import pages available only for administrators
+import AdministratorDashboard from './administrator/containers/Dashboard.jsx';
+import CreateType from './administrator/containers/CreateType.jsx';
+
+// import pages available only for teachers
+import TeacherDashboard from './teacher/containers/TeacherDashboard.jsx';
 
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+// set up custom routes
+// routes for any users (logged in or logged out)
+const PropsRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    <Component {...props} {...rest} />
+  )}/>
+)
+
+// routes only for logged out users
+const LoggedOutRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
     Auth.isUserAuthenticated() ? (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}/>
+    ) : (
+      <Component {...props} {...rest} />
+    )
+  )}/>
+)
+
+// routes only for logged in users
+const UserRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    Auth.isUserAuthenticated() ? (
+      <Component {...props} {...rest} />
+    ) : (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
+
+// routes only for receptionists (and teachers/administrators)
+const ReceptionistRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
+      <Component {...props} {...rest} />
+    ) : (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
+
+// routes only for teachers (and administrators)
+const TeacherRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
       <Component {...props} {...rest} />
     ) : (
       <Redirect to={{
@@ -49,30 +109,12 @@ const AdministratorRoute = ({ component: Component, ...rest }) => (
   )}/>
 )
 
-const LoggedOutRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    Auth.isUserAuthenticated() ? (
-      <Redirect to={{
-        pathname: '/',
-        state: { from: props.location }
-      }}/>
-    ) : (
-      <Component {...props} {...rest} />
-    )
-  )}/>
-)
-
-const PropsRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    <Component {...props} {...rest} />
-  )}/>
-)
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      authenticated: false,
+      parallax: "/images/header1.jpg"
     }
   };
 
@@ -93,39 +135,104 @@ class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
           <div>
-            <div className="top-bar">
-              <div className="top-bar-left">
-                <Link to="/">React App</Link>
+            <nav>
+              <div className="nav-wrapper green white">
+                <Link className="brand-logo" to="/">&nbsp;Green Yoga</Link>
+                <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+                <ul className="right hide-on-med-and-down">
+                  <li><Link to="/types">CLASS TYPES</Link></li>
+                  {this.state.authenticated ? (
+                    <span>
+                      <li><Link to="/dashboard">DASHBOARD</Link></li>
+                      {
+                        (Auth.getUser().role === "administrator") ? (
+                          <span>
+                            <li><Link to="/administrator/dashboard">ADMINISTRATOR</Link></li>
+                            <li><Link to="/administrator/create-type">CREATE TYPE</Link></li>
+                          </span>
+                          ) : (
+                            null
+                          )
+                      }
+                      {
+                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
+                            <li><Link to="/teacher">TEACHER</Link></li>
+                          ) : (
+                            null
+                          )
+                      }
+                      <li><Link to="/logout">LOG OUT</Link></li>
+                    </span>
+                  ) : (
+                    <span>
+                      <li><Link to="/login">LOG IN</Link></li>
+                      <li><Link to="/signup">SIGN UP</Link></li>
+                    </span>
+                  )}
+                </ul>
+                <ul className="side-nav" id="mobile-demo">
+                  <li><Link to="/types">CLASS TYPES</Link></li>
+                  {this.state.authenticated ? (
+                    <span>
+                      <li><Link to="/dashboard">DASHBOARD</Link></li>
+                      {
+                        (Auth.getUser().role === "administrator") ? (
+                          <span>
+                            <li><Link to="/administrator/dashboard">ADMINISTRATOR</Link></li>
+                            <li><Link to="/administrator/create-type">CREATE TYPE</Link></li>
+                          </span>
+
+                          ) : (
+                            null
+                          )
+                      }
+                      {
+                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
+                            <li><Link to="/teacher">TEACHER</Link></li>
+                          ) : (
+                            null
+                          )
+                      }
+                      <li><Link to="/logout">LOG OUT</Link></li>
+                    </span>
+                  ) : (
+                    <span>
+                      <li><Link to="/login">LOG IN</Link></li>
+                      <li><Link to="/signup">SIGN UP</Link></li>
+                    </span>
+                  )}
+                </ul>
               </div>
-              {this.state.authenticated ? (
-                <div className="top-bar-right">
-                  <Link to="/dashboard">Dashboard</Link>
-                  {
-                    (Auth.getUser().role === "administrator") ? (
-                        <Link to="/administrator">Administrator</Link>
-                      ) : (
-                        null
-                      )
-                  }
-                  <Link to="/logout">Log out</Link>
+            </nav>
+            <div className="parallax-container center-align">
+              <div className="parallax"><img src={this.state.parallax} /></div>
+                <div className="white-text">
+                  <br /><br /><br /><h3>Welcome to Green Yoga</h3>
+                  <p className="sub-title">An easy to use, amazing parallax effect in materialize without any extra effort</p>
                 </div>
-              ) : (
-                <div className="top-bar-right">
-                  <Link to="/login">Log in</Link>
-                  <Link to="/signup">Sign up</Link>
-                </div>
-              )}
-
             </div>
+            <div className="container">
+              {/* Routes available to all users */}
+              <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
+              <PropsRoute path="/types" component={Types} />
 
-            <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
-            <PrivateRoute path="/dashboard" component={DashboardPage} user={Auth.getUser()} />
-            <AdministratorRoute path="/administrator" component={Administrator}/>
-            <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
-            <LoggedOutRoute path="/signup" component={SignUpPage}/>
-            <Route path="/logout" component={LogoutFunction}/>
+              {/* Logged out users routes */}
+              <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
+              <LoggedOutRoute path="/signup" component={SignupPage}/>
+
+              {/* Logged in users routes */}
+              <UserRoute path="/dashboard" component={DashboardPage} user={Auth.getUser()} />
+              <UserRoute path="/logout" component={LogoutFunction}/>
+
+
+              {/* Teacher routes */}
+              <TeacherRoute path="/teacher" component={TeacherDashboard} user={Auth.getUser()}/>
+
+              {/* Administrator routes */}
+              <AdministratorRoute path="/administrator/dashboard" component={AdministratorDashboard} user={Auth.getUser()} />
+              <AdministratorRoute path="/administrator/create-type" component={CreateType} />
+            </div>
           </div>
-
         </Router>
       </MuiThemeProvider>
     );
