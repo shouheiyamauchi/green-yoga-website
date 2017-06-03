@@ -39,6 +39,17 @@
   font-feature-settings: 'liga';
 }
 
+a .material-icons {
+  color: #54B5B5;
+  transition: 0.5s;
+}
+
+a:hover .material-icons {
+  color: #9DD5D5;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   padding: 0;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 
-class DeleteType extends Component {
+class TypeButtons extends Component {
   constructor(props, context) {
     super(props, context);
     this.deleteType = this.deleteType.bind(this);
@@ -32,11 +32,19 @@ class DeleteType extends Component {
   render() {
     return (
       <div>
-        <a className="btn-floating red" onClick={this.deleteType}><i className="material-icons">insert_chart</i></a>
+        {
+          (Auth.getUser().role === "administrator") ? (
+            <div className="card-action right-align horizontal">
+              <a><i className="material-icons">mode_edit</i></a>
+              <a onClick={this.deleteType}><i className="material-icons">delete_forever</i></a>
+            </div>
+          ) : (
+            null
+          )
+        }
       </div>
-
     );
   }
 }
 
-export default DeleteType;
+export default TypeButtons;

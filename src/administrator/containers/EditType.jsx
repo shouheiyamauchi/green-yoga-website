@@ -13,9 +13,9 @@ class CreateType extends Component {
     this.state = {
       errors: {},
       type: {
-        name: '',
-        description: '',
-        image: ''
+        name: this.props.type.name,
+        description: this.props.type.description,
+        image: this.props.type.image
       }
     };
 
@@ -120,7 +120,7 @@ class CreateType extends Component {
 
                     <div className="button-line right-align">
                       <button className="btn waves-effect waves-light" type="submit" name="action">
-                        Add Class Type
+                        Edit Class Type
                       </button>
                     </div>
                   </form>

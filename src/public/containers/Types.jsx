@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import AdministratorCreateType from '../../administrator/containers/CreateType.jsx';
-import AdministratorDeleteType from '../../administrator/components/DeleteType.jsx';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import AdministratorTypeButtons from '../../administrator/components/TypeButtons.jsx';
+
+const hello = <div className="collapsible-header"><i className="material-icons">add_circle_outline</i>Add Class Type</div>
 
 class Types extends Component {
   constructor(props, context) {
@@ -16,7 +17,7 @@ class Types extends Component {
   }
 
   componentDidMount() {
-    this.getTypesList()
+    this.getTypesList();
   }
 
   getTypesList() {
@@ -47,7 +48,13 @@ class Types extends Component {
         <h4>Class Types</h4>
         <h6>Listed below are the types of classes you can take at Green Yoga.</h6>
         {/* Admin section to create class type */}
-        <AdministratorCreateType />
+        {
+          (Auth.isUserAuthenticated()) ? (
+            <AdministratorCreateType />
+          ) : (
+            null
+          )
+        }
         {this.state.types.length < 1 ? (
           <div className="spinner">
             <div className="bounce1"></div>
@@ -66,9 +73,14 @@ class Types extends Component {
                   <span className="card-title">{type.name}</span>
                   <p>{type.description}</p>
                 </div>
-                <div className="card-action">
-                  <AdministratorDeleteType id={type._id} />
-                </div>
+                {/* Admin section to edit class type */}
+                {
+                  (Auth.isUserAuthenticated()) ? (
+                    <AdministratorTypeButtons id={type._id} />
+                  ) : (
+                    null
+                  )
+                }
               </div>
             </div>
           </div>
