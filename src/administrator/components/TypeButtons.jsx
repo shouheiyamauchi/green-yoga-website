@@ -35,7 +35,7 @@ class TypeButtons extends Component {
         {
           (Auth.getUser().role === "administrator") ? (
             <div className="card-action right-align horizontal">
-              <a><i className="material-icons">mode_edit</i></a>
+              <a href={`/administrator/edit-type/${this.props.id}`}><i className="material-icons">mode_edit</i></a>
               <a onClick={this.deleteType}><i className="material-icons">delete_forever</i></a>
             </div>
           ) : (

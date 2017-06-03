@@ -3,24 +3,45 @@ import Auth from '../../modules/Auth';
 import RaisedButton from 'material-ui/RaisedButton';
 import Collapsible from 'react-collapsible';
 
-const header = <div className="collapsible-header"><i className="material-icons">add_circle_outline</i>Add Class Type</div>
-
-class CreateType extends Component {
+class EditType extends Component {
   constructor(props, context) {
     super(props, context);
 
     // set the initial component state
     this.state = {
       errors: {},
-      type: {
-        name: this.props.type.name,
-        description: this.props.type.description,
-        image: this.props.type.image
-      }
+      type: null
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeType = this.changeType.bind(this);
+    this.getType = this.getType.bind(this);
+  }
+
+  componentDidMount() {
+    this.getType();
+  }
+
+  getType() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `https://green-yoga-server.herokuapp.com/api/v1/types/${this.props.match.params.id}`);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // set the authorization HTTP header
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        type: xhr.response.type
+      });
+
+      // set a message
+      localStorage.setItem('successMessage', xhr.response.message);
+    });
+    xhr.send();
   }
 
   /**
@@ -41,7 +62,7 @@ class CreateType extends Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://green-yoga-server.herokuapp.com/api/v1/types');
+    xhr.open('POST', `https://green-yoga-server.herokuapp.com/api/v1/types/${this.props.match.params.id}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
@@ -58,8 +79,8 @@ class CreateType extends Component {
         // set a message
         localStorage.setItem('successMessage', xhr.response.message);
 
-        // redirect user after creation of type
-        window.location.reload();
+        // redirect to class types after edit
+        this.props.history.push('/types');
       } else {
         // failure
 
@@ -92,44 +113,49 @@ class CreateType extends Component {
   render() {
     return (
       <div>
+        <div className="section"></div>
         {
-          (Auth.getUser().role === "administrator") ? (
-            <div className="collapsible">
-              <Collapsible trigger={header}>
-                <div className="container">
-                  <form action="/" onSubmit={this.processForm}>
-                    {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
-
-                    <div className="input-field col s12">
-                      <input name="name" type="text" onChange={this.changeType} value={this.state.type.name} />
-                      <label>Type Name</label>
-                      {this.state.errors.name && <p className="error-message-field">{this.state.errors.name}</p>}
-                    </div>
-
-                    <div className="input-field col s12">
-                      <input name="description" type="text" onChange={this.changeType} value={this.state.type.description} />
-                      <label>Description</label>
-                      {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
-                    </div>
-
-                    <div className="input-field col s12">
-                      <input name="image" type="text" onChange={this.changeType} value={this.state.type.image} />
-                      <label>Image</label>
-                      {this.state.errors.image && <p className="error-message-field">{this.state.errors.image}</p>}
-                    </div>
-
-                    <div className="button-line right-align">
-                      <button className="btn waves-effect waves-light" type="submit" name="action">
-                        Edit Class Type
-                      </button>
-                    </div>
-                  </form>
-                  <div className="section"></div>
-              </div>
-              </Collapsible>
+          (this.state.type === null) ? (
+            <div className="spinner">
+              <div className="bounce1"></div>
+              <div className="bounce2"></div>
+              <div className="bounce3"></div>
             </div>
             ) : (
-              null
+              <div className="collapsible">
+                <div className="collapsible-header"><i className="material-icons">mode_edit</i>Edit Class Type</div>
+                  <div className="container">
+                    <div className="section"></div>
+                    <form action="/" onSubmit={this.processForm}>
+                      {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
+
+                      <div className="input-field col s12">
+                        <input name="name" type="text" onChange={this.changeType} value={this.state.type.name} />
+                        <label className="active">Type Name</label>
+                        {this.state.errors.name && <p className="error-message-field">{this.state.errors.name}</p>}
+                      </div>
+
+                      <div className="input-field col s12">
+                        <input name="description" type="text" onChange={this.changeType} value={this.state.type.description} />
+                        <label className="active">Description</label>
+                        {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
+                      </div>
+
+                      <div className="input-field col s12">
+                        <input name="image" type="text" onChange={this.changeType} value={this.state.type.image} />
+                        <label className="active">Image</label>
+                        {this.state.errors.image && <p className="error-message-field">{this.state.errors.image}</p>}
+                      </div>
+
+                      <div className="button-line right-align">
+                        <button className="btn waves-effect waves-light" type="submit" name="action">
+                          Edit Class Type
+                        </button>
+                      </div>
+                    </form>
+                    <div className="section"></div>
+                </div>
+              </div>
             )
         }
       </div>
@@ -137,4 +163,4 @@ class CreateType extends Component {
   }
 }
 
-export default CreateType;
+export default EditType;

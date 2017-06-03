@@ -24,7 +24,7 @@ import DashboardPage from './user/containers/DashboardPage.jsx';
 
 // import pages available only for administrators
 import AdministratorDashboard from './administrator/containers/Dashboard.jsx';
-import CreateType from './administrator/containers/CreateType.jsx';
+import AdministratorEditType from './administrator/containers/EditType.jsx';
 
 // import pages available only for teachers
 import TeacherDashboard from './teacher/containers/TeacherDashboard.jsx';
@@ -148,7 +148,6 @@ class App extends Component {
                         (Auth.getUser().role === "administrator") ? (
                           <span>
                             <li><Link to="/administrator/dashboard">ADMINISTRATOR</Link></li>
-                            <li><Link to="/administrator/create-type">CREATE TYPE</Link></li>
                           </span>
                           ) : (
                             null
@@ -179,7 +178,6 @@ class App extends Component {
                         (Auth.getUser().role === "administrator") ? (
                           <span>
                             <li><Link to="/administrator/dashboard">ADMINISTRATOR</Link></li>
-                            <li><Link to="/administrator/create-type">CREATE TYPE</Link></li>
                           </span>
 
                           ) : (
@@ -230,7 +228,7 @@ class App extends Component {
 
               {/* Administrator routes */}
               <AdministratorRoute path="/administrator/dashboard" component={AdministratorDashboard} user={Auth.getUser()} />
-              <AdministratorRoute path="/administrator/create-type" component={CreateType} />
+              <AdministratorRoute path="/administrator/edit-type/:id" component={AdministratorEditType} />
             </div>
           </div>
         </Router>
