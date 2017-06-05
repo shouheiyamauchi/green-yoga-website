@@ -4,8 +4,6 @@ import AdministratorCreateType from '../../administrator/containers/CreateType.j
 import AdministratorEditType from '../../administrator/containers/EditType.jsx';
 import AdministratorTypeButtons from '../../administrator/components/TypeButtons.jsx';
 
-const hello = <div className="collapsible-header"><i className="material-icons">add_circle_outline</i>Add Class Type</div>
-
 class Types extends Component {
   constructor(props, context) {
     super(props, context);
@@ -13,12 +11,19 @@ class Types extends Component {
     // set the initial component state
     this.state = {
       errors: {},
-      types: []
+      types: null,
+      message: ''
     };
   }
 
   componentDidMount() {
     this.getTypesList();
+
+    // Display stored message by setting state and remove it from local storage
+    this.setState({
+      message: localStorage.getItem('type')
+    });
+    localStorage.removeItem('type');
   }
 
   getTypesList() {
@@ -36,9 +41,6 @@ class Types extends Component {
         errors: {},
         types: xhr.response.types
       });
-
-      // set a message
-      localStorage.setItem('successMessage', xhr.response.message);
     });
     xhr.send();
   }
@@ -47,6 +49,7 @@ class Types extends Component {
     return (
       <div>
         <div className="section"></div>
+        <p className="message center-align">{this.state.message}</p>
         <h4>Class Types</h4>
         <h6>Listed below are the types of classes you can take at Green Yoga.</h6>
         <div className="section"></div>
@@ -58,7 +61,7 @@ class Types extends Component {
             null
           )
         }
-        {this.state.types.length < 1 ? (
+        {this.state.types == null ? (
           <div className="spinner">
             <div className="bounce1"></div>
             <div className="bounce2"></div>
@@ -67,14 +70,18 @@ class Types extends Component {
         ) : (
           this.state.types.map((type, i) =>
           <div key={i} className="col s12 m12">
-            <div className="card horizontal">
-              <div className="card-image">
-                <img src="http://lorempixel.com/100/190/nature/6" />
-              </div>
+            <div className="card">
               <div className="card-stacked">
                 <div className="card-content">
-                  <span className="card-title">{type.name}</span>
-                  <p>{type.description}</p>
+                  <div className="row valign-wrapper">
+                    <div className="col s3">
+                      <img src={type.image} alt="" className="circle responsive-img" />
+                    </div>
+                    <div className="col s9">
+                      <span className="card-title">{type.name}</span>
+                      <p>{type.description}</p>
+                    </div>
+                  </div>
                 </div>
                 {/* Admin section to edit class type */}
                 {

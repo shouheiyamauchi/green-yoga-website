@@ -21,6 +21,7 @@ import Types from './public/containers/Types.jsx';
 
 // import pages available only for signed in users
 import DashboardPage from './user/containers/DashboardPage.jsx';
+import Uploader from './user/containers/Uploader.jsx';
 
 // import pages available only for administrators
 import AdministratorDashboard from './administrator/containers/Dashboard.jsx';
@@ -121,8 +122,6 @@ class App extends Component {
   componentDidMount() {
     // check if user is logged in on refresh
     this.toggleAuthenticateStatus();
-    // console log user data saved on local storage
-    console.log(Auth.getUser());
   }
 
   toggleAuthenticateStatus() {
@@ -137,7 +136,7 @@ class App extends Component {
           <div>
             <nav>
               <div className="nav-wrapper green white">
-                <Link className="brand-logo" to="/">&nbsp;Green Yoga</Link>
+                <Link className="brand-logo" to="/">&nbsp;&nbsp;&nbsp;Green Yoga</Link>
                 <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                 <ul className="right hide-on-med-and-down">
                   <li><Link to="/types">CLASS TYPES</Link></li>
@@ -221,6 +220,7 @@ class App extends Component {
               {/* Logged in users routes */}
               <UserRoute path="/dashboard" component={DashboardPage} user={Auth.getUser()} />
               <UserRoute path="/logout" component={LogoutFunction}/>
+              <UserRoute path="/uploader" component={Uploader}/>
 
 
               {/* Teacher routes */}

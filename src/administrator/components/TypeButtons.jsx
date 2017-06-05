@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
+import { Link } from 'react-router-dom';
 
 class TypeButtons extends Component {
   constructor(props, context) {
@@ -22,6 +23,9 @@ class TypeButtons extends Component {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
+        // set a success message
+        localStorage.setItem('type', xhr.response.message)
+
         // refresh page after deleting type
         window.location.reload();
       }
@@ -35,7 +39,7 @@ class TypeButtons extends Component {
         {
           (Auth.getUser().role === "administrator") ? (
             <div className="card-action right-align horizontal">
-              <a href={`/administrator/edit-type/${this.props.id}`}><i className="material-icons">mode_edit</i></a>
+              <Link to={`/administrator/edit-type/${this.props.id}`}><i className="material-icons">mode_edit</i></Link>
               <a onClick={this.deleteType}><i className="material-icons">delete_forever</i></a>
             </div>
           ) : (
