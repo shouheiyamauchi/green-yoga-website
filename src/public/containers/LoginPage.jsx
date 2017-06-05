@@ -6,18 +6,9 @@ class LoginPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
-
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
-
     // set the initial component state
     this.state = {
       errors: {},
-      successMessage,
       user: {
         email: '',
         password: ''
@@ -32,7 +23,7 @@ class LoginPage extends Component {
   componentDidMount() {
     // update authenticated state
     this.props.toggleAuthenticateStatus()
-    
+
     // Display stored message by setting state and remove it from local storage
     this.setState({
       message: localStorage.getItem('user')

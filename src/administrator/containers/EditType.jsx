@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
-import RaisedButton from 'material-ui/RaisedButton';
-import Collapsible from 'react-collapsible';
 
 class EditType extends Component {
   constructor(props, context) {
@@ -216,7 +214,7 @@ class EditType extends Component {
                         null
                       ) : (
                         <div className="center-align">
-                          <img className="preview" src={this.state.type.image} />
+                          <img className="preview" src={this.state.type.image} alt="" />
                         </div>
                       )}
 

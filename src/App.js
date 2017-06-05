@@ -202,7 +202,7 @@ class App extends Component {
               </div>
             </nav>
             <div className="parallax-container center-align">
-              <div className="parallax"><img src={this.state.parallax} /></div>
+              <div className="parallax"><img src={this.state.parallax} alt="" /></div>
                 <div className="white-text">
                   <br /><br /><br /><h3>Welcome to Green Yoga</h3>
                   <p className="sub-title">An easy to use, amazing parallax effect in materialize without any extra effort</p>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import AdministratorCreateType from '../../administrator/containers/CreateType.jsx';
-import AdministratorEditType from '../../administrator/containers/EditType.jsx';
 import AdministratorTypeButtons from '../../administrator/components/TypeButtons.jsx';
 
 class Types extends Component {

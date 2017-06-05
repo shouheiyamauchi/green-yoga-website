@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
 import moment from 'moment';
 
 class SignupPage extends Component {
