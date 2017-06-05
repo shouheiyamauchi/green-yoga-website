@@ -190,13 +190,13 @@ class DashboardPage extends Component {
 
                   <div className="input-field col s12 m6 l6">
                     <input name="firstName" type="text" onChange={this.changeUser} value={this.state.user.firstName} />
-                    <label>First Name</label>
+                    <label className="active">First Name</label>
                     {this.state.errors.firstName && <p className="error-message-field">{this.state.errors.firstName}</p>}
                   </div>
 
                   <div className="input-field col s12 m6 l6">
                     <input name="lastName" type="text" onChange={this.changeUser} value={this.state.user.lastName} />
-                    <label>Last Name</label>
+                    <label className="active">Last Name</label>
                     {this.state.errors.lastName && <p className="error-message-field">{this.state.errors.lastName}</p>}
                   </div>
 
@@ -206,37 +206,37 @@ class DashboardPage extends Component {
 
                   <div className="input-field col s12 m6 l6">
                     <input name="role" type="text" onChange={this.changeUser} value={this.state.user.role} />
-                    <label>Role</label>
+                    <label className="active">Role</label>
                     {this.state.errors.role && <p className="error-message-field">{this.state.errors.role}</p>}
                   </div>
 
                   <div className="input-field col s12 m12 l12">
                     <input name="email" type="text" onChange={this.changeUser} value={this.state.user.email} />
-                    <label>Email</label>
+                    <label className="active">Email</label>
                     {this.state.errors.email && <p className="error-message-field">{this.state.errors.email}</p>}
                   </div>
 
                   <div className="input-field col s12 m12 l12">
                     <input name="password" type="password" onChange={this.changeUser} value={this.state.user.password} />
-                    <label>Password</label>
+                    <label className="active">Password</label>
                     {this.state.errors.password && <p className="error-message-field">{this.state.errors.password}</p>}
                   </div>
 
                   <div className="input-field col s12 m12 l12">
                     <input name="line1" type="text" onChange={this.changeUser} value={this.state.user.line1} />
-                    <label>Address Line 1</label>
+                    <label className="active">Address Line 1</label>
                     {this.state.errors.line1 && <p className="error-message-field">{this.state.errors.line1}</p>}
                   </div>
 
                   <div className="input-field col s12 m12 l12">
                     <input name="line2" type="text" onChange={this.changeUser} value={this.state.user.line2} />
-                    <label>Address Line 2</label>
+                    <label className="active">Address Line 2</label>
                     {this.state.errors.line2 && <p className="error-message-field">{this.state.errors.line2}</p>}
                   </div>
 
                   <div className="input-field col s12 m12 l12">
                     <input name="suburb" type="text" onChange={this.changeUser} value={this.state.user.suburb} />
-                    <label>Suburb</label>
+                    <label className="active">Suburb</label>
                     {this.state.errors.suburb && <p className="error-message-field">{this.state.errors.suburb}</p>}
                   </div>
 
@@ -256,13 +256,13 @@ class DashboardPage extends Component {
 
                   <div className="input-field col s12 m6 l6">
                     <input name="pcode" type="text" onChange={this.changeUser} value={this.state.user.pcode} />
-                    <label>Post Code</label>
+                    <label className="active">Post Code</label>
                     {this.state.errors.pcode && <p className="error-message-field">{this.state.errors.pcode}</p>}
                   </div>
 
                   <div className="input-field col s12 m12 l12">
                     <textarea name="description" className="materialize-textarea" onChange={this.changeUser} value={this.state.user.description} />
-                    <label>Description</label>
+                    <label className="active">Description</label>
                     {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
                   </div>
 
