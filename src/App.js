@@ -219,7 +219,7 @@ class App extends Component {
 
               {/* Logged in users routes */}
               <UserRoute path="/dashboard" component={DashboardPage} user={Auth.getUser()} />
-              <UserRoute path="/logout" component={LogoutFunction}/>
+              <UserRoute path="/logout" component={LogoutFunction} />
               <UserRoute path="/uploader" component={Uploader}/>
 
 

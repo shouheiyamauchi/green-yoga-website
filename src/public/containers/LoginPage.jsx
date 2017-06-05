@@ -30,6 +30,9 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
+    // update authenticated state
+    this.props.toggleAuthenticateStatus()
+    
     // Display stored message by setting state and remove it from local storage
     this.setState({
       message: localStorage.getItem('user')

@@ -9,7 +9,7 @@ class LogoutFunction extends Component {
 
     // set a success message
     localStorage.setItem('user', 'You have been successfully logged out.')
-
+    
     // redirect to login screen after logout
     this.props.history.push('/login');
   }
