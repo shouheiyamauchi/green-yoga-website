@@ -29,7 +29,7 @@ class Types extends Component {
   getTypesList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://green-yoga-server.herokuapp.com/api/v1/types');
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);

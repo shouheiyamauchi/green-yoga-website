@@ -14,7 +14,7 @@ class TeacherDashboard extends Component {
 
   componentDidMount() {
     const xhr = new XMLHttpRequest();
-    xhr.open('get', 'https://green-yoga-server.herokuapp.com/api/v1/teacher/dashboard');
+    xhr.open('get', 'http://server.greenyoga.com.au/api/v1/teacher/dashboard');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);

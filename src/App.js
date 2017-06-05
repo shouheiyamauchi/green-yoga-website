@@ -136,7 +136,7 @@ class App extends Component {
           <div>
             <nav>
               <div className="nav-wrapper green white">
-                <Link className="brand-logo" to="/">&nbsp;&nbsp;&nbsp;Green Yoga</Link>
+                <Link className="brand-logo" to="/">&nbsp;&nbsp;<img src="images/logo.svg" />&nbsp;Green Yoga</Link>
                 <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                 <ul className="right hide-on-med-and-down">
                   <li><Link to="/types">CLASS TYPES</Link></li>

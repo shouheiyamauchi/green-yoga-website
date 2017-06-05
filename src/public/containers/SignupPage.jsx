@@ -62,7 +62,7 @@ class SignupPage extends Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('post', 'https://green-yoga-server.herokuapp.com/api/v1/auth/signup');
+    xhr.open('post', 'http://server.greenyoga.com.au/api/v1/auth/signup');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {

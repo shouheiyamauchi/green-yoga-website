@@ -29,7 +29,7 @@ class EditType extends Component {
   getType() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://green-yoga-server.herokuapp.com/api/v1/types/${this.props.match.params.id}`);
+    xhr.open('GET', `http://server.greenyoga.com.au/api/v1/types/${this.props.match.params.id}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
@@ -63,7 +63,7 @@ class EditType extends Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `https://green-yoga-server.herokuapp.com/api/v1/types/${this.props.match.params.id}`);
+    xhr.open('POST', `http://server.greenyoga.com.au/api/v1/types/${this.props.match.params.id}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
@@ -130,7 +130,7 @@ class EditType extends Component {
 
   getSignedRequest(file){
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://green-yoga-server.herokuapp.com/api/v1/sign-s3?file-name=types/${file.name}&file-type=${file.type}`);
+    xhr.open('GET', `http://server.greenyoga.com.au/api/v1/sign-s3?file-name=types/${file.name}&file-type=${file.type}`);
     xhr.onreadystatechange = () => {
       if(xhr.readyState === 4){
         if(xhr.status === 200){

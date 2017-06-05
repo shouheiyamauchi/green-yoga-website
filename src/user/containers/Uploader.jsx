@@ -33,7 +33,7 @@ class Uploader extends Component {
 
   getSignedRequest(file){
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://green-yoga-server.herokuapp.com/api/v1/sign-s3?file-name=uploader/${file.name}&file-type=${file.type}`);
+    xhr.open('GET', `http://server.greenyoga.com.au/api/v1/sign-s3?file-name=uploader/${file.name}&file-type=${file.type}`);
     xhr.onreadystatechange = () => {
       if(xhr.readyState === 4){
         if(xhr.status === 200){
