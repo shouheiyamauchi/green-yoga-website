@@ -6,8 +6,12 @@ class LogoutFunction extends Component {
     // deauthenticate user, remove details from local storage
     Auth.deauthenticateUser();
     Auth.removeUser();
-    // change the current URL to / after logout
-    this.props.history.push('/');
+
+    // set a success message
+    localStorage.setItem('user', 'You have been successfully logged out.')
+
+    // redirect to login screen after logout
+    this.props.history.push('/login');
   }
 
   render() {

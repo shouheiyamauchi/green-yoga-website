@@ -49,14 +49,36 @@
 }
 
 a .material-icons {
-  color: #54B5B5;
+  color: #8EDD9B;
   transition: 0.5s;
 }
 
 a:hover .material-icons {
-  color: #9DD5D5;
+  color: #53C85D;
   transition: 0.5s;
   cursor: pointer;
+}
+
+.card {
+  background-color: #FBF8F5;
+}
+
+.btn {
+  background-color: #8EDD9B;
+}
+
+.btn:hover {
+  background-color: #53C85D;
+}
+
+.btn-floating {
+  background-color: #53C85D;
+}
+
+.link {
+  color: green;
+  text-align: center;
+  font-weight: bold;
 }
 
 body {
@@ -109,7 +131,6 @@ nav .brand-logo {
   font-family: 'Vibur', cursive;
   color: black;
   font-size: 20px;
-  width: 30px;
 }
 
 .button-collapse {

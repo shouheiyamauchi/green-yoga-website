@@ -180,10 +180,11 @@ class EditType extends Component {
               <div className="bounce3"></div>
             </div>
             ) : (
-              <div className="collapsible">
-                <div className="collapsible-header"><i className="material-icons">mode_edit</i>Edit Class Type</div>
-                  <div className="container">
-                    <div className="section"></div>
+            <div className="collapsible">
+              <div className="collapsible-header"><i className="material-icons">mode_edit</i>Edit Class Type</div>
+                <div className="container">
+                  <div className="section"></div>
+                  <div className="row">
                     <form action="/" onSubmit={this.processForm}>
                       {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
@@ -195,7 +196,7 @@ class EditType extends Component {
 
                       <div className="input-field col s12">
                         <textarea name="description" className="materialize-textarea" onChange={this.changeType} value={this.state.type.description} />
-                        <label>Description</label>
+                        <label className="active">Description</label>
                         {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
                       </div>
 
@@ -227,13 +228,15 @@ class EditType extends Component {
                         {this.state.errors.image && <p className="error-message-field">{this.state.errors.image}</p>}
                       </div>
 
-                      <div className="button-line right-align">
+                      <div className="section"></div>
+                      <div className="button-line center-align">
                         <button className="btn waves-effect waves-light" type="submit" name="action">
                           Edit Class Type
                         </button>
                       </div>
                     </form>
-                    <div className="section"></div>
+                  </div>
+                  <div className="section"></div>
                 </div>
               </div>
             )

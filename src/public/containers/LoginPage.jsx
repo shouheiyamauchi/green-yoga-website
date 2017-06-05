@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import { Link } from 'react-router-dom';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 
 class LoginPage extends Component {
   constructor(props, context) {
@@ -24,18 +21,23 @@ class LoginPage extends Component {
       user: {
         email: '',
         password: ''
-      }
+      },
+      message: ''
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+  componentDidMount() {
+    // Display stored message by setting state and remove it from local storage
+    this.setState({
+      message: localStorage.getItem('user')
+    });
+    localStorage.removeItem('user');
+  }
+
+  // submission of form
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
@@ -85,11 +87,7 @@ class LoginPage extends Component {
     xhr.send(formData);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+  // update the state as the user types
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -102,41 +100,41 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <Card className="container">
-        <form action="/" onSubmit={this.processForm}>
-          <h2 className="card-heading">Login</h2>
+      <div>
+        <div className="section"></div>
+        <p className="message center-align">{this.state.message}</p>
+        <h4>Log in</h4>
+        <h6>Start your yoga adventure by logging in.</h6>
+        <div className="section"></div>
+        <div className="card">
+          <div className="section"></div>
+          <div className="container">
+            <form action="/" onSubmit={this.processForm}>
+              {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
-          {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
-          {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+              <div className="input-field col s12">
+                <input name="email" type="text" onChange={this.changeUser} value={this.state.user.email} />
+                <label>Email</label>
+                {this.state.errors.email && <p className="error-message-field">{this.state.errors.email}</p>}
+              </div>
 
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Email"
-              name="email"
-              errorText={this.state.errors.email}
-              onChange={this.changeUser}
-              value={this.state.user.email}
-            />
+              <div className="input-field col s12">
+                <input name="password" type="password" onChange={this.changeUser} value={this.state.user.password} />
+                <label>Password</label>
+                {this.state.errors.password && <p className="error-message-field">{this.state.errors.password}</p>}
+              </div>
+              <div className="section"></div>
+              <div className="button-line center-align">
+                <button className="btn waves-effect waves-light" type="submit" name="action">
+                  Log in
+                </button>
+              </div>
+              <p className="center-align">Don't have an account? <Link to={'/signup'} className="link">Create one</Link>.</p>
+              <div className="section"></div>
+            </form>
           </div>
-
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Password"
-              type="password"
-              name="password"
-              onChange={this.changeUser}
-              errorText={this.state.errors.password}
-              value={this.state.user.password}
-            />
-          </div>
-
-          <div className="button-line">
-            <RaisedButton type="submit" label="Log in" primary />
-          </div>
-
-          <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
-        </form>
-      </Card>
+        </div>
+      </div>
     );
   }
 }

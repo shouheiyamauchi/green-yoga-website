@@ -27,11 +27,7 @@ class CreateType extends Component {
     this.initUpload = this.initUpload.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+  // submission of form
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
@@ -78,11 +74,7 @@ class CreateType extends Component {
     xhr.send(formData);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+  // update the state as the user types
   changeType(event) {
     const field = event.target.name;
     const type = this.state.type;
@@ -156,56 +148,60 @@ class CreateType extends Component {
           (Auth.getUser().role === "administrator") ? (
             <div className="collapsible">
               <Collapsible trigger={header}>
+                <div className="section"></div>
                 <div className="container">
-                  <form action="/" onSubmit={this.processForm}>
-                    {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
+                  <div className="row">
+                    <form action="/" onSubmit={this.processForm}>
+                      {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
-                    <div className="input-field col s12">
-                      <input name="name" type="text" onChange={this.changeType} value={this.state.type.name} />
-                      <label>Type Name</label>
-                      {this.state.errors.name && <p className="error-message-field">{this.state.errors.name}</p>}
-                    </div>
-
-                    <div className="input-field col s12">
-                      <textarea name="description" className="materialize-textarea" onChange={this.changeType} value={this.state.type.description} />
-                      <label>Description</label>
-                      {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
-                    </div>
-
-                    {this.state.uploading ? (
-                      <div className="spinner">
-                        <div className="bounce1"></div>
-                        <div className="bounce2"></div>
-                        <div className="bounce3"></div>
+                      <div className="input-field col s12 m12 l12">
+                        <input name="name" type="text" onChange={this.changeType} value={this.state.type.name} />
+                        <label>Type Name</label>
+                        {this.state.errors.name && <p className="error-message-field">{this.state.errors.name}</p>}
                       </div>
-                    ) : (
-                      null
-                    )}
-                    {(this.state.type.image === '') ? (
-                      null
-                    ) : (
-                      <div className="center-align">
-                        <img className="preview" src={this.state.type.image} />
-                      </div>
-                    )}
 
-                    <div className="file-field input-field">
-                      <div className="btn">
-                        <span>Image</span>
-                        <input type="file" id="file-input" onChange={this.initUpload} />
+                      <div className="input-field col s12 m12 l12">
+                        <textarea name="description" className="materialize-textarea" onChange={this.changeType} value={this.state.type.description} />
+                        <label>Description</label>
+                        {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
                       </div>
-                      <div className="file-path-wrapper">
-                        <input className="file-path validate" type="text" />
-                      </div>
-                      {this.state.errors.image && <p className="error-message-field">{this.state.errors.image}</p>}
-                    </div>
 
-                    <div className="button-line right-align">
-                      <button className="btn waves-effect waves-light" type="submit" name="action">
-                        Add Class Type
-                      </button>
-                    </div>
-                  </form>
+                      {this.state.uploading ? (
+                        <div className="spinner">
+                          <div className="bounce1"></div>
+                          <div className="bounce2"></div>
+                          <div className="bounce3"></div>
+                        </div>
+                      ) : (
+                        null
+                      )}
+                      {(this.state.type.image === '') ? (
+                        null
+                      ) : (
+                        <div className="center-align">
+                          <img className="preview" src={this.state.type.image} />
+                        </div>
+                      )}
+
+                      <div className="file-field input-field col s12 m12 l12">
+                        <div className="btn">
+                          <span>Image</span>
+                          <input type="file" id="file-input" onChange={this.initUpload} />
+                        </div>
+                        <div className="file-path-wrapper">
+                          <input className="file-path validate" type="text" />
+                        </div>
+                        {this.state.errors.image && <p className="error-message-field">{this.state.errors.image}</p>}
+                      </div>
+
+                      <div className="section"></div>
+                      <div className="button-line center-align">
+                        <button className="btn waves-effect waves-light" type="submit" name="action">
+                          Add Class Type
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                   <div className="section"></div>
               </div>
               </Collapsible>
