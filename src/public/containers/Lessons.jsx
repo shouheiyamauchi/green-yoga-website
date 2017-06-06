@@ -11,18 +11,77 @@ class Lessons extends Component {
     this.state = {
       errors: {},
       lessons: null,
-      message: ''
+      message: '',
+      teachers: null,
+      types: null,
+      locations: null
     };
+
+    this.getLessonsList = this.getLessonsList.bind(this);
+    this.getTeachersList = this.getTeachersList.bind(this);
+    this.getTypesList = this.getTypesList.bind(this);
+    this.getLocationsList = this.getLocationsList.bind(this);
   }
 
   componentDidMount() {
     this.getLessonsList();
+    this.getTeachersList();
+    this.getTypesList();
+    this.getLocationsList();
 
     // Display stored message by setting state and remove it from local storage
     this.setState({
       message: localStorage.getItem('lesson')
     });
     localStorage.removeItem('lesson');
+  }
+
+  getTeachersList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/teachers');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        teachers: xhr.response.teachers
+      });
+    });
+    xhr.send();
+  }
+
+  getTypesList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        types: xhr.response.types
+      });
+    });
+    xhr.send();
+  }
+
+  getLocationsList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/locations');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        locations: xhr.response.locations
+      });
+    });
+    xhr.send();
   }
 
   getLessonsList() {
@@ -57,7 +116,7 @@ class Lessons extends Component {
             null
           )
         }
-        {this.state.lessons == null ? (
+        {this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null? (
           <div className="spinner">
             <div className="bounce1"></div>
             <div className="bounce2"></div>
@@ -75,9 +134,10 @@ class Lessons extends Component {
                       <p>{lesson.startTime}, {lesson.endTime}</p>
                     </div>
                     <div className="col s9">
-                      <span className="card-title">Teacher: {lesson.user_id}</span>
-                      <p>Class Type: {lesson.type_id}</p>
-                      <p>Location: {lesson.location_id}</p>
+                      {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
+                      <span className="card-title">Teacher: {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id==lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id==lesson.user_id))].lastName}</span>
+                      <p>Class Type: {this.state.types[(this.state.types.findIndex(type => type._id==lesson.type_id))].name}</p>
+                      <p>Location: {this.state.locations[(this.state.locations.findIndex(location => location._id==lesson.location_id))].name}</p>
                     </div>
                   </div>
                 </div>
