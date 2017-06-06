@@ -153,14 +153,14 @@ class CreateLesson extends Component {
             <div className="collapsible">
               <Collapsible trigger={header}>
                 <div className="section"></div>
-                <div className="container">
-                  <div className="row">
-                    <form action="/" onSubmit={this.processForm}>
+                <form action="/" onSubmit={this.processForm}>
+                  <div className="container">
+                    <div className="row">
                       {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
                       <div className="input-field col s12 m4 l4">
                         <input name="date" type="text" onChange={this.changeLesson} value={this.state.lesson.date} />
-                        <label>Class Date</label>
+                        <label>Date (DD/MM/YYYY)</label>
                         {this.state.errors.date && <p className="error-message-field">{this.state.errors.date}</p>}
                       </div>
 
@@ -229,39 +229,15 @@ class CreateLesson extends Component {
                           <div className="section"></div>
                         </div>
                       )}
-
-                      {/*
-
-                      <div className="input-field col s12 m12 l12">
-                        <input name="user_id" type="text" onChange={this.changeLesson} value={this.state.lesson.user_id} />
-                        <label>Teacher</label>
-                        {this.state.errors.user_id && <p className="error-message-field">{this.state.errors.user_id}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m12 l12">
-                        <input name="type_id" type="text" onChange={this.changeLesson} value={this.state.lesson.type_id} />
-                        <label>Class Type</label>
-                        {this.state.errors.type_id && <p className="error-message-field">{this.state.errors.type_id}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m12 l12">
-                        <input name="location_id" type="text" onChange={this.changeLesson} value={this.state.lesson.location_id} />
-                        <label>Location</label>
-                        {this.state.errors.location_id && <p className="error-message-field">{this.state.errors.location_id}</p>}
-                      </div>
-
-                      */}
-
-                      <div className="section"></div>
-                      <div className="button-line center-align">
-                        <button className="btn waves-effect waves-light" type="submit" name="action">
-                          Add Class
-                        </button>
-                      </div>
-                    </form>
+                    </div>
                   </div>
-                  <div className="section"></div>
-              </div>
+                  <div className="button-line center-align">
+                    <button className="btn waves-effect waves-light" type="submit" name="action">
+                      Add Class
+                    </button>
+                  </div>
+                </form>
+                <div className="section"></div>
               </Collapsible>
             </div>
             ) : (

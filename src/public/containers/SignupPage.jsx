@@ -103,9 +103,9 @@ class SignupPage extends Component {
         <div className="section"></div>
         <div className="card">
           <div className="section"></div>
-          <div className="container">
-            <div className="row">
-              <form action="/" onSubmit={this.processForm}>
+          <form action="/" onSubmit={this.processForm}>
+            <div className="container">
+              <div className="row">
                 {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
                 <div className="input-field col s12 m6 l6">
@@ -191,18 +191,16 @@ class SignupPage extends Component {
                   <label>Description</label>
                   {this.state.errors.description && <p className="error-message-field">{this.state.errors.description}</p>}
                 </div>
-
-                <div className="section"></div>
-                <div className="button-line center-align">
-                  <button className="btn waves-effect waves-light" type="submit" name="action">
-                    Create New Account
-                  </button>
-                </div>
-                <p className="center-align">Already have an account? <Link to={'/login'} className="link">Log in</Link>.</p>
-                <div className="section"></div>
-              </form>
+              </div>
+              <div className="center-align">
+                <button className="btn waves-effect waves-light" type="submit" name="action">
+                  Create New Account
+                </button>
+              </div>
+              <p className="center-align">Already have an account? <Link to={'/login'} className="link">Log in</Link>.</p>
+              <div className="section"></div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     );

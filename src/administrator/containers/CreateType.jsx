@@ -150,11 +150,10 @@ class CreateType extends Component {
             <div className="collapsible">
               <Collapsible trigger={header}>
                 <div className="section"></div>
-                <div className="container">
-                  <div className="row">
-                    <form action="/" onSubmit={this.processForm}>
+                <form action="/" onSubmit={this.processForm}>
+                  <div className="container">
+                    <div className="row">
                       {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
-
                       <div className="input-field col s12 m12 l12">
                         <input name="name" type="text" onChange={this.changeType} value={this.state.type.name} />
                         <label>Type Name</label>
@@ -194,17 +193,15 @@ class CreateType extends Component {
                         </div>
                         {this.state.errors.image && <p className="error-message-field">{this.state.errors.image}</p>}
                       </div>
-
-                      <div className="section"></div>
-                      <div className="button-line center-align">
-                        <button className="btn waves-effect waves-light" type="submit" name="action">
-                          Add Class Type
-                        </button>
-                      </div>
-                    </form>
+                    </div>
                   </div>
-                  <div className="section"></div>
-              </div>
+                  <div className="button-line center-align">
+                    <button className="btn waves-effect waves-light" type="submit" name="action">
+                      Add Class Type
+                    </button>
+                  </div>
+                </form>
+                <div className="section"></div>
               </Collapsible>
             </div>
             ) : (

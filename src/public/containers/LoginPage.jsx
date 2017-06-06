@@ -102,31 +102,33 @@ class LoginPage extends Component {
         <div className="section"></div>
         <div className="card">
           <div className="section"></div>
-          <div className="container">
-            <form action="/" onSubmit={this.processForm}>
-              {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
+          <form action="/" onSubmit={this.processForm}>
+            <div className="container">
+              <div className="row">
+                {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
-              <div className="input-field col s12">
-                <input name="email" type="text" onChange={this.changeUser} value={this.state.user.email} />
-                <label>Email</label>
-                {this.state.errors.email && <p className="error-message-field">{this.state.errors.email}</p>}
-              </div>
+                <div className="input-field col s12 m12 l12">
+                  <input name="email" type="text" onChange={this.changeUser} value={this.state.user.email} />
+                  <label>Email</label>
+                  {this.state.errors.email && <p className="error-message-field">{this.state.errors.email}</p>}
+                </div>
 
-              <div className="input-field col s12">
-                <input name="password" type="password" onChange={this.changeUser} value={this.state.user.password} />
-                <label>Password</label>
-                {this.state.errors.password && <p className="error-message-field">{this.state.errors.password}</p>}
+                <div className="input-field col s12 m12 l12">
+                  <input name="password" type="password" onChange={this.changeUser} value={this.state.user.password} />
+                  <label>Password</label>
+                  {this.state.errors.password && <p className="error-message-field">{this.state.errors.password}</p>}
+                </div>
               </div>
-              <div className="section"></div>
-              <div className="button-line center-align">
-                <button className="btn waves-effect waves-light" type="submit" name="action">
-                  Log in
-                </button>
-              </div>
-              <p className="center-align">Don't have an account? <Link to={'/signup'} className="link">Create one</Link>.</p>
-              <div className="section"></div>
-            </form>
-          </div>
+            </div>
+            <div className="button-line center-align">
+              <button className="btn waves-effect waves-light" type="submit" name="action">
+                Log in
+              </button>
+            </div>
+            <p className="center-align">Don't have an account? <Link to={'/signup'} className="link">Create one</Link>.</p>
+            <div className="section"></div>
+          </form>
+
         </div>
       </div>
     );
