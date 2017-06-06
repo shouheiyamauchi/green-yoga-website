@@ -127,9 +127,13 @@ class SignupPage extends Component {
                 </div>
 
                 <div className="input-field col s12 m6 l6">
-                  <input name="role" type="text" onChange={this.changeUser} value={this.state.user.role} />
-                  <label>Role</label>
-                  {this.state.errors.role && <p className="error-message-field">{this.state.errors.role}</p>}
+                  <select className="browser-default" name="role" onChange={this.changeUser} value={this.state.user.role}>
+                    <option value="" disabled selected>Role</option>
+                    <option value="user">User</option>
+                    <option value="receptionist">Receptionist</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="administrator">Administrator</option>
+                  </select>
                 </div>
 
                 <div className="input-field col s12 m12 l12">
