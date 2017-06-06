@@ -23,7 +23,6 @@ import Types from './public/containers/Types.jsx';
 
 // import pages available only for signed in users
 import DashboardPage from './user/containers/DashboardPage.jsx';
-import Uploader from './user/containers/Uploader.jsx';
 
 // import pages available only for administrators
 import AdministratorDashboard from './administrator/containers/Dashboard.jsx';
@@ -32,7 +31,8 @@ import AdministratorEditLesson from './administrator/containers/EditLesson.jsx';
 import AdministratorEditLocation from './administrator/containers/EditLocation.jsx';
 
 // import pages available only for teachers
-import TeacherDashboard from './teacher/containers/TeacherDashboard.jsx';
+
+// import pages available only for receptionists
 
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
@@ -150,17 +150,8 @@ class App extends Component {
                     <span>
                       <li><Link to="/dashboard">DASHBOARD</Link></li>
                       {
-                        (Auth.getUser().role === "administrator") ? (
-                          <span>
-                            <li><Link to="/administrator/dashboard">ADMINISTRATOR</Link></li>
-                          </span>
-                          ) : (
-                            null
-                          )
-                      }
-                      {
-                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
-                            <li><Link to="/teacher">TEACHER</Link></li>
+                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
+                            <li><Link to="/admin">USER ADMIN</Link></li>
                           ) : (
                             null
                           )
@@ -182,18 +173,8 @@ class App extends Component {
                     <span>
                       <li><Link to="/dashboard">DASHBOARD</Link></li>
                       {
-                        (Auth.getUser().role === "administrator") ? (
-                          <span>
-                            <li><Link to="/administrator/dashboard">ADMINISTRATOR</Link></li>
-                          </span>
-
-                          ) : (
-                            null
-                          )
-                      }
-                      {
-                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
-                            <li><Link to="/teacher">TEACHER</Link></li>
+                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
+                            <li><Link to="/admin">USER ADMIN</Link></li>
                           ) : (
                             null
                           )
@@ -230,15 +211,15 @@ class App extends Component {
               {/* Logged in users routes */}
               <UserRoute path="/dashboard" component={DashboardPage} user={Auth.getUser()} />
               <UserRoute path="/logout" component={LogoutFunction} />
-              <UserRoute path="/uploader" component={Uploader}/>
-
-              {/* Teacher routes */}
-              <TeacherRoute path="/teacher" component={TeacherDashboard} user={Auth.getUser()}/>
 
               {/* Administrator routes */}
               <AdministratorRoute path="/administrator/edit-type/:id" component={AdministratorEditType} />
               <AdministratorRoute path="/administrator/edit-lesson/:id" component={AdministratorEditLesson} />
               <AdministratorRoute path="/administrator/edit-location/:id" component={AdministratorEditLocation} />
+
+              {/* Teacher routes */}
+
+              {/* Receptionist routes */}
 
             </div>
           </div>

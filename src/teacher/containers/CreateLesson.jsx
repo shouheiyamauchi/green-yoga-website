@@ -13,8 +13,10 @@ class CreateLesson extends Component {
       errors: {},
       lesson: {
         date: '',
-        startTime: '',
-        endTime: '',
+        startTimeHH: '',
+        startTimeMM: '',
+        endTimeHH: '',
+        endTimeMM: '',
         user_id: '',
         type_id: '',
         location_id: ''
@@ -92,8 +94,8 @@ class CreateLesson extends Component {
 
     // create a string for an HTTP body message
     const date = encodeURIComponent(this.state.lesson.date);
-    const startTime = encodeURIComponent(this.state.lesson.startTime);
-    const endTime = encodeURIComponent(this.state.lesson.endTime);
+    const startTime = encodeURIComponent(this.state.lesson.startTimeHH + ":" + this.state.lesson.startTimeMM);
+    const endTime = encodeURIComponent(this.state.lesson.endTimeHH + ":" + this.state.lesson.endTimeMM);
     const user_id = encodeURIComponent(this.state.lesson.user_id);
     const type_id = encodeURIComponent(this.state.lesson.type_id);
     const location_id = encodeURIComponent(this.state.lesson.location_id);
@@ -158,24 +160,6 @@ class CreateLesson extends Component {
                     <div className="row">
                       {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
-                      <div className="input-field col s12 m4 l4">
-                        <input name="date" type="text" onChange={this.changeLesson} value={this.state.lesson.date} />
-                        <label>Date (DD/MM/YYYY)</label>
-                        {this.state.errors.date && <p className="error-message-field">{this.state.errors.date}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m4 l4">
-                        <input name="startTime" type="text" onChange={this.changeLesson} value={this.state.lesson.startTime} />
-                        <label>Start Time</label>
-                        {this.state.errors.startTime && <p className="error-message-field">{this.state.errors.startTime}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m4 l4">
-                        <input name="endTime" type="text" onChange={this.changeLesson} value={this.state.lesson.endTime} />
-                        <label>End Time</label>
-                        {this.state.errors.endTime && <p className="error-message-field">{this.state.errors.endTime}</p>}
-                      </div>
-
                       {this.state.teachers == null ? (
                         <div className="spinner">
                           <div className="bounce1"></div>
@@ -183,7 +167,7 @@ class CreateLesson extends Component {
                           <div className="bounce3"></div>
                         </div>
                       ) : (
-                        <div className="input-field col s12 m4 l4">
+                        <div className="input-field col s12 m12 l12">
                           <select className="browser-default" name="user_id" onChange={this.changeLesson} value={this.state.lesson.user_id}>
                             <option value="" disabled selected>Teacher</option>
                             {this.state.teachers.map((teacher) =>
@@ -201,7 +185,7 @@ class CreateLesson extends Component {
                           <div className="bounce3"></div>
                         </div>
                       ) : (
-                        <div className="input-field col s12 m4 l4">
+                        <div className="input-field col s12 m6 l6">
                           <select className="browser-default" name="type_id" onChange={this.changeLesson} value={this.state.lesson.type_id}>
                             <option value="" disabled selected>Class Type</option>
                             {this.state.types.map((type) =>
@@ -219,7 +203,7 @@ class CreateLesson extends Component {
                           <div className="bounce3"></div>
                         </div>
                       ) : (
-                        <div className="input-field col s12 m4 l4">
+                        <div className="input-field col s12 m6 l6">
                           <select className="browser-default" name="location_id" onChange={this.changeLesson} value={this.state.lesson.location_id}>
                             <option value="" disabled selected>Location</option>
                             {this.state.locations.map((location) =>
@@ -229,6 +213,98 @@ class CreateLesson extends Component {
                           <div className="section"></div>
                         </div>
                       )}
+
+                      <div className="input-field col s12 m4 l4">
+                        <input name="date" type="text" onChange={this.changeLesson} value={this.state.lesson.date} />
+                        <label>Date (DD/MM/YYYY)</label>
+                        {this.state.errors.date && <p className="error-message-field">{this.state.errors.date}</p>}
+                      </div>
+
+                      <div className="input-field col s6 m2 l2">
+                        <select className="browser-default" name="startTimeHH" onChange={this.changeLesson} value={this.state.lesson.startTimeHH}>
+                          <option value="" disabled selected>Start HH</option>
+                          <option value="04">04</option>
+                          <option value="05">05</option>
+                          <option value="06">06</option>
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                        </select>
+                      </div>
+
+                      <div className="input-field col s6 m2 l2">
+                        <select className="browser-default" name="startTimeMM" onChange={this.changeLesson} value={this.state.lesson.startTimeMM}>
+                          <option value="" disabled selected>Start MM</option>
+                          <option value="00">00</option>
+                          <option value="05">05</option>
+                          <option value="10">10</option>
+                          <option value="15">15</option>
+                          <option value="20">20</option>
+                          <option value="25">25</option>
+                          <option value="30">30</option>
+                          <option value="35">35</option>
+                          <option value="40">40</option>
+                          <option value="45">45</option>
+                          <option value="50">50</option>
+                          <option value="55">55</option>
+                        </select>
+                      </div>
+
+                      <div className="input-field col s6 m2 l2">
+                        <select className="browser-default" name="endTimeHH" onChange={this.changeLesson} value={this.state.lesson.endTimeHH}>
+                          <option value="" disabled selected>End HH</option>
+                          <option value="04">04</option>
+                          <option value="05">05</option>
+                          <option value="06">06</option>
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                        </select>
+                      </div>
+
+                      <div className="input-field col s6 m2 l2">
+                        <select className="browser-default" name="endTimeMM" onChange={this.changeLesson} value={this.state.lesson.endTimeMM}>
+                          <option value="" disabled selected>End MM</option>
+                          <option value="00">00</option>
+                          <option value="05">05</option>
+                          <option value="10">10</option>
+                          <option value="15">15</option>
+                          <option value="20">20</option>
+                          <option value="25">25</option>
+                          <option value="30">30</option>
+                          <option value="35">35</option>
+                          <option value="40">40</option>
+                          <option value="45">45</option>
+                          <option value="50">50</option>
+                          <option value="55">55</option>
+                        </select>
+                      </div>
+
+
                     </div>
                   </div>
                   <div className="button-line center-align">

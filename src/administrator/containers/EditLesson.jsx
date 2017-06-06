@@ -9,16 +9,24 @@ class EditLesson extends Component {
     this.state = {
       errors: {},
       lesson: null,
-      uploading: false
+      teachers: null,
+      types: null,
+      locations: null
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeLesson = this.changeLesson.bind(this);
     this.getLesson = this.getLesson.bind(this);
+    this.getTeachersList = this.getTeachersList.bind(this);
+    this.getTypesList = this.getTypesList.bind(this);
+    this.getLocationsList = this.getLocationsList.bind(this);
   }
 
   componentDidMount() {
     this.getLesson();
+    this.getTeachersList();
+    this.getTypesList();
+    this.getLocationsList();
   }
 
   getLesson() {
@@ -35,6 +43,54 @@ class EditLesson extends Component {
       this.setState({
         errors: {},
         lesson: xhr.response.lesson
+      });
+    });
+    xhr.send();
+  }
+
+  getTeachersList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/teachers');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        teachers: xhr.response.teachers
+      });
+    });
+    xhr.send();
+  }
+
+  getTypesList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        types: xhr.response.types
+      });
+    });
+    xhr.send();
+  }
+
+  getLocationsList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/locations');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        locations: xhr.response.locations
       });
     });
     xhr.send();
@@ -122,6 +178,60 @@ class EditLesson extends Component {
                     <div className="row">
                       {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
+                      {this.state.teachers == null ? (
+                        <div className="spinner">
+                          <div className="bounce1"></div>
+                          <div className="bounce2"></div>
+                          <div className="bounce3"></div>
+                        </div>
+                      ) : (
+                        <div className="input-field col s12 m12 l12">
+                          <select className="browser-default" name="user_id" onChange={this.changeLesson} value={this.state.lesson.user_id}>
+                            <option value="" disabled selected>Teacher</option>
+                            {this.state.teachers.map((teacher) =>
+                              <option value={teacher._id}>{teacher.firstName} {teacher.lastName}</option>
+                            )}
+                          </select>
+                          <div className="section"></div>
+                        </div>
+                      )}
+
+                      {this.state.types == null ? (
+                        <div className="spinner">
+                          <div className="bounce1"></div>
+                          <div className="bounce2"></div>
+                          <div className="bounce3"></div>
+                        </div>
+                      ) : (
+                        <div className="input-field col s12 m6 l6">
+                          <select className="browser-default" name="type_id" onChange={this.changeLesson} value={this.state.lesson.type_id}>
+                            <option value="" disabled selected>Class Type</option>
+                            {this.state.types.map((type) =>
+                              <option value={type._id}>{type.name}</option>
+                            )}
+                          </select>
+                          <div className="section"></div>
+                        </div>
+                      )}
+
+                      {this.state.locations == null ? (
+                        <div className="spinner">
+                          <div className="bounce1"></div>
+                          <div className="bounce2"></div>
+                          <div className="bounce3"></div>
+                        </div>
+                      ) : (
+                        <div className="input-field col s12 m6 l6">
+                          <select className="browser-default" name="location_id" onChange={this.changeLesson} value={this.state.lesson.location_id}>
+                            <option value="" disabled selected>Location</option>
+                            {this.state.locations.map((location) =>
+                              <option value={location._id}>{location.name}</option>
+                            )}
+                          </select>
+                          <div className="section"></div>
+                        </div>
+                      )}
+
                       <div className="input-field col s12 m4 l4">
                         <input name="date" type="text" onChange={this.changeLesson} value={this.state.lesson.date} />
                         <label className="active">Date (DD/MM/YYYY)</label>
@@ -138,24 +248,6 @@ class EditLesson extends Component {
                         <input name="endTime" type="text" onChange={this.changeLesson} value={this.state.lesson.endTime} />
                         <label className="active">End Time</label>
                         {this.state.errors.endTime && <p className="error-message-field">{this.state.errors.endTime}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m12 l12">
-                        <input name="user_id" type="text" onChange={this.changeLesson} value={this.state.lesson.user_id} />
-                        <label className="active">Teacher</label>
-                        {this.state.errors.user_id && <p className="error-message-field">{this.state.errors.user_id}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m12 l12">
-                        <input name="type_id" type="text" onChange={this.changeLesson} value={this.state.lesson.type_id} />
-                        <label className="active">Class Type</label>
-                        {this.state.errors.type_id && <p className="error-message-field">{this.state.errors.type_id}</p>}
-                      </div>
-
-                      <div className="input-field col s12 m12 l12">
-                        <input name="location_id" type="text" onChange={this.changeLesson} value={this.state.lesson.location_id} />
-                        <label className="active">Location</label>
-                        {this.state.errors.location_id && <p className="error-message-field">{this.state.errors.location_id}</p>}
                       </div>
                     </div>
                   </div>
