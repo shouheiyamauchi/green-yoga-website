@@ -17,6 +17,8 @@ import HomePage from './public/containers/HomePage.jsx';
 import LoginPage from './public/containers/LoginPage.jsx';
 import LogoutFunction from './public/containers/LogoutFunction.jsx';
 import SignupPage from './public/containers/SignupPage.jsx';
+import Lessons from './public/containers/Lessons.jsx';
+import Locations from './public/containers/Locations.jsx';
 import Types from './public/containers/Types.jsx';
 
 // import pages available only for signed in users
@@ -26,6 +28,8 @@ import Uploader from './user/containers/Uploader.jsx';
 // import pages available only for administrators
 import AdministratorDashboard from './administrator/containers/Dashboard.jsx';
 import AdministratorEditType from './administrator/containers/EditType.jsx';
+import AdministratorEditLesson from './administrator/containers/EditLesson.jsx';
+import AdministratorEditLocation from './administrator/containers/EditLocation.jsx';
 
 // import pages available only for teachers
 import TeacherDashboard from './teacher/containers/TeacherDashboard.jsx';
@@ -139,7 +143,9 @@ class App extends Component {
                 <Link className="brand-logo" to="/">&nbsp;&nbsp;&nbsp;Green Yoga</Link>
                 <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                 <ul className="right hide-on-med-and-down">
+                  <li><Link to="/lessons">TIMETABLE</Link></li>
                   <li><Link to="/types">CLASS TYPES</Link></li>
+                  <li><Link to="/locations">LOCATIONS</Link></li>
                   {this.state.authenticated ? (
                     <span>
                       <li><Link to="/dashboard">DASHBOARD</Link></li>
@@ -169,7 +175,9 @@ class App extends Component {
                   )}
                 </ul>
                 <ul className="side-nav" id="mobile-demo">
+                  <li><Link to="/lessons">TIMETABLE</Link></li>
                   <li><Link to="/types">CLASS TYPES</Link></li>
+                  <li><Link to="/locations">LOCATIONS</Link></li>
                   {this.state.authenticated ? (
                     <span>
                       <li><Link to="/dashboard">DASHBOARD</Link></li>
@@ -211,6 +219,8 @@ class App extends Component {
             <div className="container">
               {/* Routes available to all users */}
               <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
+              <PropsRoute path="/lessons" component={Lessons} />
+              <PropsRoute path="/locations" component={Locations} />
               <PropsRoute path="/types" component={Types} />
 
               {/* Logged out users routes */}
@@ -222,13 +232,14 @@ class App extends Component {
               <UserRoute path="/logout" component={LogoutFunction} />
               <UserRoute path="/uploader" component={Uploader}/>
 
-
               {/* Teacher routes */}
               <TeacherRoute path="/teacher" component={TeacherDashboard} user={Auth.getUser()}/>
 
               {/* Administrator routes */}
-              <AdministratorRoute path="/administrator/dashboard" component={AdministratorDashboard} user={Auth.getUser()} />
               <AdministratorRoute path="/administrator/edit-type/:id" component={AdministratorEditType} />
+              <AdministratorRoute path="/administrator/edit-lesson/:id" component={AdministratorEditLesson} />
+              <AdministratorRoute path="/administrator/edit-location/:id" component={AdministratorEditLocation} />
+
             </div>
           </div>
         </Router>

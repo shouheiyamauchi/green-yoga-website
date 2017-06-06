@@ -43,11 +43,7 @@ class EditType extends Component {
     xhr.send();
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+  // submission of form
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
@@ -95,11 +91,7 @@ class EditType extends Component {
     xhr.send(formData);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+  // update the state as the user types
   changeType(event) {
     const field = event.target.name;
     const type = this.state.type;
@@ -111,7 +103,6 @@ class EditType extends Component {
   }
 
   // functions for uploading file
-
   initUpload(event){
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();

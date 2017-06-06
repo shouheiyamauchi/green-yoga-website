@@ -15,7 +15,7 @@ class SignupPage extends Component {
         role: '',
         firstName: '',
         lastName: '',
-        dob: moment(),
+        dob: '',
         line1: '',
         line2: '',
         suburb: '',
@@ -27,7 +27,6 @@ class SignupPage extends Component {
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
-    this.changeDate = this.changeDate.bind(this);
   }
 
   // submission of form
@@ -95,27 +94,6 @@ class SignupPage extends Component {
     });
   }
 
-  changeDate(event, date) {
-    this.setState({
-      user: {
-        dob: date
-      }
-    });
-  }
-
-  formatDate(date){
-    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-  }
-
-  _onFocus(e){
-      e.currentTarget.type = "date";
-  }
-
-  _onBlur(e){
-      e.currentTarget.type = "text";
-      e.currentTarget.placeholder = "D.O.B.";
-  }
-
   render() {
     return (
       <div>
@@ -128,8 +106,6 @@ class SignupPage extends Component {
           <div className="container">
             <div className="row">
               <form action="/" onSubmit={this.processForm}>
-
-
                 {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
 
                 <div className="input-field col s12 m6 l6">
@@ -145,7 +121,9 @@ class SignupPage extends Component {
                 </div>
 
                 <div className="input-field col s12 m6 l6">
-                  <input name="dob" type="date" onChange={this.changeUser} value={this.state.user.dob} onFocus={this._onFocus}  onBlur={this._onBlur} />
+                  <input name="dob" type="text" onChange={this.changeUser} value={this.state.user.dob} />
+                  <label>D.O.B. (DD/MM/YYYY)</label>
+                  {this.state.errors.dob && <p className="error-message-field">{this.state.errors.dob}</p>}
                 </div>
 
                 <div className="input-field col s12 m6 l6">

@@ -1,41 +1,41 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
-import AdministratorCreateType from '../../administrator/containers/CreateType.jsx';
-import AdministratorTypeButtons from '../../administrator/components/TypeButtons.jsx';
+import AdministratorCreateLocation from '../../administrator/containers/CreateLocation.jsx';
+import AdministratorLocationButtons from '../../administrator/components/LocationButtons.jsx';
 
-class Types extends Component {
+class Locations extends Component {
   constructor(props, context) {
     super(props, context);
 
     // set the initial component state
     this.state = {
       errors: {},
-      types: null,
+      locations: null,
       message: ''
     };
   }
 
   componentDidMount() {
-    this.getTypesList();
+    this.getLocationsList();
 
     // Display stored message by setting state and remove it from local storage
     this.setState({
-      message: localStorage.getItem('type')
+      message: localStorage.getItem('location')
     });
-    localStorage.removeItem('type');
+    localStorage.removeItem('location');
   }
 
-  getTypesList() {
+  getLocationsList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/locations');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       // success
       // change the component-container state
       this.setState({
         errors: {},
-        types: xhr.response.types
+        locations: xhr.response.locations
       });
     });
     xhr.send();
@@ -46,43 +46,44 @@ class Types extends Component {
       <div>
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
-        <h4>Class Types</h4>
-        <h6>Listed below are the types of classes you can take at Green Yoga.</h6>
+        <h4>Locations</h4>
+        <h6>Listed below are the locations the classes are held at.</h6>
         <div className="section"></div>
         {/* Admin section to create class type */}
         {
           (Auth.isUserAuthenticated()) ? (
-            <AdministratorCreateType />
+            <AdministratorCreateLocation />
           ) : (
             null
           )
         }
-        {this.state.types == null ? (
+        {this.state.locations == null ? (
           <div className="spinner">
             <div className="bounce1"></div>
             <div className="bounce2"></div>
             <div className="bounce3"></div>
           </div>
         ) : (
-          this.state.types.map((type, i) =>
+          this.state.locations.map((location, i) =>
           <div key={i} className="col s12 m12">
             <div className="card">
               <div className="card-stacked">
                 <div className="card-content">
                   <div className="row valign-wrapper">
                     <div className="col s3">
-                      <img src={type.image} alt="" className="circle responsive-img" />
+                      <p>{location.address}</p>
+                      <p>{location.latitude}, {location.longitude}</p>
                     </div>
                     <div className="col s9">
-                      <span className="card-title">{type.name}</span>
-                      <p>{type.description}</p>
+                      <span className="card-title">{location.name}</span>
+                      <p>{location.description}</p>
                     </div>
                   </div>
                 </div>
                 {/* Admin section to edit class type */}
                 {
                   (Auth.isUserAuthenticated()) ? (
-                    <AdministratorTypeButtons id={type._id} />
+                    <AdministratorLocationButtons id={location._id} />
                   ) : (
                     null
                   )
@@ -96,4 +97,4 @@ class Types extends Component {
   }
 }
 
-export default Types;
+export default Locations;

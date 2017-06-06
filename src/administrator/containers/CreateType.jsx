@@ -85,7 +85,6 @@ class CreateType extends Component {
   }
 
   // functions for uploading file
-
   initUpload(event){
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
