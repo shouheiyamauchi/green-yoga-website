@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import TeacherCreateLesson from '../../teacher/containers/CreateLesson.jsx';
 import AdministratorLessonButtons from '../../administrator/components/LessonButtons.jsx';
+import _ from 'lodash'
+import Collapsible from 'react-collapsible';
 
 class Lessons extends Component {
   constructor(props, context) {
@@ -14,13 +16,22 @@ class Lessons extends Component {
       message: '',
       teachers: null,
       types: null,
-      locations: null
+      locations: null,
+      filters: {
+        date: '',
+        user_id: '',
+        type_id: '',
+        location_id:'',
+      },
+      filteredLessons: null
     };
 
     this.getLessonsList = this.getLessonsList.bind(this);
     this.getTeachersList = this.getTeachersList.bind(this);
     this.getTypesList = this.getTypesList.bind(this);
     this.getLocationsList = this.getLocationsList.bind(this);
+    this.filterLessons = this.filterLessons.bind(this);
+    this.changeFilter = this.changeFilter.bind(this);
   }
 
   componentDidMount() {
@@ -29,11 +40,52 @@ class Lessons extends Component {
     this.getTypesList();
     this.getLocationsList();
 
+
     // Display stored message by setting state and remove it from local storage
     this.setState({
       message: localStorage.getItem('lesson')
     });
     localStorage.removeItem('lesson');
+  }
+
+  componentDidUpdate() {
+    // update the filtered lessons state
+    this.filterLessons()
+  }
+
+  filterLessons() {
+    // only run when all data has been loaded
+    if (this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null) {
+      null
+    } else {
+      // set up variables holding the filters
+      const user_id = this.state.filters.user_id
+      const date = this.state.filters.date
+      const type_id = this.state.filters.type_id
+      const location_id = this.state.filters.location_id
+      // filter the lessons based on conditions supplied
+      const filtered = (this.state.lessons).filter(function(lesson){
+        return (lesson.user_id).includes(user_id) && (lesson.date).includes(date) && (lesson.type_id).includes(type_id) && (lesson.location_id).includes(location_id)
+      });
+
+      // only update state if the previous filtered lessons and the new one differs (prevent infinite loop)
+      if (!_.isEqual(this.state.filteredLessons, filtered)) {
+        this.setState({
+          filteredLessons: filtered
+        })
+      }
+    }
+  }
+
+  // update the filter as the user selects
+  changeFilter(event) {
+    const field = event.target.name;
+    const filters = this.state.filters;
+    filters[field] = event.target.value;
+
+    this.setState({
+      filters
+    });
   }
 
   getTeachersList() {
@@ -108,6 +160,7 @@ class Lessons extends Component {
         <h4>Classes</h4>
         <h6>You can book your classes through here.</h6>
         <div className="section"></div>
+
         {/* Admin section to create class type */}
         {
           (Auth.isUserAuthenticated()) ? (
@@ -116,7 +169,104 @@ class Lessons extends Component {
             null
           )
         }
-        {this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null? (
+
+        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.filteredLessons == null) ? (
+          <div className="spinner">
+            <div className="bounce1"></div>
+            <div className="bounce2"></div>
+            <div className="bounce3"></div>
+          </div>
+        ) : (
+          <div>
+            <div className="row">
+              <div className="input-field col s12 m4 l4">
+                <select className="browser-default" name="user_id" onChange={this.changeFilter} value={this.state.filters.user_id}>
+                  <option value="">Select Teacher:</option>
+                  {this.state.teachers.map((teacher, i) =>
+                    <option key={"teacher" + i} value={teacher._id}>{teacher.firstName} {teacher.lastName}</option>
+                  )}
+                </select>
+                <div className="section"></div>
+              </div>
+              <div className="input-field col s12 m4 l4">
+                <select className="browser-default" name="type_id" onChange={this.changeFilter} value={this.state.filters.type_id}>
+                  <option value="">Select Class Type:</option>
+                  {this.state.types.map((type, i) =>
+                    <option key={"type" + i} value={type._id}>{type.name}</option>
+                  )}
+                </select>
+                <div className="section"></div>
+              </div>
+              <div className="input-field col s12 m4 l4">
+                <select className="browser-default" name="location_id" onChange={this.changeFilter} value={this.state.filters.location_id}>
+                  <option value="">Select Location:</option>
+                  {this.state.locations.map((location, i) =>
+                    <option key={"location" + i} value={location._id}>{location.name}</option>
+                  )}
+                </select>
+                <div className="section"></div>
+              </div>
+            </div>
+            <div className="row">
+              {this.state.filteredLessons.map((lesson, i) =>
+                <div className={(i%2 == 0) ? ("classeseven") : ("classesodd")}>
+                  <Collapsible key={i} trigger={
+                    <div className="row">
+                      <div className="col s6 m2 l2">
+                        {lesson.date}<br />
+                        {lesson.startTime} ~ {lesson.endTime}
+                      </div>
+                      {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
+                      <div className="col s6 m3 l3">
+                        {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
+                      </div>
+                      <div className="col s6 m3 l3">
+                        {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}
+                      </div>
+                      <div className="col s6 m3 l3">
+                        {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}
+                      </div>
+                      <div className="col s6 m1 l1">
+                        <button className="btn booking-btn waves-effect waves-light" type="submit" name="action">
+                          Book
+                        </button>
+                      </div>
+                    </div>
+                    }>
+                    <div className="row">
+                      <div className="col s6 m2 l2">
+                      </div>
+                      <div className="col s6 m9 l9">
+                        {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
+                        {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}<br /><br />
+                        Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}<br />
+                      {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
+                      </div>
+                      <div className="col s6 m1 l1">
+                      </div>
+                    </div>
+
+                    {
+                      (Auth.isUserAuthenticated()) ? (
+                        <td>
+                          <AdministratorLessonButtons id={lesson._id} />
+                        </td>
+                      ) : (
+                        null
+                      )
+                    }
+                  </Collapsible>
+                </div>
+                )}
+            </div>
+
+          </div>
+
+        )}
+
+        {/* Cards displaying all classes */}
+        {/*
+        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null) ? (
           <div className="spinner">
             <div className="bounce1"></div>
             <div className="bounce2"></div>
@@ -134,14 +284,12 @@ class Lessons extends Component {
                       <p>{lesson.startTime}, {lesson.endTime}</p>
                     </div>
                     <div className="col s9">
-                      {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
-                      <span className="card-title">Teacher: {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id==lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id==lesson.user_id))].lastName}</span>
-                      <p>Class Type: {this.state.types[(this.state.types.findIndex(type => type._id==lesson.type_id))].name}</p>
-                      <p>Location: {this.state.locations[(this.state.locations.findIndex(location => location._id==lesson.location_id))].name}</p>
+                      <span className="card-title">Teacher: {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}</span>
+                      <p>Class Type: {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}</p>
+                      <p>Location: {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}</p>
                     </div>
                   </div>
                 </div>
-                {/* Admin section to edit class type */}
                 {
                   (Auth.isUserAuthenticated()) ? (
                     <AdministratorLessonButtons id={lesson._id} />
@@ -153,6 +301,7 @@ class Lessons extends Component {
             </div>
           </div>
         ))}
+        */}
       </div>
     );
   }

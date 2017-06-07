@@ -39,6 +39,27 @@
   font-feature-settings: 'liga';
 }
 
+.classeseven {
+  background-color: #FBF8F5;
+  padding: 15px;
+  padding-bottom: 0px;
+  border-bottom: solid 1px #D1CFCC;
+}
+
+.classesodd {
+  background-color: white;
+  padding: 15px;
+  padding-bottom: 0px;
+  border-bottom: solid 1px #D1CFCC;
+}
+
+.booking-btn {
+  line-height: 0px;
+  height: 20px;
+  padding: 10px;
+  font-size: 0.7rem;
+}
+
 .message {
   color: red;
 }
