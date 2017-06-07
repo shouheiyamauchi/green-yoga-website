@@ -72,7 +72,6 @@ class Locations extends Component {
                   <div className="row valign-wrapper">
                     <div className="col s3">
                       <p>{location.address}</p>
-                      <p>{location.latitude}, {location.longitude}</p>
                     </div>
                     <div className="col s9">
                       <span className="card-title">{location.name}</span>

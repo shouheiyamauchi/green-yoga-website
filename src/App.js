@@ -8,6 +8,7 @@ import {
   Link,
   Redirect
 } from 'react-router-dom'
+import Slider from 'react-slick'
 
 // import authentication storage functions
 import Auth from './modules/Auth';
@@ -25,7 +26,6 @@ import Types from './public/containers/Types.jsx';
 import DashboardPage from './user/containers/DashboardPage.jsx';
 
 // import pages available only for administrators
-import AdministratorDashboard from './administrator/containers/Dashboard.jsx';
 import AdministratorEditType from './administrator/containers/EditType.jsx';
 import AdministratorEditLesson from './administrator/containers/EditLesson.jsx';
 import AdministratorEditLocation from './administrator/containers/EditLocation.jsx';
@@ -119,7 +119,8 @@ class App extends Component {
     super(props);
     this.state = {
       authenticated: false,
-      parallax: "/images/header1.jpg"
+      parallax: "/images/header1.jpg",
+      url: window.location.pathname
     }
   };
 
@@ -128,12 +129,34 @@ class App extends Component {
     this.toggleAuthenticateStatus();
   }
 
+  componentDidUpdate() {
+    let url = window.location.pathname
+    if (this.state.url !== url) { this.setState({ url: window.location.href.pathname })}
+  }
+
   toggleAuthenticateStatus() {
     // check authenticated status and toggle state based on that
     this.setState({ authenticated: Auth.isUserAuthenticated() })
   }
 
+  changeImage(image) {
+    this.setState({
+      parallax: image
+    })
+  }
+
   render() {
+    const settings = {
+      dots: true,
+      fade: true,
+      infinite: true,
+      speed: 1500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000
+    }
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
@@ -190,12 +213,23 @@ class App extends Component {
                 </ul>
               </div>
             </nav>
+            {/*
             <div className="parallax-container center-align">
               <div className="parallax"><img src={this.state.parallax} alt="" /></div>
                 <div className="white-text">
                   <br /><br /><br /><h3>Welcome to Green Yoga</h3>
                   <p className="sub-title">An easy to use, amazing parallax effect in materialize without any extra effort</p>
                 </div>
+            </div>
+            */}
+            <div className='slider-container'>
+              <Slider {...settings}>
+                <div><img className="slider-content" src="images/1.jpg" /></div>
+                <div><img className="slider-content" src="images/2.jpg" /></div>
+                <div><img className="slider-content" src="images/3.jpg" /></div>
+                <div><img className="slider-content" src="images/4.jpg" /></div>
+                <div><img className="slider-content" src="images/5.jpg" /></div>
+              </Slider>
             </div>
             <div className="container">
               {/* Routes available to all users */}

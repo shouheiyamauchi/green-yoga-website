@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Auth from '../../modules/Auth';
 import Collapsible from 'react-collapsible';
 
@@ -16,11 +15,154 @@ class DashboardPage extends Component {
       errors: {},
       secretData: '',
       user: {},
-      message: ''
+      lessons: null,
+      message: '',
+      teachers: null,
+      types: null,
+      locations: null,
+      attendances: null
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
+    this.getAttendances = this.getAttendances.bind(this);
+    this.getLessonsList = this.getLessonsList.bind(this);
+    this.getTeachersList = this.getTeachersList.bind(this);
+    this.getTypesList = this.getTypesList.bind(this);
+    this.getLocationsList = this.getLocationsList.bind(this);
+    this.unbookLesson = this.unbookLesson.bind(this);
+  }
+
+  componentDidMount() {
+    // Display stored message by setting state and remove it from local storage
+    this.setState({
+      message: localStorage.getItem('dashboard')
+    });
+    localStorage.removeItem('dashboard');
+    // fill out user information in state
+    this.setState ({
+      user: Auth.getUser()
+    });
+    this.getLessonsList();
+    this.getTeachersList();
+    this.getTypesList();
+    this.getLocationsList();
+    this.getAttendances();
+  }
+
+  // get attendances for current logged in user
+  getAttendances() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://server.greenyoga.com.au/api/v1/attendances/user/${Auth.getUser().id}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        attendances: xhr.response.attendances
+      });
+    });
+    xhr.send();
+  }
+
+  getTeachersList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/teachers');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        teachers: xhr.response.teachers
+      });
+    });
+    xhr.send();
+  }
+
+  getTypesList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        types: xhr.response.types
+      });
+    });
+    xhr.send();
+  }
+
+  getLocationsList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/locations');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        locations: xhr.response.locations
+      });
+    });
+    xhr.send();
+  }
+
+  getLessonsList() {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/lessons');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      // success
+      // change the component-container state
+      this.setState({
+        errors: {},
+        lessons: xhr.response.lessons
+      });
+    });
+    xhr.send();
+  }
+
+  unbookLesson(user_id, lesson_id) {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('delete', `http://server.greenyoga.com.au/api/v1/attendances/check?user_id=${user_id}&lesson_id=${lesson_id}`);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        // success
+
+        // change the component-container state
+        this.setState({
+          errors: {}
+        });
+
+        // set a message
+        localStorage.setItem('dashboard', xhr.response.message);
+
+        // redirect user after making booking to lessons page
+        window.location.reload();
+      } else {
+        // failure
+
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
+
+        this.setState({
+          errors
+        });
+      }
+    });
+    xhr.send();
   }
 
   // submission of form
@@ -91,32 +233,6 @@ class DashboardPage extends Component {
     });
   }
 
-  componentDidMount() {
-    // Display stored message by setting state and remove it from local storage
-    this.setState({
-      message: localStorage.getItem('dashboard')
-    });
-    localStorage.removeItem('dashboard');
-
-    this.setState ({
-      user: Auth.getUser()
-    });
-    const xhr = new XMLHttpRequest();
-    xhr.open('get', 'http://server.greenyoga.com.au/api/v1/user/dashboard');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // set the authorization HTTP header
-    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({
-          secretData: xhr.response.message
-        });
-      }
-    });
-    xhr.send();
-  }
-
   render() {
     return (
       <div>
@@ -128,9 +244,64 @@ class DashboardPage extends Component {
         <div className="collapsible">
           <Collapsible trigger={timetableHeader}>
             <div className="section"></div>
-            <div className="container">
-              <div className="row">
-
+            <div className="dashboard-container">
+              <div>
+                {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.attendances == null) ? (
+                  <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="row title">
+                      <div className="col s6 m2 l2">
+                        Date
+                      </div>
+                      <div className="col s6 m2 l2">
+                        Time
+                      </div>
+                      <div className="col s6 m2 l2">
+                        Class Type
+                      </div>
+                      <div className="col s6 m2 l2">
+                        Teacher
+                      </div>
+                      <div className="col s6 m2 l2">
+                        Location
+                      </div>
+                      <div className="col s12 m2 l2">
+                        Booking
+                      </div>
+                    </div>
+                    {this.state.attendances.map((attendance, i) =>
+                      <div className="row">
+                        <div className="col s6 m2 l2">
+                          {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].date}
+                        </div>
+                        <div className="col s6 m2 l2">
+                          {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].startTime} ~
+                          {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].endTime}
+                        </div>
+                        <div className="col s6 m2 l2">
+                          {this.state.types[(this.state.types.findIndex(type => type._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].type_id)))].name}
+                        </div>
+                        <div className="col s6 m2 l2">
+                          {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].user_id)))].firstName}
+                          &nbsp;{this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].user_id)))].lastName}
+                        </div>
+                        <div className="col s6 m2 l2">
+                          {this.state.locations[(this.state.locations.findIndex(location => location._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].location_id)))].name}
+                        </div>
+                        <div className="col s12 m1 l1">
+                          <button className="btn booking-btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), ((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0]._id)) }}>
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="section"></div>
           </div>

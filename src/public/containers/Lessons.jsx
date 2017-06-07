@@ -25,7 +25,8 @@ class Lessons extends Component {
         type_id: '',
         location_id:'',
       },
-      filteredLessons: null
+      filteredLessons: null,
+      attendances: null
     };
 
     this.getLessonsList = this.getLessonsList.bind(this);
@@ -35,6 +36,9 @@ class Lessons extends Component {
     this.filterLessons = this.filterLessons.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
     this.setDates = this.setDates.bind(this);
+    this.bookLesson = this.bookLesson.bind(this);
+    this.unbookLesson = this.unbookLesson.bind(this);
+    this.getAttendances = this.getAttendances.bind(this);
   }
 
   componentDidMount() {
@@ -42,7 +46,7 @@ class Lessons extends Component {
     this.getTeachersList();
     this.getTypesList();
     this.getLocationsList();
-
+    this.getAttendances();
 
     // Display stored message by setting state and remove it from local storage
     this.setState({
@@ -57,12 +61,79 @@ class Lessons extends Component {
     this.filterLessons()
   }
 
+  bookLesson(user_id, lesson_id) {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', `http://server.greenyoga.com.au/api/v1/attendances?user_id=${user_id}&lesson_id=${lesson_id}`);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        // success
+
+        // change the component-container state
+        this.setState({
+          errors: {}
+        });
+
+        // set a message
+        localStorage.setItem('lesson', xhr.response.message);
+
+        // redirect user after making booking to lessons page
+        window.location.reload();
+      } else {
+        // failure
+
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
+
+        this.setState({
+          errors
+        });
+      }
+    });
+    xhr.send();
+  }
+
+  unbookLesson(user_id, lesson_id) {
+    // create an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('delete', `http://server.greenyoga.com.au/api/v1/attendances/check?user_id=${user_id}&lesson_id=${lesson_id}`);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        // success
+
+        // change the component-container state
+        this.setState({
+          errors: {}
+        });
+
+        // set a message
+        localStorage.setItem('lesson', xhr.response.message);
+
+        // redirect user after making booking to lessons page
+        window.location.reload();
+      } else {
+        // failure
+
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
+
+        this.setState({
+          errors
+        });
+      }
+    });
+    xhr.send();
+  }
+
   // function to set up array of filter dates
   setDates() {
     const dateFormat = "DD/MM/YYYY";
     if (moment(this.state.filters.startDate, dateFormat).isValid()) {
       const startDate = moment(this.state.filters.startDate, dateFormat);
-      const endDate = moment().add(6, 'days');
       const days = [];
       let day = startDate;
       for (let i = 0; i < 7; i++) {
@@ -88,7 +159,6 @@ class Lessons extends Component {
     } else {
       // set up variables holding the filters
       const user_id = this.state.filters.user_id
-      const date = this.state.filters.date //  && (lesson.date).includes(date)
       const type_id = this.state.filters.type_id
       const location_id = this.state.filters.location_id
       // filter the lessons based on conditions supplied
@@ -131,6 +201,42 @@ class Lessons extends Component {
     this.setState({
       filters
     });
+  }
+
+  // get attendances for current logged in user
+  getAttendances() {
+    if (Auth.isUserAuthenticated()) {
+      // create an AJAX request
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `http://server.greenyoga.com.au/api/v1/attendances/user/${Auth.getUser().id}`);
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', () => {
+        // success
+        // change the component-container state
+        if (xhr.response.attendances === []) {
+          this.setState({
+            errors: {},
+            attendances: xhr.response.attendances
+          });
+        } else {
+          // Store only the lesson_id in state
+          const attendances = [];
+          (xhr.response.attendances).forEach(function(attendance) {
+            attendances.push(attendance.lesson_id)
+          });
+          this.setState({
+            errors: {},
+            attendances: attendances
+          });
+        }
+      });
+      xhr.send();
+    } else {
+      this.setState({
+        errors: {},
+        attendances: []
+      });
+    }
   }
 
   getTeachersList() {
@@ -215,7 +321,7 @@ class Lessons extends Component {
           )
         }
 
-        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.filteredLessons == null) ? (
+        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.filteredLessons == null || this.state.attendances == null) ? (
           <div className="spinner">
             <div className="bounce1"></div>
             <div className="bounce2"></div>
@@ -259,56 +365,104 @@ class Lessons extends Component {
             </div>
             <div className="row">
               {this.state.filteredLessons.map((lessonObj, i) =>
-                <div>
+                <div key={i}>
                   <div className="classestitle">
                     <Collapsible trigger={lessonObj.date}></Collapsible>
                   </div>
-                  {lessonObj.events.map((lesson, i) =>
-                    <div key={i} className={(i%2 == 0) ? ("classeseven") : ("classesodd")}>
+                  {(lessonObj.events.length === 0) ? (
+                    <div className="classeseven">
                       <Collapsible trigger={
                         <div className="row">
-                          <div className="col s6 m2 l2">
-                            {lesson.startTime} ~ {lesson.endTime}
-                          </div>
-                          {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
-                          <div className="col s6 m3 l3">
-                            {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
-                          </div>
-                          <div className="col s6 m3 l3">
-                            {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}
-                          </div>
-                          <div className="col s6 m3 l3">
-                            {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}
-                          </div>
-                          <div className="col s6 m1 l1">
-                            <button className="btn booking-btn waves-effect waves-light" type="submit" name="action">
-                              Book
-                            </button>
+                          <div className="col s12 m12 l12 center-align">
+                            No Classes
                           </div>
                         </div>
-                        }>
-                        <div className="row">
-                          <div className="col s6 m2 l2">
-                          </div>
-                          <div className="col s6 m9 l9">
-                            {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
-                            {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}<br /><br />
-                            Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}<br />
-                            {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
-                          </div>
-                          <div className="col s6 m1 l1">
-                          </div>
-                        </div>
-
-                        {
-                          (Auth.isUserAuthenticated()) ? (
-                            <AdministratorLessonButtons id={lesson._id} />
-                          ) : (
-                            null
-                          )
-                        }
-                      </Collapsible>
+                      }/>
                     </div>
+                    ) : (
+                    lessonObj.events.map((lesson, i) =>
+                      <div key={lesson._id} className={(i%2 === 0) ? ("classeseven") : ("classesodd")}>
+                        <Collapsible trigger={
+                          <div className="row">
+                            <div className="col s6 m2 l2">
+                              {lesson.startTime} ~ {lesson.endTime}
+                            </div>
+                            {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
+                            <div className="col s6 m3 l3">
+                              {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
+                            </div>
+                            <div className="col s6 m3 l3">
+                              {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}
+                            </div>
+                            <div className="col s6 m2 l2">
+                              {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}
+                            </div>
+                            <div className="col s12 m2 l2">
+                              <div className="center-align">
+                                {(this.state.attendances.indexOf(lesson._id) === -1) ? (
+                                  <button className="btn booking-btn waves-effect waves-light">
+                                    Book
+                                  </button>
+                                ) : (
+                                  <button className="btn booking-btn waves-effect waves-light red accent-1">
+                                    Cancel
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          }>
+                          <div className="row">
+                            <div className="col s3 m2 l2">
+                              <img src={this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].image} alt="" className="circle responsive-img" />
+                            </div>
+                            <div className="col s9 m9 l9">
+                              {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
+                              {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}<br /><br />
+                            </div>
+                            <div className="col s0 m1 l1">
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col s3 m2 l2">
+                              {/* Insert avatar of teacher here */}
+                            </div>
+                            <div className="col s9 m9 l9">
+                              Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}<br />
+                              {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
+                            </div>
+                            <div className="col s0 m1 l1">
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col s12 m12 l12">
+                              <div className="center-align">
+                                {(this.state.attendances.indexOf(lesson._id) === -1) ? (
+                                  <button className="btn waves-effect waves-light" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                    Make a Booking
+                                  </button>
+                                ) : (
+                                  <button className="btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                    Cancel a Booking
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          {
+                            (Auth.isUserAuthenticated()) ? (
+                              <div>
+                                <div className="divider"></div>
+                                <AdministratorLessonButtons id={lesson._id} />
+                              </div>
+                            ) : (
+                              null
+                            )
+                          }
+                        </Collapsible>
+                      </div>
+                      )
                   )}
                   <div className="section"></div>
                 </div>
