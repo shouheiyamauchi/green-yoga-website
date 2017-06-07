@@ -19,7 +19,7 @@ class Lessons extends Component {
       types: null,
       locations: null,
       filters: {
-        startDate: '',
+        startDate: "07/06/2017",
         dates: '',
         user_id: '',
         type_id: '',
@@ -34,6 +34,7 @@ class Lessons extends Component {
     this.getLocationsList = this.getLocationsList.bind(this);
     this.filterLessons = this.filterLessons.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
+    this.setDates = this.setDates.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +42,7 @@ class Lessons extends Component {
     this.getTeachersList();
     this.getTypesList();
     this.getLocationsList();
-    this.setDates()
+
 
     // Display stored message by setting state and remove it from local storage
     this.setState({
@@ -52,28 +53,34 @@ class Lessons extends Component {
 
   componentDidUpdate() {
     // update the filtered lessons state
+    this.setDates()
     this.filterLessons()
   }
 
+  // function to set up array of filter dates
   setDates() {
     const dateFormat = "DD/MM/YYYY";
-    const startDate = moment();
-    const endDate = moment().add(6, 'days');
-    const days = [];
-    let day = startDate;
-    console.log("start date: ",startDate, " end date: ",endDate)
-    while (day <= endDate) {
-        days.push(day.format(dateFormat));
-        console.log(day.format(dateFormat))
-        day = day.clone().add(1, 'd');
+    if (moment(this.state.filters.startDate, dateFormat).isValid()) {
+      const startDate = moment(this.state.filters.startDate, dateFormat);
+      const endDate = moment().add(6, 'days');
+      const days = [];
+      let day = startDate;
+      for (let i = 0; i < 7; i++) {
+          days.push(day.format(dateFormat));
+          day = day.clone().add(1, 'd');
+      }
+      const filters = this.state.filters
+      filters.dates = days
+      // only update state if the previous filtered lessons and the new one differs (prevent infinite loop)
+      if (!_.isEqual(this.state.filters.dates, days)) {
+        this.setState({
+          filters
+        })
+      }
     }
-    const filters = this.state.filters
-    filters.dates = days
-    this.setState({
-      filters
-    })
   }
 
+  // filter lessons based on user input
   filterLessons() {
     // only run when all data has been loaded
     if (this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null) {
@@ -89,17 +96,27 @@ class Lessons extends Component {
         return (lesson.user_id).includes(user_id) && (lesson.type_id).includes(type_id) && (lesson.location_id).includes(location_id)
       });
 
+      // apply the date filter
+      // get array of dates
       const dates = this.state.filters.dates
       const dateFiltered = []
 
+      const dateFormat = "DD/MM/YYYY";
+
+      // add to a new array the events matching the dates as per the dates array
       dates.forEach(function(date) {
-          dateFiltered.push(filtered.filter(function(lesson){ return lesson.date === date}))
+        const details = {
+          date: moment(date, dateFormat).format('ddd MMM DD'),
+          events: []
+        };
+        details.events = (filtered.filter(function(lesson){ return lesson.date === date}));
+        dateFiltered.push(details);
       });
 
       // only update state if the previous filtered lessons and the new one differs (prevent infinite loop)
-      if (!_.isEqual(this.state.filteredLessons, filtered)) {
+      if (!_.isEqual(this.state.filteredLessons, dateFiltered)) {
         this.setState({
-          filteredLessons: filtered
+          filteredLessons: dateFiltered
         })
       }
     }
@@ -207,7 +224,12 @@ class Lessons extends Component {
         ) : (
           <div>
             <div className="row">
-              <div className="input-field col s12 m4 l4">
+              <div className="input-field col s12 m3 l3">
+                <input name="startDate" type="text" onChange={this.changeFilter} value={this.state.filters.startDate} />
+                <label className="active">Start Date</label>
+              </div>
+
+              <div className="input-field col s12 m3 l3">
                 <select className="browser-default" name="user_id" onChange={this.changeFilter} value={this.state.filters.user_id}>
                   <option value="">Select Teacher:</option>
                   {this.state.teachers.map((teacher, i) =>
@@ -216,7 +238,7 @@ class Lessons extends Component {
                 </select>
                 <div className="section"></div>
               </div>
-              <div className="input-field col s12 m4 l4">
+              <div className="input-field col s12 m3 l3">
                 <select className="browser-default" name="type_id" onChange={this.changeFilter} value={this.state.filters.type_id}>
                   <option value="">Select Class Type:</option>
                   {this.state.types.map((type, i) =>
@@ -225,7 +247,7 @@ class Lessons extends Component {
                 </select>
                 <div className="section"></div>
               </div>
-              <div className="input-field col s12 m4 l4">
+              <div className="input-field col s12 m3 l3">
                 <select className="browser-default" name="location_id" onChange={this.changeFilter} value={this.state.filters.location_id}>
                   <option value="">Select Location:</option>
                   {this.state.locations.map((location, i) =>
@@ -236,64 +258,62 @@ class Lessons extends Component {
               </div>
             </div>
             <div className="row">
+              {this.state.filteredLessons.map((lessonObj, i) =>
+                <div>
+                  <div className="classestitle">
+                    <Collapsible trigger={lessonObj.date}></Collapsible>
+                  </div>
+                  {lessonObj.events.map((lesson, i) =>
+                    <div key={i} className={(i%2 == 0) ? ("classeseven") : ("classesodd")}>
+                      <Collapsible trigger={
+                        <div className="row">
+                          <div className="col s6 m2 l2">
+                            {lesson.startTime} ~ {lesson.endTime}
+                          </div>
+                          {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
+                          <div className="col s6 m3 l3">
+                            {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
+                          </div>
+                          <div className="col s6 m3 l3">
+                            {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}
+                          </div>
+                          <div className="col s6 m3 l3">
+                            {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}
+                          </div>
+                          <div className="col s6 m1 l1">
+                            <button className="btn booking-btn waves-effect waves-light" type="submit" name="action">
+                              Book
+                            </button>
+                          </div>
+                        </div>
+                        }>
+                        <div className="row">
+                          <div className="col s6 m2 l2">
+                          </div>
+                          <div className="col s6 m9 l9">
+                            {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
+                            {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}<br /><br />
+                            Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}<br />
+                            {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
+                          </div>
+                          <div className="col s6 m1 l1">
+                          </div>
+                        </div>
 
-
-                <div className="classestitle">
-                  <Collapsible trigger={"TITLE"}></Collapsible>
-                </div>
-
-                
-
-              {this.state.filteredLessons.map((lesson, i) =>
-                <div key={i} className={(i%2 == 0) ? ("classeseven") : ("classesodd")}>
-                  <Collapsible trigger={
-                    <div className="row">
-                      <div className="col s6 m2 l2">
-                        {lesson.date}<br />
-                        {lesson.startTime} ~ {lesson.endTime}
-                      </div>
-                      {/* Search through array of teachers, class types and location in state using findIndex and the _id */}
-                      <div className="col s6 m3 l3">
-                        {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
-                      </div>
-                      <div className="col s6 m3 l3">
-                        {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}
-                      </div>
-                      <div className="col s6 m3 l3">
-                        {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}
-                      </div>
-                      <div className="col s6 m1 l1">
-                        <button className="btn booking-btn waves-effect waves-light" type="submit" name="action">
-                          Book
-                        </button>
-                      </div>
+                        {
+                          (Auth.isUserAuthenticated()) ? (
+                            <AdministratorLessonButtons id={lesson._id} />
+                          ) : (
+                            null
+                          )
+                        }
+                      </Collapsible>
                     </div>
-                    }>
-                    <div className="row">
-                      <div className="col s6 m2 l2">
-                      </div>
-                      <div className="col s6 m9 l9">
-                        {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
-                        {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}<br /><br />
-                        Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}<br />
-                      {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
-                      </div>
-                      <div className="col s6 m1 l1">
-                      </div>
-                    </div>
-
-                    {
-                      (Auth.isUserAuthenticated()) ? (
-                        <AdministratorLessonButtons id={lesson._id} />
-                      ) : (
-                        null
-                      )
-                    }
-                  </Collapsible>
+                  )}
+                  <div className="section"></div>
                 </div>
-                )}
+              )}
             </div>
-
           </div>
 
         )}

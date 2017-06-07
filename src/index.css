@@ -41,7 +41,8 @@
 
 .classestitle {
   background-color: grey;
-  padding: 15px;
+  color: white;
+  padding: 5px 15px 5px 15px;
   border-bottom: solid 1px #D1CFCC;
 }
 
@@ -138,6 +139,12 @@ h6 {
   color: red;
   font-size: small;
   margin-top: -15px;
+}
+
+.error-message-dropdown {
+  color: red;
+  font-size: small;
+  margin-top: 5px;
 }
 
 /*Custom styling of nav*/
