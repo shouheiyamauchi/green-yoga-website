@@ -4,6 +4,7 @@ import TeacherCreateLesson from '../../teacher/containers/CreateLesson.jsx';
 import AdministratorLessonButtons from '../../administrator/components/LessonButtons.jsx';
 import _ from 'lodash'
 import Collapsible from 'react-collapsible';
+import moment from 'moment'
 
 class Lessons extends Component {
   constructor(props, context) {
@@ -18,7 +19,8 @@ class Lessons extends Component {
       types: null,
       locations: null,
       filters: {
-        date: '',
+        startDate: '',
+        dates: '',
         user_id: '',
         type_id: '',
         location_id:'',
@@ -39,7 +41,7 @@ class Lessons extends Component {
     this.getTeachersList();
     this.getTypesList();
     this.getLocationsList();
-
+    this.setDates()
 
     // Display stored message by setting state and remove it from local storage
     this.setState({
@@ -53,6 +55,25 @@ class Lessons extends Component {
     this.filterLessons()
   }
 
+  setDates() {
+    const dateFormat = "DD/MM/YYYY";
+    const startDate = moment();
+    const endDate = moment().add(6, 'days');
+    const days = [];
+    let day = startDate;
+    console.log("start date: ",startDate, " end date: ",endDate)
+    while (day <= endDate) {
+        days.push(day.format(dateFormat));
+        console.log(day.format(dateFormat))
+        day = day.clone().add(1, 'd');
+    }
+    const filters = this.state.filters
+    filters.dates = days
+    this.setState({
+      filters
+    })
+  }
+
   filterLessons() {
     // only run when all data has been loaded
     if (this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null) {
@@ -60,12 +81,19 @@ class Lessons extends Component {
     } else {
       // set up variables holding the filters
       const user_id = this.state.filters.user_id
-      const date = this.state.filters.date
+      const date = this.state.filters.date //  && (lesson.date).includes(date)
       const type_id = this.state.filters.type_id
       const location_id = this.state.filters.location_id
       // filter the lessons based on conditions supplied
       const filtered = (this.state.lessons).filter(function(lesson){
-        return (lesson.user_id).includes(user_id) && (lesson.date).includes(date) && (lesson.type_id).includes(type_id) && (lesson.location_id).includes(location_id)
+        return (lesson.user_id).includes(user_id) && (lesson.type_id).includes(type_id) && (lesson.location_id).includes(location_id)
+      });
+
+      const dates = this.state.filters.dates
+      const dateFiltered = []
+
+      dates.forEach(function(date) {
+          dateFiltered.push(filtered.filter(function(lesson){ return lesson.date === date}))
       });
 
       // only update state if the previous filtered lessons and the new one differs (prevent infinite loop)
@@ -208,9 +236,17 @@ class Lessons extends Component {
               </div>
             </div>
             <div className="row">
+
+
+                <div className="classestitle">
+                  <Collapsible trigger={"TITLE"}></Collapsible>
+                </div>
+
+                
+
               {this.state.filteredLessons.map((lesson, i) =>
-                <div className={(i%2 == 0) ? ("classeseven") : ("classesodd")}>
-                  <Collapsible key={i} trigger={
+                <div key={i} className={(i%2 == 0) ? ("classeseven") : ("classesodd")}>
+                  <Collapsible trigger={
                     <div className="row">
                       <div className="col s6 m2 l2">
                         {lesson.date}<br />
@@ -248,9 +284,7 @@ class Lessons extends Component {
 
                     {
                       (Auth.isUserAuthenticated()) ? (
-                        <td>
-                          <AdministratorLessonButtons id={lesson._id} />
-                        </td>
+                        <AdministratorLessonButtons id={lesson._id} />
                       ) : (
                         null
                       )

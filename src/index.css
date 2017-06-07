@@ -39,6 +39,12 @@
   font-feature-settings: 'liga';
 }
 
+.classestitle {
+  background-color: grey;
+  padding: 15px;
+  border-bottom: solid 1px #D1CFCC;
+}
+
 .classeseven {
   background-color: #FBF8F5;
   padding: 15px;
