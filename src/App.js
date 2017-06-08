@@ -174,8 +174,13 @@ class App extends Component {
   };
 
   componentDidMount() {
+    if (Auth.getUser() == null) {
+      Auth.deauthenticateUser();
+    };
+
     // check if user is logged in on refresh
     this.toggleAuthenticateStatus();
+
     // get current pathname without the flash
     const path = (window.location.pathname).substring(1,(window.location.pathname).length)
     // set the parallax content to what's set in the key
