@@ -5,6 +5,7 @@ import AdministratorLessonButtons from '../../administrator/components/LessonBut
 import _ from 'lodash'
 import Collapsible from 'react-collapsible';
 import moment from 'moment'
+import { Link } from 'react-router-dom';
 
 class Lessons extends Component {
   constructor(props, context) {
@@ -13,13 +14,13 @@ class Lessons extends Component {
     // set the initial component state
     this.state = {
       errors: {},
-      lessons: null,
       message: '',
+      lessons: null,
       teachers: null,
       types: null,
       locations: null,
       filters: {
-        startDate: "07/06/2017",
+        startDate: moment().format("DD/MM/YYYY"),
         dates: '',
         user_id: '',
         type_id: '',
@@ -437,14 +438,24 @@ class Lessons extends Component {
                           <div className="row">
                             <div className="col s12 m12 l12">
                               <div className="center-align">
-                                {(this.state.attendances.indexOf(lesson._id) === -1) ? (
-                                  <button className="btn waves-effect waves-light" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
-                                    Make a Booking
-                                  </button>
+
+
+                                {Auth.isUserAuthenticated() ? (
+                                  (this.state.attendances.indexOf(lesson._id) === -1) ? (
+                                    <button className="btn waves-effect waves-light" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                      Make a Booking
+                                    </button>
+                                  ) : (
+                                    <button className="btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                      Cancel a Booking
+                                    </button>
+                                  )
                                 ) : (
-                                  <button className="btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), (lesson._id)) }}>
-                                    Cancel a Booking
-                                  </button>
+                                  <Link onClick={() => { this.props.changeImage() }} to="/login">
+                                    <button className="btn waves-effect waves-light red accent-1">
+                                      Login to Make a Booking
+                                    </button>
+                                  </Link>
                                 )}
                               </div>
                             </div>

@@ -24,17 +24,17 @@ class Auth {
 
   // Save user details to local storage
   static storeUser(user) {
-    localStorage.setItem('user', user);
+    localStorage.setItem('userInfo', user);
   }
 
   // Get user details from local storage
   static getUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('userInfo'));
   }
 
   // Remove user from local storage
   static removeUser() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('userInfo');
   }
 
 }

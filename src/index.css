@@ -85,6 +85,25 @@ div .slider-content {
   border-bottom: solid 1px #D1CFCC;
 }
 
+.userstitle {
+  background-color: grey;
+  color: white;
+  padding: 15px 15px 0px 15px;
+  border-bottom: solid 1px #D1CFCC;
+}
+
+.userseven {
+  background-color: #FBF8F5;
+  padding: 10px 15px 0px 15px;
+  border-bottom: solid 1px #D1CFCC;
+}
+
+.usersodd {
+  background-color: white;
+  padding: 10px 15px 0px 15px;
+  border-bottom: solid 1px #D1CFCC;
+}
+
 .booking-btn {
   line-height: 0px;
   height: 20px;

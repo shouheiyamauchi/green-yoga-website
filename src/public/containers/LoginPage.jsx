@@ -64,6 +64,9 @@ class LoginPage extends Component {
         // update authenticated state
         this.props.toggleAuthenticateStatus()
 
+        // update the header
+        this.props.changeImage()
+
         // redirect signed in user to dashboard
         this.props.history.push('/dashboard');
       } else {
