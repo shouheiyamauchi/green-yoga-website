@@ -309,7 +309,7 @@ class Lessons extends Component {
       <div>
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
-        {/* <h4>Classes</h4> */}
+        <h4>Schedule</h4>
         <h6>View the timetable and book your classes here:</h6>
         <div className="section"></div>
 
@@ -447,7 +447,7 @@ class Lessons extends Component {
                                     </button>
                                   ) : (
                                     <button className="btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), (lesson._id)) }}>
-                                      Cancel a Booking
+                                      Cancel Booking
                                     </button>
                                   )
                                 ) : (
@@ -482,45 +482,6 @@ class Lessons extends Component {
           </div>
 
         )}
-
-        {/* Cards displaying all classes */}
-        {/*
-        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null) ? (
-          <div className="spinner">
-            <div className="bounce1"></div>
-            <div className="bounce2"></div>
-            <div className="bounce3"></div>
-          </div>
-        ) : (
-          this.state.lessons.map((lesson, i) =>
-          <div key={i} className="col s12 m12">
-            <div className="card">
-              <div className="card-stacked">
-                <div className="card-content">
-                  <div className="row valign-wrapper">
-                    <div className="col s3">
-                      <p>{lesson.date}</p>
-                      <p>{lesson.startTime}, {lesson.endTime}</p>
-                    </div>
-                    <div className="col s9">
-                      <span className="card-title">Teacher: {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}</span>
-                      <p>Class Type: {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}</p>
-                      <p>Location: {this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name}</p>
-                    </div>
-                  </div>
-                </div>
-                {
-                  (Auth.isUserAuthenticated()) ? (
-                    <AdministratorLessonButtons id={lesson._id} />
-                  ) : (
-                    null
-                  )
-                }
-              </div>
-            </div>
-          </div>
-        ))}
-        */}
       </div>
     );
   }

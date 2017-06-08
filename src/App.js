@@ -177,7 +177,6 @@ class App extends Component {
     // check if user is logged in on refresh
     this.toggleAuthenticateStatus();
     // get current pathname without the flash
-    console.log("is this running")
     const path = (window.location.pathname).substring(1,(window.location.pathname).length)
     // set the parallax content to what's set in the key
     if (this.state.parallaxContent[path + "Header"] == null) {
@@ -197,10 +196,6 @@ class App extends Component {
         }
       })
     }
-  }
-
-  componentDidUpdate() {
-    let url = window.location.pathname
   }
 
   toggleAuthenticateStatus() {
@@ -241,7 +236,7 @@ class App extends Component {
                 <Link className="brand-logo" to="/" onClick={() => { this.changeImage(this.state.parallaxContent.Header.image, this.state.parallaxContent.Header.header, this.state.parallaxContent.Header.description) }}>&nbsp;&nbsp;&nbsp;Green Yoga</Link>
                 <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                 <ul className="right hide-on-med-and-down">
-                  <li><Link to="/lessons" onClick={() => { this.changeImage(this.state.parallaxContent.lessonsHeader.image, this.state.parallaxContent.lessonsHeader.header, this.state.parallaxContent.lessonsHeader.description) }}>TIMETABLE</Link></li>
+                  <li><Link to="/lessons" onClick={() => { this.changeImage(this.state.parallaxContent.lessonsHeader.image, this.state.parallaxContent.lessonsHeader.header, this.state.parallaxContent.lessonsHeader.description) }}>SCHEDULE</Link></li>
                   <li><Link to="/types" onClick={() => { this.changeImage(this.state.parallaxContent.typesHeader.image, this.state.parallaxContent.typesHeader.header, this.state.parallaxContent.typesHeader.description) }}>CLASS TYPES</Link></li>
                   <li><Link to="/locations" onClick={() => { this.changeImage(this.state.parallaxContent.locationsHeader.image, this.state.parallaxContent.locationsHeader.header, this.state.parallaxContent.locationsHeader.description) }}>LOCATIONS</Link></li>
                   {this.state.authenticated ? (
@@ -264,7 +259,7 @@ class App extends Component {
                   )}
                 </ul>
                 <ul className="side-nav" id="mobile-demo">
-                  <li><Link to="/lessons" onClick={() => { this.changeImage(this.state.parallaxContent.lessonsHeader.image, this.state.parallaxContent.lessonsHeader.header, this.state.parallaxContent.lessonsHeader.description) }}>TIMETABLE</Link></li>
+                  <li><Link to="/lessons" onClick={() => { this.changeImage(this.state.parallaxContent.lessonsHeader.image, this.state.parallaxContent.lessonsHeader.header, this.state.parallaxContent.lessonsHeader.description) }}>SCHEDULE</Link></li>
                   <li><Link to="/types" onClick={() => { this.changeImage(this.state.parallaxContent.typesHeader.image, this.state.parallaxContent.typesHeader.header, this.state.parallaxContent.typesHeader.description) }}>CLASS TYPES</Link></li>
                   <li><Link to="/locations" onClick={() => { this.changeImage(this.state.parallaxContent.locationsHeader.image, this.state.parallaxContent.locationsHeader.header, this.state.parallaxContent.locationsHeader.description) }}>LOCATIONS</Link></li>
                   {this.state.authenticated ? (
