@@ -247,14 +247,23 @@ nav div ul li:hover {
   }
 }
 
+
 /*Parallax container styling*/
 .parallax-container {
   height: 300px;
   border-bottom: #C0C0C0 solid 1px;
-  font-family: 'Playfair Display', serif;
 }
 
-.sub-title {
-  font-family: 'Raleway', sans-serif;
-  color: black;
+.parallax-content {
+  height: 100%;
+  width: 100%;
+}
+
+.parallax-title {
+  font-family: 'Playfair Display', serif;
+  color: white;
+}
+
+.parallax-description {
+  color: #FF5C50;
 }

@@ -275,7 +275,7 @@ class DashboardPage extends Component {
                       </div>
                     </div>
                     {this.state.attendances.map((attendance, i) =>
-                      <div className="row">
+                      <div key={"attendance" + i} className="row">
                         <div className="col s6 m2 l2">
                           {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].date}
                         </div>
@@ -393,7 +393,7 @@ class DashboardPage extends Component {
 
                   <div className="input-field col s12 m6 l6">
                     <select className="browser-default" name="state" onChange={this.changeUser} value={this.state.user.state}>
-                      <option value="" disabled selected>State</option>
+                      <option value="" disabled>State</option>
                       <option value="ACT">Australian Capital Territory</option>
                       <option value="NSW">New South Wales</option>
                       <option value="NT">Northern Territory</option>

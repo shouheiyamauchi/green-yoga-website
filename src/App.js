@@ -23,7 +23,7 @@ import Locations from './public/containers/Locations.jsx';
 import Types from './public/containers/Types.jsx';
 
 // import pages available only for signed in users
-import DashboardPage from './user/containers/DashboardPage.jsx';
+import Dashboard from './user/containers/Dashboard.jsx';
 
 // import pages available only for administrators
 import AdministratorEditType from './administrator/containers/EditType.jsx';
@@ -36,6 +36,20 @@ import AdministratorEditLocation from './administrator/containers/EditLocation.j
 
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
+
+// set up the parallax content
+const parallaxContent = {
+  Header: {
+    image: "/images/header1.jpg",
+    header: "Welcome to Green Yoga",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non urna lorem. Nulla lobortis turpis arcu, quis ornare lorem porttitor a. Nulla pellentesque augue pulvinar vestibulum varius. Nullam mollis ipsum."
+  },
+  lessonsHeader: {
+    image: "/images/header2.jpg",
+    header: "Classes",
+    // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
+  }
+}
 
 // set up custom routes
 // routes for any users (logged in or logged out)
@@ -119,19 +133,41 @@ class App extends Component {
     super(props);
     this.state = {
       authenticated: false,
-      parallax: "/images/header1.jpg",
-      url: window.location.pathname
+      parallax: {
+        image: "",
+        header: "",
+        description: ""
+      }
     }
   };
 
   componentDidMount() {
     // check if user is logged in on refresh
     this.toggleAuthenticateStatus();
+    // get current pathname without the flash
+    const path = (window.location.pathname).substring(1,(window.location.pathname).length)
+    // set the parallax content to what's set in the key
+    if (parallaxContent[path + "Header"] == null) {
+      this.setState ({
+        parallax: {
+          image: parallaxContent["Header"].image,
+          header: parallaxContent["Header"].header,
+          description: parallaxContent["Header"].description
+        }
+      })
+    } else {
+      this.setState({
+        parallax: {
+          image: parallaxContent[path + "Header"].image,
+          header: parallaxContent[path + "Header"].header,
+          description: parallaxContent[path + "Header"].description
+        }
+      })
+    }
   }
 
   componentDidUpdate() {
     let url = window.location.pathname
-    if (this.state.url !== url) { this.setState({ url: window.location.href.pathname })}
   }
 
   toggleAuthenticateStatus() {
@@ -139,9 +175,13 @@ class App extends Component {
     this.setState({ authenticated: Auth.isUserAuthenticated() })
   }
 
-  changeImage(image) {
+  changeImage(image, header, description) {
     this.setState({
-      parallax: image
+      parallax: {
+        image,
+        header,
+        description
+      }
     })
   }
 
@@ -163,10 +203,10 @@ class App extends Component {
           <div>
             <nav>
               <div className="nav-wrapper green white">
-                <Link className="brand-logo" to="/">&nbsp;&nbsp;&nbsp;Green Yoga</Link>
+                <Link className="brand-logo" to="/" onClick={() => { this.changeImage(parallaxContent.Header.image, parallaxContent.Header.header, parallaxContent.Header.description) }}>&nbsp;&nbsp;&nbsp;Green Yoga</Link>
                 <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                 <ul className="right hide-on-med-and-down">
-                  <li><Link to="/lessons">TIMETABLE</Link></li>
+                  <li><Link to="/lessons" onClick={() => { this.changeImage(parallaxContent.lessonsHeader.image, parallaxContent.lessonsHeader.header, parallaxContent.lessonsHeader.description) }}>TIMETABLE</Link></li>
                   <li><Link to="/types">CLASS TYPES</Link></li>
                   <li><Link to="/locations">LOCATIONS</Link></li>
                   {this.state.authenticated ? (
@@ -213,15 +253,18 @@ class App extends Component {
                 </ul>
               </div>
             </nav>
-            {/*
-            <div className="parallax-container center-align">
-              <div className="parallax"><img src={this.state.parallax} alt="" /></div>
-                <div className="white-text">
-                  <br /><br /><br /><h3>Welcome to Green Yoga</h3>
-                  <p className="sub-title">An easy to use, amazing parallax effect in materialize without any extra effort</p>
+
+            <div className="parallax-container">
+              <div className="parallax"><img src={this.state.parallax.image} alt="" /></div>
+                <div className="parallax-content valign-wrapper center-align">
+                  <div className="container">
+                    <h3 className="parallax-title">{this.state.parallax.header}</h3><br />
+                    <p className="parallax-description">{this.state.parallax.description}</p>
+                  </div>
                 </div>
             </div>
-            */}
+
+            {/*
             <div className='slider-container'>
               <Slider {...settings}>
                 <div><img className="slider-content" src="images/1.jpg" /></div>
@@ -231,6 +274,8 @@ class App extends Component {
                 <div><img className="slider-content" src="images/5.jpg" /></div>
               </Slider>
             </div>
+            */}
+
             <div className="container">
               {/* Routes available to all users */}
               <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
@@ -243,7 +288,7 @@ class App extends Component {
               <LoggedOutRoute path="/signup" component={SignupPage}/>
 
               {/* Logged in users routes */}
-              <UserRoute path="/dashboard" component={DashboardPage} user={Auth.getUser()} />
+              <UserRoute path="/dashboard" component={Dashboard} user={Auth.getUser()} />
               <UserRoute path="/logout" component={LogoutFunction} />
 
               {/* Administrator routes */}

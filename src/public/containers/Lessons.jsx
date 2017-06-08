@@ -308,8 +308,8 @@ class Lessons extends Component {
       <div>
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
-        <h4>Classes</h4>
-        <h6>You can book your classes through here.</h6>
+        {/* <h4>Classes</h4> */}
+        <h6>View the timetable and book your classes here:</h6>
         <div className="section"></div>
 
         {/* Admin section to create class type */}

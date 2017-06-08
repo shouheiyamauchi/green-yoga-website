@@ -187,9 +187,9 @@ class EditLesson extends Component {
                       ) : (
                         <div className="input-field col s12 m12 l12">
                           <select className="browser-default" name="user_id" onChange={this.changeLesson} value={this.state.lesson.user_id}>
-                            <option value="" disabled selected>Teacher</option>
-                            {this.state.teachers.map((teacher) =>
-                              <option value={teacher._id}>{teacher.firstName} {teacher.lastName}</option>
+                            <option value="" disabled>Teacher</option>
+                            {this.state.teachers.map((teacher, i) =>
+                              <option key={"teacher"+i} value={teacher._id}>{teacher.firstName} {teacher.lastName}</option>
                             )}
                           </select>
                           <div className="section"></div>
@@ -205,9 +205,9 @@ class EditLesson extends Component {
                       ) : (
                         <div className="input-field col s12 m6 l6">
                           <select className="browser-default" name="type_id" onChange={this.changeLesson} value={this.state.lesson.type_id}>
-                            <option value="" disabled selected>Class Type</option>
-                            {this.state.types.map((type) =>
-                              <option value={type._id}>{type.name}</option>
+                            <option value="" disabled>Class Type</option>
+                            {this.state.types.map((type, i) =>
+                              <option key={"type"+i} value={type._id}>{type.name}</option>
                             )}
                           </select>
                           <div className="section"></div>
@@ -223,9 +223,9 @@ class EditLesson extends Component {
                       ) : (
                         <div className="input-field col s12 m6 l6">
                           <select className="browser-default" name="location_id" onChange={this.changeLesson} value={this.state.lesson.location_id}>
-                            <option value="" disabled selected>Location</option>
-                            {this.state.locations.map((location) =>
-                              <option value={location._id}>{location.name}</option>
+                            <option value="" disabled>Location</option>
+                            {this.state.locations.map((location, i) =>
+                              <option key={"location"+i} value={location._id}>{location.name}</option>
                             )}
                           </select>
                           <div className="section"></div>

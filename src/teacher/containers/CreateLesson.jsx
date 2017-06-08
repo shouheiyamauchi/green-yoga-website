@@ -169,7 +169,7 @@ class CreateLesson extends Component {
                       ) : (
                         <div className="input-field col s12 m12 l12">
                           <select className="browser-default" name="user_id" onChange={this.changeLesson} value={this.state.lesson.user_id}>
-                            <option value="" disabled selected>Teacher</option>
+                            <option value="" disabled>Teacher</option>
                             {this.state.teachers.map((teacher, i) =>
                               <option key={"teacher" + i} value={teacher._id}>{teacher.firstName} {teacher.lastName}</option>
                             )}
@@ -188,7 +188,7 @@ class CreateLesson extends Component {
                       ) : (
                         <div className="input-field col s12 m6 l6">
                           <select className="browser-default" name="type_id" onChange={this.changeLesson} value={this.state.lesson.type_id}>
-                            <option value="" disabled selected>Class Type</option>
+                            <option value="" disabled>Class Type</option>
                             {this.state.types.map((type, i) =>
                               <option key={"type" + i} value={type._id}>{type.name}</option>
                             )}
@@ -207,7 +207,7 @@ class CreateLesson extends Component {
                       ) : (
                         <div className="input-field col s12 m6 l6">
                           <select className="browser-default" name="location_id" onChange={this.changeLesson} value={this.state.lesson.location_id}>
-                            <option value="" disabled selected>Location</option>
+                            <option value="" disabled>Location</option>
                             {this.state.locations.map((location, i) =>
                               <option key={"location" + i} value={location._id}>{location.name}</option>
                             )}
@@ -226,7 +226,7 @@ class CreateLesson extends Component {
                       <div className="col s12 m4 m4">
                         <div className="input-field col s6 m6 l6">
                           <select className="browser-default" name="startTimeHH" onChange={this.changeLesson} value={this.state.lesson.startTimeHH}>
-                            <option value="" disabled selected>Start HH</option>
+                            <option value="" disabled>Start HH</option>
                             <option value="04">04</option>
                             <option value="05">05</option>
                             <option value="06">06</option>
@@ -250,7 +250,7 @@ class CreateLesson extends Component {
 
                         <div className="input-field col s6 m6 l6">
                           <select className="browser-default" name="startTimeMM" onChange={this.changeLesson} value={this.state.lesson.startTimeMM}>
-                            <option value="" disabled selected>Start MM</option>
+                            <option value="" disabled>Start MM</option>
                             <option value="00">00</option>
                             <option value="05">05</option>
                             <option value="10">10</option>
@@ -271,7 +271,7 @@ class CreateLesson extends Component {
                       <div className="col s12 m4 m4">
                         <div className="input-field col s6 m6 l6">
                           <select className="browser-default" name="endTimeHH" onChange={this.changeLesson} value={this.state.lesson.endTimeHH}>
-                            <option value="" disabled selected>End HH</option>
+                            <option value="" disabled>End HH</option>
                             <option value="04">04</option>
                             <option value="05">05</option>
                             <option value="06">06</option>
@@ -295,7 +295,7 @@ class CreateLesson extends Component {
 
                         <div className="input-field col s6 m6 l6">
                           <select className="browser-default" name="endTimeMM" onChange={this.changeLesson} value={this.state.lesson.endTimeMM}>
-                            <option value="" disabled selected>End MM</option>
+                            <option value="" disabled>End MM</option>
                             <option value="00">00</option>
                             <option value="05">05</option>
                             <option value="10">10</option>

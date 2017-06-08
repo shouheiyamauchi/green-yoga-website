@@ -127,7 +127,7 @@ class SignupPage extends Component {
 
                 <div className="input-field col s12 m6 l6">
                   <select className="browser-default" name="role" onChange={this.changeUser} value={this.state.user.role}>
-                    <option value="" disabled selected>Role</option>
+                    <option value="" disabled>Role</option>
                     <option value="user">User</option>
                     <option value="receptionist">Receptionist</option>
                     <option value="teacher">Teacher</option>
@@ -167,7 +167,7 @@ class SignupPage extends Component {
 
                 <div className="input-field col s12 m6 l6">
                   <select className="browser-default" name="state" onChange={this.changeUser} value={this.state.user.state}>
-                    <option value="" disabled selected>State</option>
+                    <option value="" disabled>State</option>
                     <option value="ACT">Australian Capital Territory</option>
                     <option value="NSW">New South Wales</option>
                     <option value="NT">Northern Territory</option>
