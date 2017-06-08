@@ -27,6 +27,46 @@ class HomePage extends Component {
         Green’s teaching style is very energetic and focusing on each students’ body alignment. She loves to do hands-on assists to guide students to experience a deeper connection with their body.<br /><br />
         Green completed the 200 hours teacher training course in February 2017 and has since completed additional teacher training courses which were the “Art of Alignment and Assists” and “Practical Teaching Skills” with Bodymindlife.
         <div className="section"></div>
+        <div className="section"></div>
+        <div className="container">
+          <div className="card">
+            <div className="section"></div>
+            <h4>Contact Me</h4>
+            <div className="container">
+              <div className="row">
+                <form className="col s12">
+                  <div className="row">
+                    <div className="input-field col s12 m6 l6">
+                      <input id="name" type="text" />
+                      <label for="name">Name</label>
+                    </div>
+                    <div className="input-field col s12 m6 l6">
+                      <input id="email" type="text" />
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field col s12 m12 l12">
+                      <textarea id="textarea1" className="materialize-textarea"></textarea>
+                      <label for="textarea1">Message</label>
+                    </div>
+                  </div>
+                  <div className="button-line center-align">
+                    <button className="btn waves-effect waves-light" type="submit" name="action">
+                      Send
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="center-align footer-icon">
+              <i className="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i className="fa fa-instagram" aria-hidden="true"></i>
+            </div>
+            <div className="section"></div>
+
+          </div>
+          
+        </div>
       </div>
     )
   }
