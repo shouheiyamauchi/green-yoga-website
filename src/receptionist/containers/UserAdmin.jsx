@@ -25,7 +25,9 @@ class UserAdmin extends Component {
       },
       filteredUsers: null,
       attendances: null,
-      users: null
+      users: null,
+      lessonsToday: null,
+      lesson_id: null
     };
 
     this.getLessonsList = this.getLessonsList.bind(this);
@@ -38,6 +40,8 @@ class UserAdmin extends Component {
     this.unbookLesson = this.unbookLesson.bind(this);
     this.getAttendances = this.getAttendances.bind(this);
     this.getUsersList = this.getUsersList.bind(this);
+    this.getLessonsToday = this.getLessonsToday.bind(this);
+    this.changeLesson = this.changeLesson.bind(this);
   }
 
   componentDidMount() {
@@ -57,7 +61,9 @@ class UserAdmin extends Component {
 
   componentDidUpdate() {
     // update the filtered lessons state
-    this.filterUsers()
+    this.filterUsers();
+    // get today's lessons
+    this.getLessonsToday();
   }
 
   bookLesson(user_id, lesson_id) {
@@ -137,12 +143,12 @@ class UserAdmin extends Component {
       // set up variables holding the filters
       const firstName = this.state.filters.firstName
       const lastName = this.state.filters.lastName
-      // filter the lessons based on conditions supplied
+      // filter the users based on conditions supplied
       const filtered = (this.state.users).filter(function(user){
         return (user.firstName).toLowerCase().includes(firstName.toLowerCase()) && (user.lastName).toLowerCase().includes(lastName.toLowerCase())
       });
 
-      // only update state if the previous filtered lessons and the new one differs (prevent infinite loop)
+      // only update state if the previous filtered users and the new one differs (prevent infinite loop)
       if (!_.isEqual(this.state.filteredUsers, filtered)) {
         this.setState({
           filteredUsers: filtered
@@ -159,6 +165,14 @@ class UserAdmin extends Component {
 
     this.setState({
       filters
+    });
+  }
+
+  // update the class_id as the user selects
+  changeLesson(event) {
+    const lesson_id = event.target.value;
+    this.setState({
+      lesson_id
     });
   }
 
@@ -262,6 +276,26 @@ class UserAdmin extends Component {
     xhr.send();
   }
 
+  getLessonsToday() {
+    if (this.state.lessons == null) {
+      null
+    } else {
+      // set up string for today as filter
+      const today = moment().format("DD/MM/YYYY")
+      // filter for today's lesson only
+      const filtered = (this.state.lessons).filter(function(lesson){
+        return (lesson.date === today)
+      });
+
+      // only update state if the previous filtered lessons and the new one differs (prevent infinite loop)
+      if (!_.isEqual(this.state.lessonsToday, filtered)) {
+        this.setState({
+          lessonsToday: filtered
+        })
+      }
+    }
+  }
+
   getUsersList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
@@ -290,7 +324,7 @@ class UserAdmin extends Component {
         <h6>Edit user details and sign in users to classes from here:</h6>
         <div className="section"></div>
 
-        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.filteredUsers == null || this.state.attendances == null || this.state.users == null) ? (
+        {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.filteredUsers == null || this.state.attendances == null || this.state.users == null || this.state.lessonsToday == null) ? (
           <div className="spinner">
             <div className="bounce1"></div>
             <div className="bounce2"></div>
@@ -318,10 +352,10 @@ class UserAdmin extends Component {
                     <div className="col s12 m3 l3">
                       Full Name
                     </div>
-                    <div className="col s12 m6 l6">
+                    <div className="col s12 m5 l5">
                       Address
                     </div>
-                    <div className="col s12 m1 l1">
+                    <div className="col s12 m2 l2">
                     </div>
                   </div>
                     }></Collapsible>
@@ -337,14 +371,23 @@ class UserAdmin extends Component {
                         <div className="col s12 m3 l3">
                           {user.firstName} {user.lastName}
                         </div>
-                        <div className="col s12 m6 l6">
+                        <div className="col s12 m5 l5">
                           {user.line1} {(user.line2 !== null) ? (`${user.line2}`) : (null)} {user.suburb} {user.state} {user.pcode}
                         </div>
-                        <div className="col s12 m1 l1">
-                          <Link to={"#"}><i className="material-icons">mode_edit</i></Link>
+                        <div className="col s12 m2 l2">
+                          <button className="btn booking-btn waves-effect waves-light">
+                            Manage
+                          </button>
                         </div>
                       </div>
-                      }></Collapsible>
+                      }>
+                      <select className="browser-default" onChange={this.changeLesson} value={this.state.lesson_id}>
+                        <option value="">Select Class:</option>
+                          {this.state.lessonsToday.map((lesson, i) =>
+                            <option key={"lesson" + i} value={lesson._id}>{this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name} - {lesson.startTime} ({this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName})</option>
+                          )}
+                      </select>
+                    </Collapsible>
                   </div>
                 </div>
               )}
