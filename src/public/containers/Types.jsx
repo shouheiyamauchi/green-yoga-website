@@ -47,7 +47,8 @@ class Types extends Component {
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Class Types</h4>
-        <h6>Listed below are the types of classes you can take at Green Yoga.</h6>
+          <h6 className="quote">“Practice and all is coming.”</h6>
+          <h6 className="quote">-Sri K Patthabi Jois</h6>
         <div className="section"></div>
         {/* Admin section to create class type */}
         {

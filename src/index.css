@@ -41,17 +41,144 @@
   font-feature-settings: 'liga';
 }
 
-.slider-container {
+.banner1 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
   margin: 0 auto;
-  height: 100%;
+  height: 300px;
   padding: 0px;
   width: 100%;
-  color: #333;
-  background: transparent;
+  background: url(/images/header1.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: -100;
+  align-items: center;
 }
-div .slider-content {
-  height: 100%;
-  width: 100vw;
+
+.banner2 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header2.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner3 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header3.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner4 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header4.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner5 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header5.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner6 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header6.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner7 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header7.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner8 {
+  border-top: solid #C5C5C6 1px;
+  border-bottom: solid #D1CFCC 1px;
+  margin: 0 auto;
+  height: 300px;
+  padding: 0px;
+  width: 100%;
+  background: url(/images/header8.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.footer {
+  background-color: #FBF8F5;
+  width: 100%;
+  color: black;
+}
+
+.footer-separator {
+  width: 25%;
+  border-bottom: solid #9E9E9E 1px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.footer-icon {
+  font-size: 2em;
+}
+
+.profile {
+  width: 230px;
+  border: solid #D1CFCC 1px;
+}
+
+.quote {
+  font-style: italic;
 }
 
 .dashboard-container {
@@ -196,6 +323,10 @@ h6 {
 }
 
 /*Custom styling of nav*/
+nav {
+  z-index: 100;
+}
+
 nav ul li a {
   color: black;
   font-weight: 500;

@@ -101,7 +101,7 @@ class LoginPage extends Component {
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Log in</h4>
-        <h6>Start your yoga adventure by logging in.</h6>
+        <h6 className="quote">“Loka Samasta Sukhino Bhavantu.”</h6>
         <div className="section"></div>
         <div className="card">
           <div className="section"></div>

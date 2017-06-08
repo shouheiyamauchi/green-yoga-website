@@ -239,7 +239,6 @@ class DashboardPage extends Component {
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Dashboard</h4>
-        <h6>Hi {this.state.user.firstName}! How are you today?</h6>
         <div className="section"></div>
         <div className="collapsible">
           <Collapsible trigger={timetableHeader}>

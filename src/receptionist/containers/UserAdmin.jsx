@@ -315,7 +315,6 @@ class UserAdmin extends Component {
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>User Administration</h4>
-        <h6>Edit user details and sign in users to classes from here:</h6>
         <div className="section"></div>
 
         {(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.filteredUsers == null || this.state.attendances == null || this.state.users == null || this.state.lessonsToday == null) ? (

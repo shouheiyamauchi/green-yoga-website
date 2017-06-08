@@ -130,42 +130,42 @@ class App extends Component {
       // set up the parallax content
       parallaxContent: {
         Header: {
-          image: "/images/header1.jpg",
-          header: "Welcome to Green Yoga",
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non urna lorem. Nulla lobortis turpis arcu, quis ornare lorem porttitor a. Nulla pellentesque augue pulvinar vestibulum varius. Nullam mollis ipsum."
+          image: "banner1",
+          header: "”The rhythm of the body, the melody of the mind & the harmony of the soul create the symphony of life.”",
+          description: ""
         },
         loginHeader: {
-          image: "/images/header2.jpg",
+          image: "banner2",
           header: "Log in",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         },
         signupHeader: {
-          image: "/images/header2.jpg",
+          image: "banner3",
           header: "Sign up",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         },
         lessonsHeader: {
-          image: "/images/header2.jpg",
+          image: "banner4",
           header: "Classes",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         },
         typesHeader: {
-          image: "/images/header2.jpg",
+          image: "banner5",
           header: "Class Types",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         },
         locationsHeader: {
-          image: "/images/header2.jpg",
+          image: "banner6",
           header: "Locations",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         },
         dashboardHeader: {
-          image: "/images/header2.jpg",
+          image: "banner7",
           header: "Dashboard",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         },
         useradminHeader: {
-          image: "/images/header2.jpg",
+          image: "banner8",
           header: "User administration",
           // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
         }
@@ -289,15 +289,17 @@ class App extends Component {
               </div>
             </nav>
 
+            {/*
             <div className="parallax-container">
               <div className="parallax"><img src={this.state.parallax.image} alt="" /></div>
                 <div className="parallax-content valign-wrapper center-align">
                   <div className="container">
-                    <h3 className="parallax-title">{this.state.parallax.header}</h3><br />
+                    <h4 className="parallax-title">{this.state.parallax.header}</h4><br />
                     <p className="parallax-description">{this.state.parallax.description}</p>
                   </div>
                 </div>
             </div>
+            */}
 
             {/*
             <div className='slider-container'>
@@ -310,6 +312,9 @@ class App extends Component {
               </Slider>
             </div>
             */}
+
+            <div className={this.state.parallax.image}>
+            </div>
 
             <div className="container">
               {/* Routes available to all users */}
@@ -337,6 +342,51 @@ class App extends Component {
               <ReceptionistRoute path="/useradmin" component={ReceptionistUserAdmin} />
 
             </div>
+            <div className="section"></div>
+            <div className="section"></div>
+            <div className="container">
+              <div className="card">
+                <div className="section"></div>
+                <h4>Contact Me</h4>
+                <div className="container">
+                  <div className="container">
+                    <div className="row">
+                      <form className="col s12">
+                        <div className="row">
+                          <div className="input-field col s12 m6 l6">
+                            <input id="name" type="text" />
+                            <label for="name">Name</label>
+                          </div>
+                          <div className="input-field col s12 m6 l6">
+                            <input id="email" type="text" />
+                            <label for="email">Email</label>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="input-field col s12 m12 l12">
+                            <textarea id="textarea1" className="materialize-textarea"></textarea>
+                            <label for="textarea1">Message</label>
+                          </div>
+                        </div>
+                        <div className="button-line center-align">
+                          <button className="btn waves-effect waves-light" type="submit" name="action">
+                            Send
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div className="center-align footer-icon">
+                  <i className="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i className="fa fa-instagram" aria-hidden="true"></i>
+                </div>
+                <div className="section"></div>
+
+              </div>
+              <div className="section"></div>
+              <div className="section"></div>
+            </div>
+
           </div>
         </Router>
       </MuiThemeProvider>

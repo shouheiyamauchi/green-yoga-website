@@ -101,7 +101,8 @@ class SignupPage extends Component {
       <div>
         <div className="section"></div>
         <h4>Sign up</h4>
-        <h6>Start your yoga adventure by signing up.</h6>
+        <h6 className="quote">“Atha Yoga anushasanam.” - Here and now is where yoga begins.</h6>
+        <h6 className="quote">-Yoga Sutra</h6>
         <div className="section"></div>
         <div className="card">
           <div className="section"></div>

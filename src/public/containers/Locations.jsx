@@ -47,7 +47,8 @@ class Locations extends Component {
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Locations</h4>
-        <h6>Listed below are the locations the classes are held at.</h6>
+        <h6 className="quote">“Yoga is the stilling of the fluctuations of the mind.”</h6>
+        <h6 className="quote">-Yoga Sutra 1.2</h6>
         <div className="section"></div>
         {/* Admin section to create class type */}
         {

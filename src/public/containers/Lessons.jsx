@@ -310,7 +310,8 @@ class Lessons extends Component {
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Schedule</h4>
-        <h6>View the timetable and book your classes here:</h6>
+        <h6 className="quote">“The rhythm of the body, the melody of the mind & the harmony of the soul create the symphony of life.”</h6>
+        <h6 className="quote">-B.K.S Iyengar</h6>
         <div className="section"></div>
 
         {/* Admin section to create class type */}
