@@ -1,6 +1,7 @@
 # Green Yoga
 (http://www.greenyoga.com.au)
-Front-end React.js application. The code for the back-end can be found at https://github.com/shouheiyamauchi/green-yoga-server
+Front-end React.js application for Green Park's yoga business.
+The code for the back-end can be found at https://github.com/shouheiyamauchi/green-yoga-server
 
 ### Background
 
