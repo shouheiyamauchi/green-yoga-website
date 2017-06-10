@@ -1,5 +1,6 @@
 # Green Yoga
 (http://www.greenyoga.com.au)
+Front-end React.js application. The code for the back-end can be found at https://github.com/shouheiyamauchi/green-yoga-server
 
 ### Background
 
@@ -20,11 +21,11 @@
   - Used Trello for planning out, draw.io for the ERD
   - Used Express.js for back-end with the API end points, React.js for front-end doing the API calls
 
-![alt text](http://greenyoga.com.au/README/1.jpg "Wireframes")
-![alt text](http://greenyoga.com.au/README/2.jpg "Wireframes")
-![alt text](http://greenyoga.com.au/README/3.jpg "Wireframes")
-![alt text](http://greenyoga.com.au/README/4.jpg "Wireframes")
-![alt text](http://greenyoga.com.au/README/5.jpg "Wireframes")
-![alt text](http://greenyoga.com.au/README/trello.png "Trello")
-![alt text](http://greenyoga.com.au/README/notes.png "Rough Notes")
-![alt text](http://greenyoga.com.au/README/erd.jpg "ERD")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/1.jpg "Wireframes")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/2.jpg "Wireframes")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/3.jpg "Wireframes")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/4.jpg "Wireframes")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/5.jpg "Wireframes")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/trello.png "Trello")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/notes.png "Rough Notes")
+![alt text](https://raw.githubusercontent.com/shouheiyamauchi/green-yoga-website/master/public/README/erd.jpg "ERD")
