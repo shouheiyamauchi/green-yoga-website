@@ -16,7 +16,7 @@ class TypeButtons extends Component {
   deleteType() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('DELETE', `http://server.greenyoga.com.au/api/v1/types/${this.props.id}`);
+    xhr.open('DELETE', `https://server.greenyoga.com.au/api/v1/types/${this.props.id}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);

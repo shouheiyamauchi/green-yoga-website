@@ -23,7 +23,7 @@ class EditLocation extends Component {
   getLocation() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `http://server.greenyoga.com.au/api/v1/locations/${this.props.match.params.id}`);
+    xhr.open('GET', `https://server.greenyoga.com.au/api/v1/locations/${this.props.match.params.id}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
@@ -54,7 +54,7 @@ class EditLocation extends Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `http://server.greenyoga.com.au/api/v1/locations/${this.props.match.params.id}`);
+    xhr.open('POST', `https://server.greenyoga.com.au/api/v1/locations/${this.props.match.params.id}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);

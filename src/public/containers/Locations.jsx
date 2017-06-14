@@ -28,7 +28,7 @@ class Locations extends Component {
   getLocationsList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/locations');
+    xhr.open('GET', 'https://server.greenyoga.com.au/api/v1/locations');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       // success

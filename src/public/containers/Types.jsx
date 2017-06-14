@@ -28,7 +28,7 @@ class Types extends Component {
   getTypesList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
+    xhr.open('GET', 'https://server.greenyoga.com.au/api/v1/types');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       // success

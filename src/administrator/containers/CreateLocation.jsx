@@ -39,7 +39,7 @@ class CreateLocation extends Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://server.greenyoga.com.au/api/v1/locations');
+    xhr.open('POST', 'https://server.greenyoga.com.au/api/v1/locations');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);

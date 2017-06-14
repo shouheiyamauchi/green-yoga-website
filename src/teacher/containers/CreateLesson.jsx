@@ -42,7 +42,7 @@ class CreateLesson extends Component {
   getTeachersList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/teachers');
+    xhr.open('GET', 'https://server.greenyoga.com.au/api/v1/teachers');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       // success
@@ -58,7 +58,7 @@ class CreateLesson extends Component {
   getTypesList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/types');
+    xhr.open('GET', 'https://server.greenyoga.com.au/api/v1/types');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       // success
@@ -74,7 +74,7 @@ class CreateLesson extends Component {
   getLocationsList() {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://server.greenyoga.com.au/api/v1/locations');
+    xhr.open('GET', 'https://server.greenyoga.com.au/api/v1/locations');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       // success
@@ -103,7 +103,7 @@ class CreateLesson extends Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://server.greenyoga.com.au/api/v1/lessons');
+    xhr.open('POST', 'https://server.greenyoga.com.au/api/v1/lessons');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
