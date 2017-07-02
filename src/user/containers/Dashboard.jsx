@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import Collapsible from 'react-collapsible';
+import BookedClasses from '../../public/components/BookedClasses.jsx'
 
 const timetableHeader = <div className="collapsible-header"><i className="material-icons">event_note</i>My Timetable</div>
 const passesHeader = <div className="collapsible-header"><i className="material-icons">card_membership</i>My Current Passes</div>
@@ -252,54 +253,7 @@ class DashboardPage extends Component {
                     <div className="bounce3"></div>
                   </div>
                 ) : (
-                  <div>
-                    <div className="row title">
-                      <div className="col s6 m2 l2">
-                        Date
-                      </div>
-                      <div className="col s6 m2 l2">
-                        Time
-                      </div>
-                      <div className="col s6 m2 l2">
-                        Class Type
-                      </div>
-                      <div className="col s6 m2 l2">
-                        Teacher
-                      </div>
-                      <div className="col s6 m2 l2">
-                        Location
-                      </div>
-                      <div className="col s12 m2 l2">
-                        Booking
-                      </div>
-                    </div>
-                    {this.state.attendances.map((attendance, i) =>
-                      <div key={"attendance" + i} className="row">
-                        <div className="col s6 m2 l2">
-                          {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].date}
-                        </div>
-                        <div className="col s6 m2 l2">
-                          {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].startTime} ~
-                          {(this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].endTime}
-                        </div>
-                        <div className="col s6 m2 l2">
-                          {this.state.types[(this.state.types.findIndex(type => type._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].type_id)))].name}
-                        </div>
-                        <div className="col s6 m2 l2">
-                          {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].user_id)))].firstName}
-                          &nbsp;{this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].user_id)))].lastName}
-                        </div>
-                        <div className="col s6 m2 l2">
-                          {this.state.locations[(this.state.locations.findIndex(location => location._id===((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0].location_id)))].name}
-                        </div>
-                        <div className="col s12 m1 l1">
-                          <button className="btn booking-btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), ((this.state.lessons).filter(function(lesson){return (lesson._id === attendance.lesson_id)})[0]._id)) }}>
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <BookedClasses attendances={this.state.attendances} lessons={this.state.lessons} types={this.state.types} teachers={this.state.teachers} locations={this.state.locations} />
                 )}
               </div>
               <div className="section"></div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import TeacherCreateLesson from '../../teacher/containers/CreateLesson.jsx';
 import AdministratorLessonButtons from '../../administrator/components/LessonButtons.jsx';
+import BookedClasses from '../../public/components/BookedClasses.jsx'
 import _ from 'lodash'
 import Collapsible from 'react-collapsible';
 import moment from 'moment'
@@ -192,9 +193,9 @@ class UserAdmin extends Component {
       const attendances = {};
       (xhr.response.attendances).forEach((attendance) => {
         if (attendances[attendance.user_id] == null) {
-          attendances[attendance.user_id] = [attendance.lesson_id]
+          attendances[attendance.user_id] = [attendance]
         } else {
-          attendances[attendance.user_id].push(attendance.lesson_id)
+          attendances[attendance.user_id].push(attendance)
         }
       });
       // change the component-container state
@@ -406,6 +407,17 @@ class UserAdmin extends Component {
                               Cancel Booking
                             </button>
                           )
+                        )}
+                      </div>
+                      <div className="col s12 m12 l12 center-align">
+                        <br /><h5>Booked Classes</h5>
+                        {(this.state.attendances[user._id] == null) ? (
+                          <span>No bookings</span>
+                        ) : (
+                          <div className="dashboard-container left-align">
+                            <br />
+                            <BookedClasses attendances={this.state.attendances[user._id]} lessons={this.state.lessons} types={this.state.types} teachers={this.state.teachers} locations={this.state.locations} />
+                          </div>
                         )}
                       </div>
                     </div>
