@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Collapsible from 'react-collapsible';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import NotificationSystem from 'react-notification-system';
+import Modal from 'react-awesome-modal';
 
 class UserAdmin extends Component {
   constructor(props, context) {
@@ -29,7 +29,9 @@ class UserAdmin extends Component {
       attendances: null,
       users: null,
       lessonsToday: null,
-      lesson_id: {}
+      lesson_id: {},
+      modalVisible: false,
+      modalContent: ''
     };
 
     this.getLessonsList = this.getLessonsList.bind(this);
@@ -53,12 +55,6 @@ class UserAdmin extends Component {
     this.getLocationsList();
     this.getAttendances();
     this.getUsersList();
-
-    // Display stored message by setting state and remove it from local storage
-    this.setState({
-      message: localStorage.getItem('useradmin')
-    });
-    localStorage.removeItem('useradmin');
   }
 
   componentDidUpdate() {
@@ -66,6 +62,20 @@ class UserAdmin extends Component {
     this.filterUsers();
     // get today's lessons
     this.getLessonsToday();
+  }
+
+  openModal(modalContent) {
+    this.setState({
+      modalVisible : true,
+      modalContent
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible : false,
+      modalContent: ''
+    });
   }
 
   bookLesson(user_id, lesson_id) {
@@ -81,18 +91,13 @@ class UserAdmin extends Component {
         this.setState({
           errors: {}
         });
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'info'
-        });
+        this.openModal(xhr.response.message);
         // refresh the booked classes list
         this.getAttendances();
+        this.resetLesson(user_id);
       } else {
         // failure
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'error'
-        });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send();
@@ -107,24 +112,17 @@ class UserAdmin extends Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success
-
         // change the component-container state
         this.setState({
           errors: {}
         });
-
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'info'
-        });
+        this.openModal(xhr.response.message);
         // refresh the booked classes list
         this.getAttendances();
+        this.resetLesson(user_id);
       } else {
         // failure
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'error'
-        });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send();
@@ -170,6 +168,15 @@ class UserAdmin extends Component {
     const lesson_id = this.state.lesson_id;
     lesson_id[user_id] = event.target.value;
 
+    this.setState({
+      lesson_id
+    });
+  }
+
+  // update the class_id as the user selects
+  resetLesson(user_id) {
+    const lesson_id = this.state.lesson_id;
+    lesson_id[user_id] = '';
     this.setState({
       lesson_id
     });
@@ -308,7 +315,14 @@ class UserAdmin extends Component {
   render() {
     return (
       <div>
-        <NotificationSystem ref="notificationSystem" />
+        <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div className="spacer center-align">
+            <p>{this.state.modalContent}</p>
+            <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
+              Okay
+            </button>
+          </div>
+        </Modal>
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>User Administration</h4>
@@ -381,7 +395,7 @@ class UserAdmin extends Component {
                               (this.state.attendances[user._id] == null) ? (
                                 <option key={"lesson" + i} value={"+" + lesson._id}>{this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name} - {lesson.startTime} ({this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName})</option>
                               ) : (
-                                (this.state.attendances[user._id].indexOf(lesson._id) === -1) ? (
+                                (this.state.attendances[user._id].map((attendance) => {return attendance.lesson_id}).indexOf(lesson._id) === -1) ? (
                                   <option key={"lesson" + i} value={"+" + lesson._id}>{this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name} - {lesson.startTime} ({this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName})</option>
                                 ) : (
                                   <option key={"lesson" + i} value={"-" + lesson._id}>{this.state.locations[(this.state.locations.findIndex(location => location._id===lesson.location_id))].name} - {lesson.startTime} ({this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName} {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].lastName}) - Booked</option>

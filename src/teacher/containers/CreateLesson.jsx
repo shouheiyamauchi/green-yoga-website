@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import Collapsible from 'react-collapsible';
-import NotificationSystem from 'react-notification-system';
+import Modal from 'react-awesome-modal';
 
 const header = <div className="collapsible-header"><i className="material-icons">add_circle_outline</i>Add Class</div>
 
@@ -24,7 +24,9 @@ class CreateLesson extends Component {
       },
       teachers: null,
       types: null,
-      locations: null
+      locations: null,
+      modalVisible: false,
+      modalContent: ''
     };
 
     this.processForm = this.processForm.bind(this);
@@ -38,6 +40,20 @@ class CreateLesson extends Component {
     this.getTeachersList();
     this.getTypesList();
     this.getLocationsList();
+  }
+
+  openModal(modalContent) {
+    this.setState({
+      modalVisible : true,
+      modalContent
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible : false,
+      modalContent: ''
+    });
   }
 
   getTeachersList() {
@@ -117,20 +133,15 @@ class CreateLesson extends Component {
         this.setState({
           errors: {}
         });
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'info'
-        });
+        this.openModal(xhr.response.message);
         this.props.getLessonsList();
       } else {
         // failed to submit form - display the errors
-
         const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
         this.setState({
           errors
         });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send(formData);
@@ -150,7 +161,14 @@ class CreateLesson extends Component {
   render() {
     return (
       <div>
-        <NotificationSystem ref="notificationSystem" />
+        <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div className="spacer center-align">
+            <p>{this.state.modalContent}</p>
+            <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
+              Okay
+            </button>
+          </div>
+        </Modal>
         {
           (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
             <div className="collapsible">

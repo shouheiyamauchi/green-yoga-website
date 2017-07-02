@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Modal from 'react-awesome-modal';
 
 class SignupPage extends Component {
   constructor(props, context) {
@@ -21,11 +22,27 @@ class SignupPage extends Component {
         state: '',
         pcode: '',
         description: ''
-      }
+      },
+      modalVisible: false,
+      modalContent: ''
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
+  }
+
+  openModal(modalContent) {
+    this.setState({
+      modalVisible : true,
+      modalContent
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible : false,
+      modalContent: ''
+    });
   }
 
   // submission of form
@@ -62,24 +79,19 @@ class SignupPage extends Component {
         this.setState({
           errors: {}
         });
-
         // set a message
         localStorage.setItem('user', xhr.response.message);
-
         // update the header after signing up
         this.props.changeImage();
-
         // redirect user after sign up to login page
         this.props.history.push('/login');
       } else {
         // failure
-
         const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
         this.setState({
           errors
         });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send(formData);
@@ -99,6 +111,14 @@ class SignupPage extends Component {
   render() {
     return (
       <div>
+        <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div className="spacer center-align">
+            <p>{this.state.modalContent}</p>
+            <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
+              Okay
+            </button>
+          </div>
+        </Modal>
         <div className="section"></div>
         <h4>Sign up</h4>
         <h6 className="quote">“Atha Yoga anushasanam.” - Here and now is where yoga begins.</h6>

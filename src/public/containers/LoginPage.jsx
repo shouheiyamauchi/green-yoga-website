@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import { Link } from 'react-router-dom';
-import NotificationSystem from 'react-notification-system';
+import Modal from 'react-awesome-modal';
 
 class LoginPage extends Component {
   constructor(props, context) {
@@ -14,7 +14,9 @@ class LoginPage extends Component {
         email: '',
         password: ''
       },
-      message: ''
+      message: '',
+      modalVisible: false,
+      modalContent: ''
     };
 
     this.processForm = this.processForm.bind(this);
@@ -26,12 +28,23 @@ class LoginPage extends Component {
     this.props.toggleAuthenticateStatus()
     // Display stored message by setting state and remove it from local storage
     if(localStorage.getItem('user') != null) {
-      this.refs.notificationSystem.addNotification({
-        message: localStorage.getItem('user'),
-        level: 'info'
-      });
+      this.openModal(localStorage.getItem('user'));
     };
     localStorage.removeItem('user');
+  }
+
+  openModal(modalContent) {
+    this.setState({
+      modalVisible : true,
+      modalContent
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible : false,
+      modalContent: ''
+    });
   }
 
   // submission of form
@@ -63,8 +76,6 @@ class LoginPage extends Component {
         this.props.toggleAuthenticateStatus()
         // update the header
         this.props.changeImage()
-        // set a success message
-        localStorage.setItem('user', xhr.response.message)
         // redirect signed in user to dashboard
         this.props.history.push('/dashboard');
       } else {
@@ -74,10 +85,7 @@ class LoginPage extends Component {
         this.setState({
           errors
         });
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'error'
-        });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send(formData);
@@ -97,7 +105,14 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <NotificationSystem ref="notificationSystem" />
+        <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div className="spacer center-align">
+            <p>{this.state.modalContent}</p>
+            <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
+              Okay
+            </button>
+          </div>
+        </Modal>
         <div className="section"></div>
         <h4>Log in</h4>
         <h6 className="quote">“Loka Samasta Sukhino Bhavantu.”</h6>

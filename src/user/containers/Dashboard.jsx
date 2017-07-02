@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import Collapsible from 'react-collapsible';
 import BookedClasses from '../../public/components/BookedClasses.jsx'
-import NotificationSystem from 'react-notification-system';
+import Modal from 'react-awesome-modal';
 
 const timetableHeader = <div className="collapsible-header"><i className="material-icons">event_note</i>My Timetable</div>
 const passesHeader = <div className="collapsible-header"><i className="material-icons">card_membership</i>My Current Passes</div>
@@ -22,7 +22,9 @@ class DashboardPage extends Component {
       teachers: null,
       types: null,
       locations: null,
-      attendances: null
+      attendances: null,
+      modalVisible: false,
+      modalContent: ''
     };
 
     this.processForm = this.processForm.bind(this);
@@ -36,20 +38,6 @@ class DashboardPage extends Component {
   }
 
   componentDidMount() {
-    // Display stored message by setting state and remove it from local storage
-    if(localStorage.getItem('user') != null) {
-      this.refs.notificationSystem.addNotification({
-        message: localStorage.getItem('user'),
-        level: 'info'
-      });
-    };
-    localStorage.removeItem('user');
-
-    // Display stored message by setting state and remove it from local storage
-    this.setState({
-      message: localStorage.getItem('dashboard')
-    });
-    localStorage.removeItem('dashboard');
     // fill out user information in state
     this.setState ({
       user: Auth.getUser()
@@ -59,6 +47,20 @@ class DashboardPage extends Component {
     this.getTypesList();
     this.getLocationsList();
     this.getAttendances();
+  }
+
+  openModal(modalContent) {
+    this.setState({
+      modalVisible : true,
+      modalContent
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible : false,
+      modalContent: ''
+    });
   }
 
   // get attendances for current logged in user
@@ -151,26 +153,20 @@ class DashboardPage extends Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success
-
         // change the component-container state
         this.setState({
           errors: {}
         });
-
-        // set a message
-        localStorage.setItem('dashboard', xhr.response.message);
-
-        // redirect user after making booking to lessons page
-        window.location.reload();
+        this.openModal(xhr.response.message);
+        this.getAttendances();
       } else {
         // failure
 
         const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
         this.setState({
           errors
         });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send();
@@ -247,7 +243,14 @@ class DashboardPage extends Component {
   render() {
     return (
       <div>
-        <NotificationSystem ref="notificationSystem" />
+        <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div className="spacer center-align">
+            <p>{this.state.modalContent}</p>
+            <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
+              Okay
+            </button>
+          </div>
+        </Modal>
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Dashboard</h4>

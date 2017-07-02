@@ -275,11 +275,15 @@ a:hover .material-icons {
 }
 
 .deep-orange.lighten-1:hover {
-    background-color: #D55D38;
+    background-color: #D55D38 !important;
 }
 
 .green.accent-4:hover {
-    background-color: #1AA946;
+    background-color: #1AA946 !important;
+}
+
+.grey.darken-1:hover {
+    background-color: #636363 !important;
 }
 
 .link {
