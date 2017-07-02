@@ -69,10 +69,11 @@ class Lessons extends Component {
         this.setState({
           errors: {}
         });
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'info'
-        });
+        // this.refs.notificationSystem.addNotification({
+        //   message: xhr.response.message,
+        //   level: 'success'
+        // });
+        alert(xhr.response.message);
         this.getAttendances();
       } else {
         // failure
@@ -104,10 +105,11 @@ class Lessons extends Component {
           errors: {}
         });
 
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'info'
-        });
+        // this.refs.notificationSystem.addNotification({
+        //   message: xhr.response.message,
+        //   level: 'warning'
+        // });
+        alert(xhr.response.message);
         this.getAttendances();
       } else {
         // failure
