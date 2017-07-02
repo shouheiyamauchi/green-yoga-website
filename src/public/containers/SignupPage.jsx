@@ -196,7 +196,7 @@ class SignupPage extends Component {
                 </div>
               </div>
               <div className="center-align">
-                <button className="btn waves-effect waves-light" type="submit" name="action">
+                <button className="btn waves-effect waves-light green accent-4" type="submit" name="action">
                   Create New Account
                 </button>
               </div>

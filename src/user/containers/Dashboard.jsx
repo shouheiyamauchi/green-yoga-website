@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import Collapsible from 'react-collapsible';
 import BookedClasses from '../../public/components/BookedClasses.jsx'
+import NotificationSystem from 'react-notification-system';
 
 const timetableHeader = <div className="collapsible-header"><i className="material-icons">event_note</i>My Timetable</div>
 const passesHeader = <div className="collapsible-header"><i className="material-icons">card_membership</i>My Current Passes</div>
@@ -35,6 +36,15 @@ class DashboardPage extends Component {
   }
 
   componentDidMount() {
+    // Display stored message by setting state and remove it from local storage
+    if(localStorage.getItem('user') != null) {
+      this.refs.notificationSystem.addNotification({
+        message: localStorage.getItem('user'),
+        level: 'info'
+      });
+    };
+    localStorage.removeItem('user');
+
     // Display stored message by setting state and remove it from local storage
     this.setState({
       message: localStorage.getItem('dashboard')
@@ -237,12 +247,13 @@ class DashboardPage extends Component {
   render() {
     return (
       <div>
+        <NotificationSystem ref="notificationSystem" />
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Dashboard</h4>
         <div className="section"></div>
         <div className="collapsible">
-          <Collapsible trigger={timetableHeader}>
+          <Collapsible trigger={timetableHeader} open={(this.state.lessons == null || this.state.teachers == null || this.state.types == null || this.state.locations == null || this.state.attendances == null) ? (false) : (true)}>
             <div className="section"></div>
             <div className="dashboard-container">
               <div>
@@ -253,7 +264,7 @@ class DashboardPage extends Component {
                     <div className="bounce3"></div>
                   </div>
                 ) : (
-                  <BookedClasses attendances={this.state.attendances} lessons={this.state.lessons} types={this.state.types} teachers={this.state.teachers} locations={this.state.locations} />
+                  <BookedClasses user_id={Auth.getUser().id} attendances={this.state.attendances} lessons={this.state.lessons} types={this.state.types} teachers={this.state.teachers} locations={this.state.locations} unbookLesson={(user_id, lesson_id) => this.unbookLesson(user_id, lesson_id)} />
                 )}
               </div>
               <div className="section"></div>

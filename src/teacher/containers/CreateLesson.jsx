@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import Collapsible from 'react-collapsible';
+import NotificationSystem from 'react-notification-system';
 
 const header = <div className="collapsible-header"><i className="material-icons">add_circle_outline</i>Add Class</div>
 
@@ -116,12 +117,11 @@ class CreateLesson extends Component {
         this.setState({
           errors: {}
         });
-
-        // set a success message
-        localStorage.setItem('lesson', xhr.response.message)
-
-        // redirect user after creation of type
-        window.location.reload();
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'info'
+        });
+        this.props.getLessonsList();
       } else {
         // failed to submit form - display the errors
 
@@ -150,6 +150,7 @@ class CreateLesson extends Component {
   render() {
     return (
       <div>
+        <NotificationSystem ref="notificationSystem" />
         {
           (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher") ? (
             <div className="collapsible">
@@ -298,7 +299,7 @@ class CreateLesson extends Component {
                           </div>
                         </div>
                         <div className="button-line center-align">
-                          <button className="btn waves-effect waves-light" type="submit" name="action">
+                          <button className="btn waves-effect waves-light green accent-4" type="submit" name="action">
                             Add Class
                           </button>
                         </div>

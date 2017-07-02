@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import TeacherCreateLesson from '../../teacher/containers/CreateLesson.jsx';
 import AdministratorLessonButtons from '../../administrator/components/LessonButtons.jsx';
-import BookedClasses from '../../public/components/BookedClasses.jsx'
-import _ from 'lodash'
+import BookedClasses from '../../public/components/BookedClasses.jsx';
+import _ from 'lodash';
 import Collapsible from 'react-collapsible';
-import moment from 'moment'
+import moment from 'moment';
 import { Link } from 'react-router-dom';
+import NotificationSystem from 'react-notification-system';
 
 class UserAdmin extends Component {
   constructor(props, context) {
@@ -76,25 +77,21 @@ class UserAdmin extends Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success
-
         // change the component-container state
         this.setState({
           errors: {}
         });
-
-        // set a message
-        localStorage.setItem('useradmin', xhr.response.message);
-
-        // redirect user after making booking to lessons page
-        window.location.reload();
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'info'
+        });
+        // refresh the booked classes list
+        this.getAttendances();
       } else {
         // failure
-
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'error'
         });
       }
     });
@@ -116,19 +113,17 @@ class UserAdmin extends Component {
           errors: {}
         });
 
-        // set a message
-        localStorage.setItem('useradmin', xhr.response.message);
-
-        // redirect user after making booking to lessons page
-        window.location.reload();
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'info'
+        });
+        // refresh the booked classes list
+        this.getAttendances();
       } else {
         // failure
-
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'error'
         });
       }
     });
@@ -145,7 +140,7 @@ class UserAdmin extends Component {
       const firstName = this.state.filters.firstName
       const lastName = this.state.filters.lastName
       // filter the users based on conditions supplied
-      const filtered = (this.state.users).filter(function(user){
+      const filtered = (this.state.users).filter((user) => {
         return (user.firstName).toLowerCase().includes(firstName.toLowerCase()) && (user.lastName).toLowerCase().includes(lastName.toLowerCase())
       });
 
@@ -278,7 +273,7 @@ class UserAdmin extends Component {
       // set up string for today as filter
       const today = moment().format("DD/MM/YYYY")
       // filter for today's lesson only
-      const filtered = (this.state.lessons).filter(function(lesson){
+      const filtered = (this.state.lessons).filter((lesson) => {
         return (lesson.date === today)
       });
 
@@ -313,6 +308,7 @@ class UserAdmin extends Component {
   render() {
     return (
       <div>
+        <NotificationSystem ref="notificationSystem" />
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>User Administration</h4>
@@ -368,7 +364,7 @@ class UserAdmin extends Component {
                         {user.email}
                       </div>
                       <div className="col s12 m2 l2">
-                        <button className="btn booking-btn waves-effect waves-light">
+                        <button className="btn booking-btn waves-effect waves-light green accent-4">
                           Manage
                         </button>
                       </div>
@@ -399,11 +395,11 @@ class UserAdmin extends Component {
                           <a className="btn disabled">Select Booking</a>
                         ) : (
                           (this.state.lesson_id[user._id].substring(0, 1) === "+") ? (
-                            <button className="btn waves-effect waves-light" onClick={() => { this.bookLesson((user._id), ((this.state.lesson_id[user._id]).substring(1, (this.state.lesson_id[user._id]).length))) }}>
+                            <button className="btn waves-effect waves-light green accent-4" onClick={() => { this.bookLesson((user._id), ((this.state.lesson_id[user._id]).substring(1, (this.state.lesson_id[user._id]).length))) }}>
                               Sign into Class
                             </button>
                           ) : (
-                            <button className="btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((user._id), ((this.state.lesson_id[user._id]).substring(1, (this.state.lesson_id[user._id]).length))) }}>
+                            <button className="btn waves-effect waves-light deep-orange lighten-1" onClick={() => { this.unbookLesson((user._id), ((this.state.lesson_id[user._id]).substring(1, (this.state.lesson_id[user._id]).length))) }}>
                               Cancel Booking
                             </button>
                           )
@@ -411,14 +407,10 @@ class UserAdmin extends Component {
                       </div>
                       <div className="col s12 m12 l12 center-align">
                         <br /><h5>Booked Classes</h5>
-                        {(this.state.attendances[user._id] == null) ? (
-                          <span>No bookings</span>
-                        ) : (
-                          <div className="dashboard-container left-align">
-                            <br />
-                            <BookedClasses attendances={this.state.attendances[user._id]} lessons={this.state.lessons} types={this.state.types} teachers={this.state.teachers} locations={this.state.locations} />
-                          </div>
-                        )}
+                        <br />
+                        <div className="dashboard-container left-align">
+                          <BookedClasses user_id={user._id} attendances={(this.state.attendances[user._id] == null) ? ([]) : (this.state.attendances[user._id])} lessons={this.state.lessons} types={this.state.types} teachers={this.state.teachers} locations={this.state.locations} unbookLesson={(user_id, lesson_id) => this.unbookLesson(user_id, lesson_id)} />
+                        </div>
                       </div>
                     </div>
                   </Collapsible>
@@ -426,7 +418,6 @@ class UserAdmin extends Component {
               )}
             </div>
           </div>
-
         )}
       </div>
     );

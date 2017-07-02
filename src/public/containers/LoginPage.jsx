@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import { Link } from 'react-router-dom';
+import NotificationSystem from 'react-notification-system';
 
 class LoginPage extends Component {
   constructor(props, context) {
@@ -23,11 +24,13 @@ class LoginPage extends Component {
   componentDidMount() {
     // update authenticated state
     this.props.toggleAuthenticateStatus()
-
     // Display stored message by setting state and remove it from local storage
-    this.setState({
-      message: localStorage.getItem('user')
-    });
+    if(localStorage.getItem('user') != null) {
+      this.refs.notificationSystem.addNotification({
+        message: localStorage.getItem('user'),
+        level: 'info'
+      });
+    };
     localStorage.removeItem('user');
   }
 
@@ -49,35 +52,31 @@ class LoginPage extends Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success
-
-        // change the component-container state
         this.setState({
           errors: {}
         });
-
         // save the token into local storage
         Auth.authenticateUser(xhr.response.token);
-
         // save user details into local storage
         Auth.storeUser(JSON.stringify(xhr.response.user));
-
         // update authenticated state
         this.props.toggleAuthenticateStatus()
-
         // update the header
         this.props.changeImage()
-
+        // set a success message
+        localStorage.setItem('user', xhr.response.message)
         // redirect signed in user to dashboard
         this.props.history.push('/dashboard');
       } else {
         // failure
-
-        // change the component state
+        // update the errors state
         const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
         this.setState({
           errors
+        });
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'error'
         });
       }
     });
@@ -98,8 +97,8 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <NotificationSystem ref="notificationSystem" />
         <div className="section"></div>
-        <p className="message center-align">{this.state.message}</p>
         <h4>Log in</h4>
         <h6 className="quote">“Loka Samasta Sukhino Bhavantu.”</h6>
         <div className="section"></div>
@@ -108,8 +107,6 @@ class LoginPage extends Component {
           <form action="/" onSubmit={this.processForm}>
             <div className="container">
               <div className="row">
-                {this.state.errors.summary && <p className="error-message-main">{this.state.errors.summary}</p>}
-
                 <div className="input-field col s12 m12 l12">
                   <input name="email" type="text" onChange={this.changeUser} value={this.state.user.email} />
                   <label>Email</label>
@@ -124,7 +121,7 @@ class LoginPage extends Component {
               </div>
             </div>
             <div className="button-line center-align">
-              <button className="btn waves-effect waves-light" type="submit" name="action">
+              <button className="btn waves-effect waves-light green accent-4" type="submit" name="action">
                 Log in
               </button>
             </div>

@@ -184,7 +184,7 @@ class CreateType extends Component {
                       )}
 
                       <div className="file-field input-field col s12 m12 l12">
-                        <div className="btn">
+                        <div className="btn waves-effect waves-light green accent-4">
                           <span>Image</span>
                           <input type="file" id="file-input" onChange={this.initUpload} />
                         </div>
@@ -196,7 +196,7 @@ class CreateType extends Component {
                     </div>
                   </div>
                   <div className="button-line center-align">
-                    <button className="btn waves-effect waves-light" type="submit" name="action">
+                    <button className="btn waves-effect waves-light green accent-4" type="submit" name="action">
                       Add Class Type
                     </button>
                   </div>

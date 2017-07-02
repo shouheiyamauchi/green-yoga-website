@@ -6,6 +6,7 @@ import _ from 'lodash'
 import Collapsible from 'react-collapsible';
 import moment from 'moment'
 import { Link } from 'react-router-dom';
+import NotificationSystem from 'react-notification-system';
 
 class Lessons extends Component {
   constructor(props, context) {
@@ -48,12 +49,6 @@ class Lessons extends Component {
     this.getTypesList();
     this.getLocationsList();
     this.getAttendances();
-
-    // Display stored message by setting state and remove it from local storage
-    this.setState({
-      message: localStorage.getItem('lesson')
-    });
-    localStorage.removeItem('lesson');
   }
 
   componentDidUpdate() {
@@ -71,25 +66,23 @@ class Lessons extends Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success
-
-        // change the component-container state
         this.setState({
           errors: {}
         });
-
-        // set a message
-        localStorage.setItem('lesson', xhr.response.message);
-
-        // redirect user after making booking to lessons page
-        window.location.reload();
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'info'
+        });
+        this.getAttendances();
       } else {
         // failure
-
         const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
         this.setState({
           errors
+        });
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'error'
         });
       }
     });
@@ -111,19 +104,20 @@ class Lessons extends Component {
           errors: {}
         });
 
-        // set a message
-        localStorage.setItem('lesson', xhr.response.message);
-
-        // redirect user after making booking to lessons page
-        window.location.reload();
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'info'
+        });
+        this.getAttendances();
       } else {
         // failure
-
         const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
         this.setState({
           errors
+        });
+        this.refs.notificationSystem.addNotification({
+          message: xhr.response.message,
+          level: 'error'
         });
       }
     });
@@ -163,7 +157,7 @@ class Lessons extends Component {
       const type_id = this.state.filters.type_id
       const location_id = this.state.filters.location_id
       // filter the lessons based on conditions supplied
-      const filtered = (this.state.lessons).filter(function(lesson){
+      const filtered = (this.state.lessons).filter((lesson) => {
         return (lesson.user_id).includes(user_id) && (lesson.type_id).includes(type_id) && (lesson.location_id).includes(location_id)
       });
 
@@ -175,12 +169,12 @@ class Lessons extends Component {
       const dateFormat = "DD/MM/YYYY";
 
       // add to a new array the events matching the dates as per the dates array
-      dates.forEach(function(date) {
+      dates.forEach((date) => {
         const details = {
           date: moment(date, dateFormat).format('ddd MMM DD'),
           events: []
         };
-        details.events = (filtered.filter(function(lesson){ return lesson.date === date}));
+        details.events = (filtered.filter((lesson) => { return lesson.date === date}));
         dateFiltered.push(details);
       });
 
@@ -222,7 +216,7 @@ class Lessons extends Component {
         } else {
           // Store only the lesson_id in state
           const attendances = [];
-          (xhr.response.attendances).forEach(function(attendance) {
+          (xhr.response.attendances).forEach((attendance) => {
             attendances.push(attendance.lesson_id)
           });
           this.setState({
@@ -307,6 +301,7 @@ class Lessons extends Component {
   render() {
     return (
       <div>
+        <NotificationSystem ref="notificationSystem" />
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Schedule</h4>
@@ -317,7 +312,7 @@ class Lessons extends Component {
         {/* Admin section to create class type */}
         {
           (Auth.isUserAuthenticated()) ? (
-            <TeacherCreateLesson />
+            <TeacherCreateLesson getLessonsList={() => this.getLessonsList()} />
           ) : (
             null
           )
@@ -402,11 +397,11 @@ class Lessons extends Component {
                             <div className="col s12 m2 l2">
                               <div className="center-align">
                                 {(this.state.attendances.indexOf(lesson._id) === -1) ? (
-                                  <button className="btn booking-btn waves-effect waves-light">
+                                  <button className="btn booking-btn waves-effect waves-light green accent-4">
                                     Book
                                   </button>
                                 ) : (
-                                  <button className="btn booking-btn waves-effect waves-light red accent-1">
+                                  <button className="btn booking-btn waves-effect waves-light deep-orange lighten-1">
                                     Cancel
                                   </button>
                                 )}
@@ -443,17 +438,17 @@ class Lessons extends Component {
 
                                 {Auth.isUserAuthenticated() ? (
                                   (this.state.attendances.indexOf(lesson._id) === -1) ? (
-                                    <button className="btn waves-effect waves-light" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                    <button className="btn waves-effect waves-light green accent-4" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
                                       Make a Booking
                                     </button>
                                   ) : (
-                                    <button className="btn waves-effect waves-light red accent-1" onClick={() => { this.unbookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                    <button className="btn waves-effect waves-light deep-orange lighten-1" onClick={() => { this.unbookLesson((Auth.getUser().id), (lesson._id)) }}>
                                       Cancel Booking
                                     </button>
                                   )
                                 ) : (
                                   <Link onClick={() => { this.props.changeImage() }} to="/login">
-                                    <button className="btn waves-effect waves-light red accent-1">
+                                    <button className="btn waves-effect waves-light deep-orange lighten-1">
                                       Login to Make a Booking
                                     </button>
                                   </Link>
