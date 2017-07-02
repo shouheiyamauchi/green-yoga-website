@@ -11,6 +11,7 @@
     "mongoose": "^4.10.5",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
+    "react-awesome-modal": "^2.0.1",
     "react-collapsible": "^1.4.0",
     "react-dom": "^15.5.4",
     "react-notification-system": "^0.2.14",

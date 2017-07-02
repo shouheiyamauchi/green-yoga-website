@@ -6,7 +6,7 @@ import _ from 'lodash'
 import Collapsible from 'react-collapsible';
 import moment from 'moment'
 import { Link } from 'react-router-dom';
-import NotificationSystem from 'react-notification-system';
+import Modal from 'react-awesome-modal';
 
 class Lessons extends Component {
   constructor(props, context) {
@@ -28,7 +28,9 @@ class Lessons extends Component {
         location_id:'',
       },
       filteredLessons: null,
-      attendances: null
+      attendances: null,
+      modalVisible: false,
+      modalContent: ''
     };
 
     this.getLessonsList = this.getLessonsList.bind(this);
@@ -57,6 +59,20 @@ class Lessons extends Component {
     this.filterLessons()
   }
 
+  openModal(modalContent) {
+    this.setState({
+      modalVisible : true,
+      modalContent
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible : false,
+      modalContent: ''
+    });
+  }
+
   bookLesson(user_id, lesson_id) {
     // create an AJAX request
     const xhr = new XMLHttpRequest();
@@ -69,11 +85,7 @@ class Lessons extends Component {
         this.setState({
           errors: {}
         });
-        // this.refs.notificationSystem.addNotification({
-        //   message: xhr.response.message,
-        //   level: 'success'
-        // });
-        alert(xhr.response.message);
+        this.openModal(xhr.response.message);
         this.getAttendances();
       } else {
         // failure
@@ -81,10 +93,7 @@ class Lessons extends Component {
         this.setState({
           errors
         });
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'error'
-        });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send();
@@ -105,11 +114,7 @@ class Lessons extends Component {
           errors: {}
         });
 
-        // this.refs.notificationSystem.addNotification({
-        //   message: xhr.response.message,
-        //   level: 'warning'
-        // });
-        alert(xhr.response.message);
+        this.openModal(xhr.response.message);
         this.getAttendances();
       } else {
         // failure
@@ -117,10 +122,7 @@ class Lessons extends Component {
         this.setState({
           errors
         });
-        this.refs.notificationSystem.addNotification({
-          message: xhr.response.message,
-          level: 'error'
-        });
+        this.openModal(xhr.response.message);
       }
     });
     xhr.send();
@@ -303,7 +305,14 @@ class Lessons extends Component {
   render() {
     return (
       <div>
-        <NotificationSystem ref="notificationSystem" />
+        <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div className="spacer center-align">
+              <p>{this.state.modalContent}</p>
+              <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
+                Okay
+              </button>
+          </div>
+        </Modal>
         <div className="section"></div>
         <p className="message center-align">{this.state.message}</p>
         <h4>Schedule</h4>
