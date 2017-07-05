@@ -127,49 +127,7 @@ class App extends Component {
         header: "",
         description: ""
       },
-      // set up the parallax content
-      parallaxContent: {
-        Header: {
-          image: "banner1",
-          header: "”The rhythm of the body, the melody of the mind & the harmony of the soul create the symphony of life.”",
-          description: ""
-        },
-        loginHeader: {
-          image: "banner2",
-          header: "Log in",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        },
-        signupHeader: {
-          image: "banner3",
-          header: "Sign up",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        },
-        lessonsHeader: {
-          image: "banner4",
-          header: "Classes",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        },
-        typesHeader: {
-          image: "banner5",
-          header: "Class Types",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        },
-        locationsHeader: {
-          image: "banner6",
-          header: "Locations",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        },
-        dashboardHeader: {
-          image: "banner7",
-          header: "Dashboard",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        },
-        useradminHeader: {
-          image: "banner8",
-          header: "User administration",
-          // description: "Donec posuere felis et dolor venenatis sagittis eu a erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris eros enim, porta id tincidunt et."
-        }
-      }
+      header: {}
     }
   };
 
@@ -185,21 +143,9 @@ class App extends Component {
     const path = (window.location.pathname).substring(1,(window.location.pathname).length)
     // set the parallax content to what's set in the key
     if (this.state.parallaxContent[path + "Header"] == null) {
-      this.setState ({
-        parallax: {
-          image: this.state.parallaxContent["Header"].image,
-          header: this.state.parallaxContent["Header"].header,
-          description: this.state.parallaxContent["Header"].description
-        }
-      })
+      this.setHeaderImage("")
     } else {
-      this.setState({
-        parallax: {
-          image: this.state.parallaxContent[path + "Header"].image,
-          header: this.state.parallaxContent[path + "Header"].header,
-          description: this.state.parallaxContent[path + "Header"].description
-        }
-      })
+      this.setHeaderImage(path)
     }
   }
 
@@ -208,124 +154,110 @@ class App extends Component {
     this.setState({ authenticated: Auth.isUserAuthenticated() })
   }
 
-  changeImage(image, header, description) {
-    this.setState({
-      parallax: {
-        image,
-        header,
-        description
+  setHeaderImage(image) {
+    if (image === "") {
+      this.setState ({
+        header: {}
+      })
+    } else {
+      var header = {
+        borderTop: "solid #C5C5C6 1px",
+        borderBottom: "solid #D1CFCC 1px",
+        margin: "0 auto",
+        height: "300px",
+        padding: "0px",
+        width: "100%",
+        zIndex: "-100",
+        alignItems: "center",
+        backgroundImage: `url(/images/headers/${image}.jpg)`,
+        backgroundPositionX: 'center',
+        backgroundPositionY: 'center',
+        backgroundRepeat: 'no-repeat',
+        WebkitBackgroundSize: "cover",
+        MozBackgroundSize: "cover",
+        OBackgroundSize: "cover",
+        backgroundSize: "cover"
       }
-    })
+      this.setState({
+        header
+      })
+    }
   }
 
-
-
   render() {
-    const settings = {
-      dots: true,
-      fade: true,
-      infinite: true,
-      speed: 1500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3000
-    }
-
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
           <div>
-            <nav>
-              <div className="nav-wrapper green white">
-                <Link className="brand-logo" to="/" onClick={() => { this.changeImage(this.state.parallaxContent.Header.image, this.state.parallaxContent.Header.header, this.state.parallaxContent.Header.description) }}>&nbsp;&nbsp;&nbsp;Green Yoga</Link>
-                <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
-                <ul className="right hide-on-med-and-down">
-                  <li><Link to="/lessons" onClick={() => { this.changeImage(this.state.parallaxContent.lessonsHeader.image, this.state.parallaxContent.lessonsHeader.header, this.state.parallaxContent.lessonsHeader.description) }}>SCHEDULE</Link></li>
-                  <li><Link to="/types" onClick={() => { this.changeImage(this.state.parallaxContent.typesHeader.image, this.state.parallaxContent.typesHeader.header, this.state.parallaxContent.typesHeader.description) }}>CLASS TYPES</Link></li>
-                  <li><Link to="/locations" onClick={() => { this.changeImage(this.state.parallaxContent.locationsHeader.image, this.state.parallaxContent.locationsHeader.header, this.state.parallaxContent.locationsHeader.description) }}>LOCATIONS</Link></li>
-                  {this.state.authenticated ? (
-                    <span>
-                      <li><Link to="/dashboard" onClick={() => { this.changeImage(this.state.parallaxContent.dashboardHeader.image, this.state.parallaxContent.dashboardHeader.header, this.state.parallaxContent.dashboardHeader.description) }}>DASHBOARD</Link></li>
-                      {
-                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
-                            <li><Link to="/useradmin" onClick={() => { this.changeImage(this.state.parallaxContent.useradminHeader.image, this.state.parallaxContent.useradminHeader.header, this.state.parallaxContent.useradminHeader.description) }}>USER ADMIN</Link></li>
-                          ) : (
-                            null
-                          )
-                      }
-                      <li><Link to="/logout" onClick={() => { this.changeImage(this.state.parallaxContent.loginHeader.image, this.state.parallaxContent.loginHeader.header, this.state.parallaxContent.loginHeader.description) }}>LOG OUT</Link></li>
-                    </span>
-                  ) : (
-                    <span>
-                      <li><Link to="/login" onClick={() => { this.changeImage(this.state.parallaxContent.loginHeader.image, this.state.parallaxContent.loginHeader.header, this.state.parallaxContent.loginHeader.description) }}>LOG IN</Link></li>
-                      <li><Link to="/signup" onClick={() => { this.changeImage(this.state.parallaxContent.signupHeader.image, this.state.parallaxContent.signupHeader.header, this.state.parallaxContent.signupHeader.description) }}>SIGN UP</Link></li>
-                    </span>
-                  )}
-                </ul>
-                <ul className="side-nav" id="mobile-demo">
-                  <li><Link to="/lessons" onClick={() => { this.changeImage(this.state.parallaxContent.lessonsHeader.image, this.state.parallaxContent.lessonsHeader.header, this.state.parallaxContent.lessonsHeader.description) }}>SCHEDULE</Link></li>
-                  <li><Link to="/types" onClick={() => { this.changeImage(this.state.parallaxContent.typesHeader.image, this.state.parallaxContent.typesHeader.header, this.state.parallaxContent.typesHeader.description) }}>CLASS TYPES</Link></li>
-                  <li><Link to="/locations" onClick={() => { this.changeImage(this.state.parallaxContent.locationsHeader.image, this.state.parallaxContent.locationsHeader.header, this.state.parallaxContent.locationsHeader.description) }}>LOCATIONS</Link></li>
-                  {this.state.authenticated ? (
-                    <span>
-                      <li><Link to="/dashboard" onClick={() => { this.changeImage(this.state.parallaxContent.dashboardHeader.image, this.state.parallaxContent.dashboardHeader.header, this.state.parallaxContent.dashboardHeader.description) }}>DASHBOARD</Link></li>
-                      {
-                        (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
-                            <li><Link to="/useradmin" onClick={() => { this.changeImage(this.state.parallaxContent.useradminHeader.image, this.state.parallaxContent.useradminHeader.header, this.state.parallaxContent.useradminHeader.description) }}>USER ADMIN</Link></li>
-                          ) : (
-                            null
-                          )
-                      }
-                      <li><Link to="/logout" onClick={() => { this.changeImage(this.state.parallaxContent.loginHeader.image, this.state.parallaxContent.loginHeader.header, this.state.parallaxContent.loginHeader.description) }}>LOG OUT</Link></li>
-                    </span>
-                  ) : (
-                    <span>
-                      <li><Link to="/login" onClick={() => { this.changeImage(this.state.parallaxContent.loginHeader.image, this.state.parallaxContent.loginHeader.header, this.state.parallaxContent.loginHeader.description) }}>LOG IN</Link></li>
-                      <li><Link to="/signup" onClick={() => { this.changeImage(this.state.parallaxContent.signupHeader.image, this.state.parallaxContent.signupHeader.header, this.state.parallaxContent.signupHeader.description) }}>SIGN UP</Link></li>
-                    </span>
-                  )}
-                </ul>
-              </div>
-            </nav>
+            <div className="navbar-fixed">
+              <nav>
+                <div className="nav-wrapper green white">
+                  <Link className="brand-logo" to="/" onClick={() => { this.setHeaderImage("") }}>&nbsp;&nbsp;&nbsp;Green Yoga</Link>
+                  <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+                  <ul className="right hide-on-med-and-down">
+                    <li><Link to="/lessons" onClick={() => { this.setHeaderImage("lessons") }}>SCHEDULE</Link></li>
+                    <li><Link to="/types" onClick={() => { this.setHeaderImage("types") }}>CLASS TYPES</Link></li>
+                    <li><Link to="/locations" onClick={() => { this.setHeaderImage("locations") }}>LOCATIONS</Link></li>
+                    {this.state.authenticated ? (
+                      <span>
+                        <li><Link to="/dashboard" onClick={() => { this.setHeaderImage("dashboard") }}>DASHBOARD</Link></li>
+                        {
+                          (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
+                              <li><Link to="/useradmin" onClick={() => { this.setHeaderImage("useradmin") }}>USER ADMIN</Link></li>
+                            ) : (
+                              null
+                            )
+                        }
+                        <li><Link to="/logout" onClick={() => { this.setHeaderImage("login") }}>LOG OUT</Link></li>
+                      </span>
+                    ) : (
+                      <span>
+                        <li><Link to="/login" onClick={() => { this.setHeaderImage("login") }}>LOG IN</Link></li>
+                        <li><Link to="/signup" onClick={() => { this.setHeaderImage("signup") }}>SIGN UP</Link></li>
+                      </span>
+                    )}
+                  </ul>
 
-            {/*
-            <div className="parallax-container">
-              <div className="parallax"><img src={this.state.parallax.image} alt="" /></div>
-                <div className="parallax-content valign-wrapper center-align">
-                  <div className="container">
-                    <h4 className="parallax-title">{this.state.parallax.header}</h4><br />
-                    <p className="parallax-description">{this.state.parallax.description}</p>
-                  </div>
                 </div>
+              </nav>
             </div>
-            */}
+            <ul className="side-nav" id="mobile-demo">
+              <li><Link to="/lessons" onClick={() => { this.setHeaderImage("lessons") }}>SCHEDULE</Link></li>
+              <li><Link to="/types" onClick={() => { this.setHeaderImage("types") }}>CLASS TYPES</Link></li>
+              <li><Link to="/locations" onClick={() => { this.setHeaderImage("locations") }}>LOCATIONS</Link></li>
+              {this.state.authenticated ? (
+                <span>
+                  <li><Link to="/dashboard" onClick={() => { this.setHeaderImage("dashboard") }}>DASHBOARD</Link></li>
+                  {
+                    (Auth.getUser().role === "administrator" || Auth.getUser().role === "teacher" || Auth.getUser().role === "receptionist") ? (
+                        <li><Link to="/useradmin" onClick={() => { this.setHeaderImage("useradmin") }}>USER ADMIN</Link></li>
+                      ) : (
+                        null
+                      )
+                  }
+                  <li><Link to="/logout" onClick={() => { this.setHeaderImage("login") }}>LOG OUT</Link></li>
+                </span>
+              ) : (
+                <span>
+                  <li><Link to="/login" onClick={() => { this.setHeaderImage("login") }}>LOG IN</Link></li>
+                  <li><Link to="/signup" onClick={() => { this.setHeaderImage("signup") }}>SIGN UP</Link></li>
+                </span>
+              )}
+            </ul>
 
-            {/*
-            <div className='slider-container'>
-              <Slider {...settings}>
-                <div><img className="slider-content" src="images/1.jpg" /></div>
-                <div><img className="slider-content" src="images/2.jpg" /></div>
-                <div><img className="slider-content" src="images/3.jpg" /></div>
-                <div><img className="slider-content" src="images/4.jpg" /></div>
-                <div><img className="slider-content" src="images/5.jpg" /></div>
-              </Slider>
-            </div>
-            */}
-
-            <div className={this.state.parallax.image}>
+            <div style={this.state.header}>
             </div>
 
             <div className="container">
               {/* Routes available to all users */}
               <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
-              <PropsRoute path="/lessons" component={Lessons} changeImage={() => this.changeImage(this.state.parallaxContent.loginHeader.image, this.state.parallaxContent.loginHeader.header, this.state.parallaxContent.loginHeader.description)} />
+              <PropsRoute path="/lessons" component={Lessons} changeImage={() => this.setHeaderImage("header2")} />
               <PropsRoute path="/locations" component={Locations} />
               <PropsRoute path="/types" component={Types} />
 
               {/* Logged out users routes */}
-              <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} changeImage={() => this.changeImage(this.state.parallaxContent.dashboardHeader.image, this.state.parallaxContent.dashboardHeader.header, this.state.parallaxContent.dashboardHeader.description)} />
-              <LoggedOutRoute path="/signup" component={SignupPage} changeImage={() => this.changeImage(this.state.parallaxContent.loginHeader.image, this.state.parallaxContent.loginHeader.header, this.state.parallaxContent.loginHeader.description)}/>
+              <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} changeImage={() => this.setHeaderImage("header7")} />
+              <LoggedOutRoute path="/signup" component={SignupPage} changeImage={() => this.setHeaderImage("header2")}/>
 
               {/* Logged in users routes */}
               <UserRoute path="/dashboard" component={Dashboard} user={Auth.getUser()} />

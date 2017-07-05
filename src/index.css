@@ -41,120 +41,6 @@
   font-feature-settings: 'liga';
 }
 
-.banner1 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header1.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  z-index: -100;
-  align-items: center;
-}
-
-.banner2 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header2.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.banner3 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header3.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.banner4 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header4.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.banner5 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header5.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.banner6 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header6.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.banner7 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header7.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.banner8 {
-  border-top: solid #C5C5C6 1px;
-  border-bottom: solid #D1CFCC 1px;
-  margin: 0 auto;
-  height: 300px;
-  padding: 0px;
-  width: 100%;
-  background: url(/images/header8.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
 .footer {
   background-color: #FBF8F5;
   width: 100%;
@@ -362,6 +248,7 @@ nav .brand-logo {
 
 .button-collapse {
   color: black;
+  z-index: 200;
 }
 
 nav div ul li:hover {

@@ -25,7 +25,7 @@ const BookedClasses = ({user_id, attendances, lessons, types, teachers, location
           <div className="col s6 m2 l2">
             Location
           </div>
-          <div className="col s12 m2 l2">
+          <div className="col s6 m2 l2">
             Booking
           </div>
         </div>
@@ -48,7 +48,7 @@ const BookedClasses = ({user_id, attendances, lessons, types, teachers, location
             <div className="col s6 m2 l2">
               {locations[(locations.findIndex(location => location._id===((lessons).find((lesson) => {return (lesson._id === attendance.lesson_id)}).location_id)))].name}
             </div>
-            <div className="col s12 m1 l1">
+            <div className="col s6 m2 l2">
               <button className="btn booking-btn waves-effect waves-light deep-orange lighten-1" onClick={() => { unbookLesson((user_id), ((lessons).find((lesson) => {return (lesson._id === attendance.lesson_id)})._id)) }}>
                 Cancel
               </button>
