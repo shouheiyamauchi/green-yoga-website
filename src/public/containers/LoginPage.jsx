@@ -24,8 +24,6 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    // update authenticated state
-    this.props.toggleAuthenticateStatus()
     // Display stored message by setting state and remove it from local storage
     if(localStorage.getItem('user') != null) {
       this.openModal(localStorage.getItem('user'));
@@ -72,10 +70,6 @@ class LoginPage extends Component {
         Auth.authenticateUser(xhr.response.token);
         // save user details into local storage
         Auth.storeUser(JSON.stringify(xhr.response.user));
-        // update authenticated state
-        this.props.toggleAuthenticateStatus()
-        // update the header
-        this.props.changeImage()
         // redirect signed in user to dashboard
         this.props.history.push('/dashboard');
       } else {

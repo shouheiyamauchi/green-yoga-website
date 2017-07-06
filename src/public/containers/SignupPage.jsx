@@ -81,8 +81,6 @@ class SignupPage extends Component {
         });
         // set a message
         localStorage.setItem('user', xhr.response.message);
-        // update the header after signing up
-        this.props.changeImage();
         // redirect user after sign up to login page
         this.props.history.push('/login');
       } else {

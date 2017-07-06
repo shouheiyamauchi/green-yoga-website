@@ -458,7 +458,7 @@ class Lessons extends Component {
                                     </button>
                                   )
                                 ) : (
-                                  <Link onClick={() => { this.props.changeImage() }} to="/login">
+                                  <Link to="/login">
                                     <button className="btn waves-effect waves-light deep-orange lighten-1">
                                       Login to Make a Booking
                                     </button>

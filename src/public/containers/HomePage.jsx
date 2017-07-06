@@ -3,11 +3,6 @@ import Auth from '../../modules/Auth';
 import ContactForm from './ContactForm.jsx';
 
 class HomePage extends Component {
-  componentDidMount() {
-    // update authenticated state on logout
-    this.props.toggleAuthenticateStatus()
-  }
-
   render() {
     return (
       <div>
