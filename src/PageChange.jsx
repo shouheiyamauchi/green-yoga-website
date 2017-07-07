@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import Auth from './modules/Auth';
 
 class PageChange extends Component {
@@ -10,7 +10,7 @@ class PageChange extends Component {
         Auth.deauthenticateUser();
       };
 
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
 
       // get current pathname without the slash and set header image
       const path = (window.location.pathname).substring(1,(window.location.pathname).length);
