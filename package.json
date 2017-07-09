@@ -16,6 +16,7 @@
     "react-awesome-modal": "^2.0.1",
     "react-collapsible": "^1.4.0",
     "react-dom": "^15.5.4",
+    "react-image-lightbox": "^4.1.0",
     "react-router-dom": "^4.1.1",
     "react-slick": "^0.14.11",
     "react-tap-event-plugin": "^2.0.1",

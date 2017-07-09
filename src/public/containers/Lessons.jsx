@@ -408,7 +408,7 @@ class Lessons extends Component {
                             <div className="col s12 m2 l2">
                               <div className="center-align">
                                 {(this.state.attendances.indexOf(lesson._id) === -1) ? (
-                                  <button className="btn booking-btn waves-effect waves-light green accent-4">
+                                  <button className="btn booking-btn waves-effect waves-light teal lighten-2">
                                     Book
                                   </button>
                                 ) : (
@@ -449,7 +449,7 @@ class Lessons extends Component {
 
                                 {Auth.isUserAuthenticated() ? (
                                   (this.state.attendances.indexOf(lesson._id) === -1) ? (
-                                    <button className="btn waves-effect waves-light green accent-4" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
+                                    <button className="btn waves-effect waves-light teal lighten-2" onClick={() => { this.bookLesson((Auth.getUser().id), (lesson._id)) }}>
                                       Make a Booking
                                     </button>
                                   ) : (

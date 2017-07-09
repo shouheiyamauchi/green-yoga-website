@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
 import ContactForm from './ContactForm.jsx';
+import Gallery from './Gallery.jsx';
 
 class HomePage extends Component {
   render() {
@@ -22,6 +23,9 @@ class HomePage extends Component {
         Green believes yoga has the power to change people's lives as she personally experienced dramatic improvement on her health and relationships as a result of her practice. She also practices meditation and breathing techniques every day and is very passionate to learn more about philosophy and the human body. <br /><br />
         Green’s teaching style is very energetic and focusing on each students’ body alignment. She loves to do hands-on assists to guide students to experience a deeper connection with their body.<br /><br />
         Green completed the 200 hours teacher training course in February 2017 and has since completed additional teacher training courses which were the “Art of Alignment and Assists” and “Practical Teaching Skills” with Bodymindlife.
+        <div className="section"></div>
+        <div className="section"></div>
+        <Gallery />
         <div className="section"></div>
         <div className="section"></div>
         <ContactForm />

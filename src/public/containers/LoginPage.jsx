@@ -130,7 +130,7 @@ class LoginPage extends Component {
               </div>
             </div>
             <div className="button-line center-align">
-              <button className="btn waves-effect waves-light green accent-4" type="submit" name="action">
+              <button className="btn waves-effect waves-light teal lighten-2" type="submit" name="action">
                 Log in
               </button>
             </div>

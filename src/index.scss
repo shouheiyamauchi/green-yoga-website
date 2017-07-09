@@ -45,33 +45,18 @@ html, body {
   font-feature-settings: 'liga';
 }
 
-.front-page {
-  height: calc(100vh - 64px);
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
-  background-image: url('/images/front-page/1.jpg');
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position: relative;
-  z-index: -5;
 }
 
-.front-page2 {
-  height: calc(100vh - 64px);
-  width: 100%;
-  background-image: url('/images/front-page/2.jpg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position: relative;
-  z-index: -5;
+// button color for gallery switch
+button:focus {
+    outline: none;
+    background-color: #47B7AD;
 }
 
 .footer {
@@ -167,12 +152,12 @@ html, body {
 }
 
 a .material-icons {
-  color: #8EDD9B;
+  color: #47B7AD;
   transition: 0.5s;
 }
 
 a:hover .material-icons {
-  color: #53C85D;
+  color: #3C9A92;
   transition: 0.5s;
   cursor: pointer;
 }
@@ -181,24 +166,24 @@ a:hover .material-icons {
   background-color: #FBF8F5;
 }
 
-.btn {
-  background-color: #8EDD9B;
-}
-
-.btn:hover {
-  background-color: #53C85D;
-}
-
-.btn-floating {
-  background-color: #53C85D;
-}
+// .btn {
+//   background-color: #8EDD9B;
+// }
+//
+// .btn:hover {
+//   background-color: #53C85D;
+// }
+//
+// .btn-floating {
+//   background-color: #53C85D;
+// }
 
 .deep-orange.lighten-1:hover {
     background-color: #D55D38 !important;
 }
 
-.green.accent-4:hover {
-    background-color: #1AA946 !important;
+.teal.lighten-2:hover {
+    background-color: #3C9A92 !important;
 }
 
 .grey.darken-1:hover {
@@ -270,7 +255,7 @@ nav ul li a:hover {
   color: white;
   font-weight: 500;
   font-size: small;
-  background-color: #53C85D;
+  background-color: #47B7AD;
 }
 
 nav .brand-logo {
@@ -284,10 +269,6 @@ nav .brand-logo {
   z-index: 200;
 }
 
-nav div ul li:hover {
-  background-color: #53C85D;
-}
-
 /*Loading animation*/
 .spinner {
   margin: 100px auto 0;
@@ -298,7 +279,7 @@ nav div ul li:hover {
 .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #53C85D;
+  background-color: #47B7AD;
 
   border-radius: 100%;
   display: inline-block;

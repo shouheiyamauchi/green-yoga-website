@@ -1,15 +1,3 @@
-// import React from 'react';
-//
-// const LandingScreen = () => {
-//   return (
-//     <div className="front-page">
-//
-//     </div>
-//   )
-// };
-//
-// export default LandingScreen;
-
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 
@@ -17,6 +5,7 @@ class LandingScreen extends Component {
   constructor(props) {
     super(props);
     this.startTimeout = this.startTimeout.bind(this);
+    this.setFullPageStyle = this.setFullPageStyle.bind(this);
   };
 
   startTimeout() {
@@ -29,6 +18,23 @@ class LandingScreen extends Component {
         this.slider.innerSlider.play();
       }
     }, 2500);
+  }
+
+  setFullPageStyle(image) {
+    const fullPageStyle = {
+      height: "calc(100vh - 64px)",
+      width: "100%",
+      backgroundImage: `url(${image})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPositionX: "center",
+      backgroundPositionY: "center",
+      WebkitBackgroundSize: "cover",
+      MozBackgroundSize: "cover",
+      OBackgroundSize: "cover",
+      backgroundSize: "cover",
+      position: "relative"
+    }
+    return fullPageStyle
   }
 
   render() {
@@ -47,11 +53,11 @@ class LandingScreen extends Component {
     return (
       <Slider ref={c => this.slider = c } afterChange={ () => this.startTimeout() } beforeChange={ () => this.startTimeout() } {...settings} >
         <div>
-          <div className="front-page">
+          <div style={this.setFullPageStyle('/images/front-page/1.jpg')}>
           </div>
         </div>
         <div>
-          <div className="front-page2">
+          <div style={this.setFullPageStyle('/images/front-page/2.jpg')}>
           </div>
         </div>
       </Slider>

@@ -378,7 +378,7 @@ class UserAdmin extends Component {
                         {user.email}
                       </div>
                       <div className="col s12 m2 l2">
-                        <button className="btn booking-btn waves-effect waves-light green accent-4">
+                        <button className="btn booking-btn waves-effect waves-light teal lighten-2">
                           Manage
                         </button>
                       </div>
@@ -409,7 +409,7 @@ class UserAdmin extends Component {
                           <a className="btn disabled">Select Booking</a>
                         ) : (
                           (this.state.lesson_id[user._id].substring(0, 1) === "+") ? (
-                            <button className="btn waves-effect waves-light green accent-4" onClick={() => { this.bookLesson((user._id), ((this.state.lesson_id[user._id]).substring(1, (this.state.lesson_id[user._id]).length))) }}>
+                            <button className="btn waves-effect waves-light teal lighten-2" onClick={() => { this.bookLesson((user._id), ((this.state.lesson_id[user._id]).substring(1, (this.state.lesson_id[user._id]).length))) }}>
                               Sign into Class
                             </button>
                           ) : (
