@@ -162,7 +162,7 @@ class CreateLesson extends Component {
     return (
       <div>
         <Modal visible={this.state.modalVisible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
-          <div className="spacer center-align">
+          <div className="modal-container center-align">
             <p>{this.state.modalContent}</p>
             <button onClick={() => this.closeModal()} className="btn waves-effect waves-light grey darken-1">
               Okay

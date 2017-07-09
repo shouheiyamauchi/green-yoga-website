@@ -1,26 +1,25 @@
-@import url('https://fonts.googleapis.com/css?family=Vibur');
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway');
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
-
+@import url("https://fonts.googleapis.com/css?family=Vibur");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display|Raleway");
+@import url(~slick-carousel/slick/slick.css);
+@import url(~slick-carousel/slick/slick-theme.css);
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(/fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
-    url(/fonts/MaterialIcons-Regular.woff) format('woff'),
-    url(/fonts/MaterialIcons-Regular.ttf) format('truetype');
-}
+  src: url(/fonts/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url(/fonts/MaterialIcons-Regular.woff2) format("woff2"), url(/fonts/MaterialIcons-Regular.woff) format("woff"), url(/fonts/MaterialIcons-Regular.ttf) format("truetype"); }
+
+html, body {
+  overflow-x: hidden; }
 
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px;
+  /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -28,293 +27,247 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-
   /* Support for IE. */
-  font-feature-settings: 'liga';
-}
+  font-feature-settings: 'liga'; }
+
+.front-page {
+  height: calc(100vh - 64px);
+  width: 100%;
+  background-image: url("/images/front-page/1.jpg");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  z-index: -5; }
+
+.front-page2 {
+  height: calc(100vh - 64px);
+  width: 100%;
+  background-image: url("/images/front-page/2.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  z-index: -5; }
 
 .footer {
   background-color: #FBF8F5;
   width: 100%;
-  color: black;
-}
+  color: black; }
 
 .footer-separator {
   width: 25%;
   border-bottom: solid #9E9E9E 1px;
   margin-right: auto;
-  margin-left: auto;
-}
+  margin-left: auto; }
 
 .footer-icon {
-  font-size: 2em;
-}
+  font-size: 2em; }
 
 .profile {
   width: 230px;
-  border: solid #D1CFCC 1px;
-}
+  border: solid #D1CFCC 1px; }
 
 .quote {
-  font-style: italic;
-}
+  font-style: italic; }
 
 .dashboard-container {
   font-size: 0.8em;
-  padding-left: 10px;
-}
+  padding-left: 10px; }
 
 .title {
   font-size: 1.1em;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 .classestitle {
   background-color: grey;
   color: white;
   padding: 5px 15px 5px 15px;
-  border-bottom: solid 1px #D1CFCC;
-}
+  border-bottom: solid 1px #D1CFCC; }
 
 .classeseven {
   background-color: #FBF8F5;
   padding: 15px;
   padding-bottom: 0px;
-  border-bottom: solid 1px #D1CFCC;
-}
+  border-bottom: solid 1px #D1CFCC; }
 
 .classesodd {
   background-color: white;
   padding: 15px;
   padding-bottom: 0px;
-  border-bottom: solid 1px #D1CFCC;
-}
+  border-bottom: solid 1px #D1CFCC; }
 
 .userstitle {
   background-color: grey;
   color: white;
   padding: 15px 15px 0px 15px;
-  border-bottom: solid 1px #D1CFCC;
-}
+  border-bottom: solid 1px #D1CFCC; }
 
 .userseven {
   background-color: #FBF8F5;
   padding: 15px;
-  border-bottom: solid 1px #D1CFCC;
-}
+  border-bottom: solid 1px #D1CFCC; }
 
 .usersodd {
   background-color: white;
   padding: 15px;
-  border-bottom: solid 1px #D1CFCC;
-}
+  border-bottom: solid 1px #D1CFCC; }
 
 .booking-btn {
   line-height: 0px;
   height: 20px;
   padding: 10px;
-  font-size: 0.7rem;
-}
+  font-size: 0.7rem; }
 
 .message {
-  color: red;
-}
+  color: red; }
 
 .preview {
   width: 200px;
-  border: solid 1px grey;
-}
+  border: solid 1px grey; }
 
 a .material-icons {
   color: #8EDD9B;
-  transition: 0.5s;
-}
+  transition: 0.5s; }
 
 a:hover .material-icons {
   color: #53C85D;
   transition: 0.5s;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .card {
-  background-color: #FBF8F5;
-}
+  background-color: #FBF8F5; }
 
 .btn {
-  background-color: #8EDD9B;
-}
+  background-color: #8EDD9B; }
 
 .btn:hover {
-  background-color: #53C85D;
-}
+  background-color: #53C85D; }
 
 .btn-floating {
-  background-color: #53C85D;
-}
+  background-color: #53C85D; }
 
 .deep-orange.lighten-1:hover {
-    background-color: #D55D38 !important;
-}
+  background-color: #D55D38 !important; }
 
 .green.accent-4:hover {
-    background-color: #1AA946 !important;
-}
+  background-color: #1AA946 !important; }
 
 .grey.darken-1:hover {
-    background-color: #636363 !important;
-}
+  background-color: #636363 !important; }
 
 .link {
   color: #ff7043;
   text-align: center;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 .link:hover {
   color: #D55D38;
   text-align: center;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 body {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 html {
-  font-family: 'Raleway', sans-serif;
-}
+  font-family: 'Raleway', sans-serif; }
 
 h4 {
-
-  text-align: center;
-}
+  text-align: center; }
 
 h6 {
-  text-align: center;
-}
+  text-align: center; }
 
-.spacer {
-  padding: 30px;
-}
+.modal-container {
+  padding: 15px; }
 
 .error-message-main {
-  color: red;
-}
+  color: red; }
 
 .error-message-field {
   color: red;
   font-size: small;
-  margin-top: -15px;
-}
+  margin-top: -15px; }
 
 .error-message-dropdown {
   color: red;
   font-size: small;
-  margin-top: 5px;
-}
+  margin-top: 5px; }
 
 /*Custom styling of nav*/
 nav {
-  z-index: 100;
-}
+  z-index: 100; }
 
 nav ul li a {
   color: black;
   font-weight: 500;
-  font-size: small;
-}
+  font-size: small; }
 
 nav ul li a:hover {
   color: white;
   font-weight: 500;
   font-size: small;
-  background-color: #53C85D;
-}
+  background-color: #53C85D; }
 
 nav .brand-logo {
   font-family: 'Vibur', cursive;
   color: black;
-  font-size: 20px;
-}
+  font-size: 20px; }
 
 .button-collapse {
   color: black;
-  z-index: 200;
-}
+  z-index: 200; }
 
 nav div ul li:hover {
-  background-color: #53C85D;
-}
+  background-color: #53C85D; }
 
 /*Loading animation*/
 .spinner {
   margin: 100px auto 0;
   width: 70px;
-  text-align: center;
-}
+  text-align: center; }
 
 .spinner > div {
   width: 18px;
   height: 18px;
   background-color: #53C85D;
-
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both; }
 
 .spinner .bounce1 {
   -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
+  animation-delay: -0.32s; }
 
 .spinner .bounce2 {
   -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
+  animation-delay: -0.16s; }
 
 @-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
-}
+  0%, 80%, 100% {
+    -webkit-transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1); } }
 
 @keyframes sk-bouncedelay {
   0%, 80%, 100% {
     -webkit-transform: scale(0);
-    transform: scale(0);
-  } 40% {
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-  }
-}
-
-
-/*Parallax container styling*/
-.parallax-container {
-  height: 300px;
-  border-bottom: #C0C0C0 solid 1px;
-}
-
-.parallax-content {
-  height: 100%;
-  width: 100%;
-}
-
-.parallax-title {
-  font-family: 'Playfair Display', serif;
-  color: white;
-}
-
-.parallax-description {
-  color: #FF5C50;
-}
+    transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1); } }

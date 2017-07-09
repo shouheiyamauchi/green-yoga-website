@@ -16,6 +16,7 @@ import Auth from './modules/Auth';
 import PageChange from './PageChange.jsx'
 
 // import pages available to all visitors
+import LandingScreen from './public/containers/LandingScreen.jsx';
 import HomePage from './public/containers/HomePage.jsx';
 import LoginPage from './public/containers/LoginPage.jsx';
 import LogoutFunction from './public/containers/LogoutFunction.jsx';
@@ -191,6 +192,7 @@ class App extends Component {
         <Router>
           <PageChange setHeaderImage={this.setHeaderImage} toggleAuthenticateStatus={this.toggleAuthenticateStatus}>
             <div>
+
               <div className="navbar-fixed">
                 <nav>
                   <div className="nav-wrapper green white">
@@ -246,6 +248,13 @@ class App extends Component {
                   </span>
                 )}
               </ul>
+
+              {((window.location.pathname).substring(1,(window.location.pathname).length) === "") ? (
+                <LandingScreen />
+              ) : (
+                null
+              )}
+
 
               <div style={this.state.header}>
               </div>
