@@ -7,6 +7,9 @@ import Collapsible from 'react-collapsible';
 import moment from 'moment'
 import { Link } from 'react-router-dom';
 import Modal from 'react-awesome-modal';
+import ShowMore from 'react-show-more';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class Lessons extends Component {
   constructor(props, context) {
@@ -30,7 +33,8 @@ class Lessons extends Component {
       filteredLessons: null,
       attendances: null,
       modalVisible: false,
-      modalContent: ''
+      modalContent: '',
+      startDate: moment()
     };
 
     this.getLessonsList = this.getLessonsList.bind(this);
@@ -43,6 +47,13 @@ class Lessons extends Component {
     this.bookLesson = this.bookLesson.bind(this);
     this.unbookLesson = this.unbookLesson.bind(this);
     this.getAttendances = this.getAttendances.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
 
   componentDidMount() {
@@ -341,6 +352,10 @@ class Lessons extends Component {
               <div className="input-field col s12 m3 l3">
                 <input name="startDate" type="text" onChange={this.changeFilter} value={this.state.filters.startDate} />
                 <label className="active">Start Date</label>
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={this.handleChange}
+                />
               </div>
 
               <div className="input-field col s12 m3 l3">
@@ -425,8 +440,11 @@ class Lessons extends Component {
                               <img src={this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].image} alt="" className="circle responsive-img" />
                             </div>
                             <div className="col s9 m9 l9">
-                              {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}<br />
-                              {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}<br /><br />
+                              <span className="title">{this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}</span><br />
+                              <ShowMore lines={3} more="Show more" less="Show less" anchorClass="">
+                                {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}
+                              </ShowMore>
+                              <br /><br />
                             </div>
                             <div className="col s0 m1 l1">
                             </div>
@@ -436,8 +454,10 @@ class Lessons extends Component {
                               {/* Insert avatar of teacher here */}
                             </div>
                             <div className="col s9 m9 l9">
-                              Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}<br />
-                              {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
+                              <span className="title">Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}</span><br />
+                              <ShowMore lines={3} more="Show more" less="Show less" anchorClass="">
+                                {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
+                              </ShowMore>
                             </div>
                             <div className="col s0 m1 l1">
                             </div>

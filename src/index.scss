@@ -51,6 +51,10 @@ html, body {
   flex-direction: row;
   justify-content: center;
   width: 100%;
+
+  .pointer {
+    cursor: pointer;
+  }
 }
 
 // button color for gallery switch

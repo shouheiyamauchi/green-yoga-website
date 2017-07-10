@@ -15,16 +15,19 @@
     "react": "^15.5.4",
     "react-awesome-modal": "^2.0.1",
     "react-collapsible": "^1.4.0",
+    "react-datepicker": "^0.49.0",
     "react-dom": "^15.5.4",
     "react-image-lightbox": "^4.1.0",
     "react-router-dom": "^4.1.1",
+    "react-show-more": "^1.1.1",
     "react-slick": "^0.14.11",
     "react-tap-event-plugin": "^2.0.1",
-    "react-toolbox": "^2.0.0-beta.12",
+    "react-toolbox": "2.0.0-beta.6",
     "react-transition-group": "^2.0.2"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "react-toolbox-themr": "^1.0.2"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",

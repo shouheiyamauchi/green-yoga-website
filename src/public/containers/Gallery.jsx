@@ -58,7 +58,7 @@ class Gallery extends Component {
       <div>
         <div className="gallery-grid">
           {images.map((image, i) =>
-            <div key={i} className="hoverable" style={this.setThumbnail(images[i])} onClick={() => this.openImage(i)} />
+            <div key={i} className="hoverable pointer" style={this.setThumbnail(images[i])} onClick={() => this.openImage(i)} />
           )}
         </div>
 
