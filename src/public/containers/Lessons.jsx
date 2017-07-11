@@ -11,6 +11,8 @@ import ShowMore from 'react-show-more';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import DatePickerField from '../../public/components/DatePickerField.jsx';
+
 class Lessons extends Component {
   constructor(props, context) {
     super(props, context);
@@ -47,13 +49,7 @@ class Lessons extends Component {
     this.bookLesson = this.bookLesson.bind(this);
     this.unbookLesson = this.unbookLesson.bind(this);
     this.getAttendances = this.getAttendances.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
+    this.changeDate = this.changeDate.bind(this);
   }
 
   componentDidMount() {
@@ -213,6 +209,15 @@ class Lessons extends Component {
     });
   }
 
+  changeDate(date) {
+    const filters = this.state.filters;
+    filters["startDate"] = date;
+
+    this.setState({
+      filters
+    });
+  }
+
   // get attendances for current logged in user
   getAttendances() {
     if (Auth.isUserAuthenticated()) {
@@ -350,12 +355,17 @@ class Lessons extends Component {
           <div>
             <div className="row">
               <div className="input-field col s12 m3 l3">
-                <input name="startDate" type="text" onChange={this.changeFilter} value={this.state.filters.startDate} />
-                <label className="active">Start Date</label>
-                <DatePicker
-                  selected={this.state.startDate}
-                  onChange={this.handleChange}
-                />
+                <div className="date-picker">
+                  <DatePicker
+                    customInput={<DatePickerField label={"Start Date"} changeFilter={this.changeFilter} />}
+                    selected={moment(this.state.filters.startDate, "DD/MM/YYYY")}
+                    onChange={this.changeDate}
+                    dateFormat="DD/MM/YYYY"
+                    showYearDropdown
+                    dateFormatCalendar="MMMM"
+                    scrollableYearDropdown
+                  />
+                </div>
               </div>
 
               <div className="input-field col s12 m3 l3">

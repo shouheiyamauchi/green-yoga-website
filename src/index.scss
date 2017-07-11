@@ -146,6 +146,30 @@ button:focus {
   font-size: 0.7rem;
 }
 
+.date-picker {
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+
+  > div > div {
+    width: 100%;
+  }
+
+  label {
+    left: 0 !important;
+  }
+}
+
+.react-datepicker {
+  width: 227.5px;
+
+  .react-datepicker__month-container {
+    width: 225.5px;
+  }
+}
+
+
+
 .message {
   color: red;
 }
