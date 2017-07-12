@@ -8,9 +8,9 @@ class HomePage extends Component {
     return (
       <div>
         <div className="section"></div>
-        <h4>Welcome to Green Yoga</h4>
+        {/* <h4>Welcome to Green Yoga</h4>
         <h6 className="quote">“Speak the Satya, follow the Dharma, from Svadhyaya never cease.”</h6>
-        <h6 className="quote">-Taittiriya Upanishad, 1.11.1-2</h6>
+        <h6 className="quote">-Taittiriya Upanishad, 1.11.1-2</h6> */}
         <div className="section"></div>
         <div className="section"></div>
         <div className="floated"></div>

@@ -16,7 +16,7 @@ class DatePickerField extends Component {
   render() {
     return (
       <div>
-        <input name="startDate" type="text" onClick={this.props.onClick} value={this.props.value} onChange={this._onChange} />
+        <input name="startDate" type="text" onClick={this.props.onClick} value={this.props.value} onChange={this._onChange} readOnly />
         <label className="date-picker-label active">{this.props.label}</label>
       </div>
     )

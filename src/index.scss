@@ -1,6 +1,7 @@
+$mobile: "(max-width: 500px)";
+
 @import url('https://fonts.googleapis.com/css?family=Vibur');
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
@@ -44,6 +45,38 @@ html, body {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.landing-1 {
+  padding-top: 60px;
+  padding-right: 10%;
+  text-align: right;
+  display: inline-block;
+  float: right;
+  @media #{$mobile}{
+    padding-right: 0%;
+    text-align: center;
+    width: 100%;
+  }
+
+  .title {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+    font-size: 2.4em;
+    color: #C0C0C0;
+    @media #{$mobile}{
+      font-size: 1.8em;
+    }
+  }
+
+  .subtitle {
+    font-size: 0.85em;
+    font-style: italic;
+  }
+}
+
+
 
 .gallery-grid {
   display: flex;
@@ -240,7 +273,6 @@ html {
 }
 
 h4 {
-
   text-align: center;
 }
 

@@ -32,7 +32,7 @@ class LandingScreen extends Component {
       MozBackgroundSize: "cover",
       OBackgroundSize: "cover",
       backgroundSize: "cover",
-      position: "relative"
+      position: "relative",
     }
     return fullPageStyle
   }
@@ -45,7 +45,7 @@ class LandingScreen extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
-      autoplay: true,
+      autoplay: false,
       autplaySpeed: 2000,
       pauseOnHover: false
     };
@@ -53,11 +53,22 @@ class LandingScreen extends Component {
     return (
       <Slider ref={c => this.slider = c } afterChange={ () => this.startTimeout() } beforeChange={ () => this.startTimeout() } {...settings} >
         <div>
-          <div style={this.setFullPageStyle('/images/front-page/1.jpg')}>
+          <div style={this.setFullPageStyle('/images/landing/1.jpg')}>
+            <div className="landing-1">
+              <div className="title">Welcome to Green Yoga<br /></div>
+              <div className="subtitle">
+                “Speak the Satya, follow the Dharma, from Svadhyaya never cease.”<br />
+                -Taittiriya Upanishad, 1.11.1-2
+              </div>
+            </div>
           </div>
         </div>
         <div>
-          <div style={this.setFullPageStyle('/images/front-page/2.jpg')}>
+          <div style={this.setFullPageStyle('/images/landing/2.jpg')}>
+          </div>
+        </div>
+        <div>
+          <div style={this.setFullPageStyle('/images/landing/3.jpg')}>
           </div>
         </div>
       </Slider>

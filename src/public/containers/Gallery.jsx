@@ -46,12 +46,12 @@ class Gallery extends Component {
     const images = [
       // ['/images/front-page/thumb-1.jpg', '/images/front-page/1.jpg'],
       // ['/images/front-page/thumb-2.jpg', '/images/front-page/2.jpg'],
-      ['/images/front-page/thumb-3.jpg', '/images/front-page/3.jpg'],
-      ['/images/front-page/thumb-4.jpg', '/images/front-page/4.jpg'],
-      ['/images/front-page/thumb-5.jpg', '/images/front-page/5.jpg'],
-      ['/images/front-page/thumb-6.jpg', '/images/front-page/6.jpg'],
-      ['/images/front-page/thumb-7.jpg', '/images/front-page/7.jpg'],
-      ['/images/front-page/thumb-8.jpg', '/images/front-page/8.jpg']
+      ['/images/gallery/thumb-3.jpg', '/images/gallery/3.jpg'],
+      ['/images/gallery/thumb-4.jpg', '/images/gallery/4.jpg'],
+      ['/images/gallery/thumb-5.jpg', '/images/gallery/5.jpg'],
+      ['/images/gallery/thumb-6.jpg', '/images/gallery/6.jpg'],
+      ['/images/gallery/thumb-7.jpg', '/images/gallery/7.jpg'],
+      ['/images/gallery/thumb-8.jpg', '/images/gallery/8.jpg']
     ];
 
     return (

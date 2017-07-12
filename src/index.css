@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Vibur");
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display|Raleway");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 @import url(~slick-carousel/slick/slick.css);
 @import url(~slick-carousel/slick/slick-theme.css);
 @font-face {
@@ -35,6 +34,31 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga'; }
+
+.landing-1 {
+  padding-top: 60px;
+  padding-right: 10%;
+  text-align: right;
+  display: inline-block;
+  float: right; }
+  @media (max-width: 500px) {
+    .landing-1 {
+      padding-right: 0%;
+      text-align: center;
+      width: 100%; } }
+  .landing-1 .title {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+    font-size: 2.4em;
+    color: #C0C0C0; }
+    @media (max-width: 500px) {
+      .landing-1 .title {
+        font-size: 1.8em; } }
+  .landing-1 .subtitle {
+    font-size: 0.85em;
+    font-style: italic; }
 
 .gallery-grid {
   display: flex;
