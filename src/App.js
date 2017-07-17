@@ -200,6 +200,7 @@ class App extends Component {
                     <Link className="brand-logo" to="/">&nbsp;&nbsp;Green Yoga</Link>
                     <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                     <ul className="right hide-on-med-and-down">
+                      <li><Link to="/">HOME</Link></li>
                       <li><Link to="/lessons">SCHEDULE</Link></li>
                       <li><Link to="/types">CLASS TYPES</Link></li>
                       <li><Link to="/locations">LOCATIONS</Link></li>
@@ -228,6 +229,7 @@ class App extends Component {
                 </nav>
               </div>
               <ul className="side-nav" id="mobile-demo">
+                <li><Link to="/">HOME</Link></li>
                 <li><Link to="/lessons">SCHEDULE</Link></li>
                 <li><Link to="/types">CLASS TYPES</Link></li>
                 <li><Link to="/locations">LOCATIONS</Link></li>

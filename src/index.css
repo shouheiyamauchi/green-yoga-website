@@ -59,6 +59,10 @@ h4 {
   /* Support for IE. */
   font-feature-settings: 'liga'; }
 
+@media (max-width: 500px) {
+  .mobile-full-page-style {
+    height: calc(100vh - 56px) !important; } }
+
 .landing {
   position: absolute;
   top: 10%;

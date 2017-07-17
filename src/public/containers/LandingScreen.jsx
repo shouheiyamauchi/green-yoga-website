@@ -45,7 +45,7 @@ class LandingScreen extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
-      autoplay: true,
+      autoplay: false,
       autplaySpeed: 2000,
       pauseOnHover: false,
       draggable: false
@@ -54,7 +54,7 @@ class LandingScreen extends Component {
     return (
       <Slider ref={c => this.slider = c } afterChange={ () => this.startTimeout() } beforeChange={ () => this.startTimeout() } {...settings} >
         <div>
-          <div style={this.setFullPageStyle('/images/landing/1.jpg')}>
+          <div style={this.setFullPageStyle('/images/landing/1.jpg')} className="mobile-full-page-style">
             <div className="landing">
               <div className="title">Welcome to Green Yoga<br /></div>
               <div className="subtitle">
