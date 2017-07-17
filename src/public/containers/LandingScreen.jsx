@@ -47,14 +47,15 @@ class LandingScreen extends Component {
       fade: true,
       autoplay: false,
       autplaySpeed: 2000,
-      pauseOnHover: false
+      pauseOnHover: false,
+      draggable: false
     };
 
     return (
       <Slider ref={c => this.slider = c } afterChange={ () => this.startTimeout() } beforeChange={ () => this.startTimeout() } {...settings} >
-        <div>
+        {/* <div>
           <div style={this.setFullPageStyle('/images/landing/1.jpg')}>
-            <div className="landing-1">
+            <div className="landing-2">
               <div className="title">Welcome to Green Yoga<br /></div>
               <div className="subtitle">
                 “Speak the Satya, follow the Dharma, from Svadhyaya never cease.”<br />
@@ -62,13 +63,26 @@ class LandingScreen extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div>
           <div style={this.setFullPageStyle('/images/landing/2.jpg')}>
+            <div className="landing-2">
+              <div className="title">Welcome to Green Yoga<br /></div>
+              <div className="subtitle">
+                “Loka Samasta Sukhino Bhavantu.”
+              </div>
+            </div>
           </div>
         </div>
         <div>
           <div style={this.setFullPageStyle('/images/landing/3.jpg')}>
+          <div className="landing-2">
+            <div className="title">Welcome to Green Yoga<br /></div>
+            <div className="subtitle">
+              “Yoga is the stilling of the fluctuations of the mind.”<br />
+              -Yoga Sutra 1.2
+            </div>
+          </div>
           </div>
         </div>
       </Slider>

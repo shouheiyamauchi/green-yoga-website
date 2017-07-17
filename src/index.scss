@@ -22,6 +22,31 @@ html, body {
   overflow-x:hidden;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
+
+html {
+  // font-family: 'Raleway', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+a {
+  color: #C0C0C0;
+}
+
+h4 {
+  font-family: 'Josefin Slab', serif;
+}
+
+.card-title {
+  font-family: 'Josefin Slab', serif;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -47,33 +72,49 @@ html, body {
   font-feature-settings: 'liga';
 }
 
-.landing-1 {
-  padding-top: 60px;
-  padding-right: 10%;
+// @import url('https://fonts.googleapis.com/css?family=Courgette');
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+@import url('https://fonts.googleapis.com/css?family=Kalam:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Kristi');
+@import url('https://fonts.googleapis.com/css?family=Kalam:300');
+// @import url('https://fonts.googleapis.com/css?family=Satisfy');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+.landing-2 {
+  position: absolute;
+  top: 10%;
+  right: 5%;
   text-align: right;
-  display: inline-block;
-  float: right;
+  // color: #47B7AD;
   @media #{$mobile}{
-    padding-right: 0%;
+    right: 0;
     text-align: center;
     width: 100%;
   }
 
   .title {
-    font-family: 'Source Sans Pro';
+    // font-family: 'Sacramento', cursive;
+    // font-family: 'Satisfy', cursive;
+    font-family: 'Amatic SC', serif;
+
     font-weight: 400;
     width: 100%;
-    text-align: center;
-    font-size: 2.4em;
-    color: #C0C0C0;
+    font-size: 3.5em;
+    color: white;
     @media #{$mobile}{
-      font-size: 1.8em;
+      font-size: 2.5em;
     }
   }
 
   .subtitle {
+    // font-family: 'Courgette', cursive;
+    // font-family: 'Kalam', cursive;
+    font-weight: 300;
     font-size: 0.85em;
     font-style: italic;
+    @media #{$mobile}{
+      font-size: 0.7em;
+    }
   }
 }
 
@@ -131,6 +172,13 @@ button:focus {
 .title {
   font-size: 1.1em;
   font-weight: bold;
+}
+
+.vertical-aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // fix height issue
 }
 
 .classestitle {
@@ -202,8 +250,6 @@ button:focus {
   }
 }
 
-
-
 .message {
   color: red;
 }
@@ -264,15 +310,6 @@ a:hover .material-icons {
   font-weight: bold;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: 'Raleway', sans-serif;
-}
-
 h4 {
   text-align: center;
 }
@@ -320,7 +357,8 @@ nav ul li a:hover {
 }
 
 nav .brand-logo {
-  font-family: 'Vibur', cursive;
+  // font-family: 'Vibur', cursive;
+  font-family: 'Amatic SC', serif;
   color: black;
   font-size: 20px;
 }

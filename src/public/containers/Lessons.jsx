@@ -446,30 +446,23 @@ class Lessons extends Component {
                           </div>
                           }>
                           <div className="row">
-                            <div className="col s3 m2 l2">
-                              <img src={this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].image} alt="" className="circle responsive-img" />
+                            <div className="col s4 m3 l3">
+                              <div className="vertical-aligner">
+                                <img src={this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].image} alt="" className="circle responsive-img" />
+                                {/* Insert avatar of teacher here */}
+                                {/* fix height issue */}
+                              </div>
                             </div>
-                            <div className="col s9 m9 l9">
+                            <div className="col s8 m9 l9">
                               <span className="title">{this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].name}</span><br />
                               <ShowMore lines={3} more="Show more" less="Show less" anchorClass="">
                                 {this.state.types[(this.state.types.findIndex(type => type._id===lesson.type_id))].description}
                               </ShowMore>
-                              <br /><br />
-                            </div>
-                            <div className="col s0 m1 l1">
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col s3 m2 l2">
-                              {/* Insert avatar of teacher here */}
-                            </div>
-                            <div className="col s9 m9 l9">
+                              <br />
                               <span className="title">Meet {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].firstName}</span><br />
                               <ShowMore lines={3} more="Show more" less="Show less" anchorClass="">
                                 {this.state.teachers[(this.state.teachers.findIndex(teacher => teacher._id===lesson.user_id))].description}
                               </ShowMore>
-                            </div>
-                            <div className="col s0 m1 l1">
                             </div>
                           </div>
                           <div className="row">

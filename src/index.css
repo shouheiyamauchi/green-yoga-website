@@ -3,6 +3,13 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 @import url(~slick-carousel/slick/slick.css);
 @import url(~slick-carousel/slick/slick-theme.css);
+@import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab");
+@import url("https://fonts.googleapis.com/css?family=Sacramento");
+@import url("https://fonts.googleapis.com/css?family=Kalam:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Kristi");
+@import url("https://fonts.googleapis.com/css?family=Kalam:300");
+@import url("https://fonts.googleapis.com/css?family=Amatic+SC");
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -13,6 +20,22 @@
 
 html, body {
   overflow-x: hidden; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
+html {
+  font-family: 'Open Sans Condensed', sans-serif; }
+
+a {
+  color: #C0C0C0; }
+
+h4 {
+  font-family: 'Josefin Slab', serif; }
+
+.card-title {
+  font-family: 'Josefin Slab', serif; }
 
 .material-icons {
   font-family: 'Material Icons';
@@ -36,30 +59,32 @@ html, body {
   /* Support for IE. */
   font-feature-settings: 'liga'; }
 
-.landing-1 {
-  padding-top: 60px;
-  padding-right: 10%;
-  text-align: right;
-  display: inline-block;
-  float: right; }
+.landing-2 {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  text-align: right; }
   @media (max-width: 500px) {
-    .landing-1 {
-      padding-right: 0%;
+    .landing-2 {
+      right: 0;
       text-align: center;
       width: 100%; } }
-  .landing-1 .title {
-    font-family: 'Source Sans Pro';
+  .landing-2 .title {
+    font-family: 'Amatic SC', serif;
     font-weight: 400;
     width: 100%;
-    text-align: center;
-    font-size: 2.4em;
-    color: #C0C0C0; }
+    font-size: 3.5em;
+    color: white; }
     @media (max-width: 500px) {
-      .landing-1 .title {
-        font-size: 1.8em; } }
-  .landing-1 .subtitle {
+      .landing-2 .title {
+        font-size: 2.5em; } }
+  .landing-2 .subtitle {
+    font-weight: 300;
     font-size: 0.85em;
     font-style: italic; }
+    @media (max-width: 500px) {
+      .landing-2 .subtitle {
+        font-size: 0.7em; } }
 
 .gallery-grid {
   display: flex;
@@ -102,6 +127,11 @@ button:focus {
 .title {
   font-size: 1.1em;
   font-weight: bold; }
+
+.vertical-aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 .classestitle {
   background-color: grey;
@@ -195,13 +225,6 @@ a:hover .material-icons {
   text-align: center;
   font-weight: bold; }
 
-body {
-  margin: 0;
-  padding: 0; }
-
-html {
-  font-family: 'Raleway', sans-serif; }
-
 h4 {
   text-align: center; }
 
@@ -240,7 +263,7 @@ nav ul li a:hover {
   background-color: #47B7AD; }
 
 nav .brand-logo {
-  font-family: 'Vibur', cursive;
+  font-family: 'Amatic SC', serif;
   color: black;
   font-size: 20px; }
 
