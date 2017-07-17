@@ -59,31 +59,31 @@ h4 {
   /* Support for IE. */
   font-feature-settings: 'liga'; }
 
-.landing-2 {
+.landing {
   position: absolute;
   top: 10%;
   right: 5%;
   text-align: right; }
   @media (max-width: 500px) {
-    .landing-2 {
+    .landing {
       right: 0;
       text-align: center;
       width: 100%; } }
-  .landing-2 .title {
+  .landing .title {
     font-family: 'Amatic SC', serif;
     font-weight: 400;
     width: 100%;
     font-size: 3.5em;
     color: white; }
     @media (max-width: 500px) {
-      .landing-2 .title {
+      .landing .title {
         font-size: 2.5em; } }
-  .landing-2 .subtitle {
+  .landing .subtitle {
     font-weight: 300;
     font-size: 0.85em;
     font-style: italic; }
     @media (max-width: 500px) {
-      .landing-2 .subtitle {
+      .landing .subtitle {
         font-size: 0.7em; } }
 
 .gallery-grid {

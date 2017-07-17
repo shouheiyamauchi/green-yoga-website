@@ -24,6 +24,7 @@ import SignupPage from './public/containers/SignupPage.jsx';
 import Lessons from './public/containers/Lessons.jsx';
 import Locations from './public/containers/Locations.jsx';
 import Types from './public/containers/Types.jsx';
+import GalleryPage from './public/containers/GalleryPage.jsx';
 
 // import pages available only for signed in users
 import Dashboard from './user/containers/Dashboard.jsx';
@@ -196,12 +197,13 @@ class App extends Component {
               <div className="navbar-fixed">
                 <nav>
                   <div className="nav-wrapper green white">
-                    <Link className="brand-logo" to="/">&nbsp;&nbsp;&nbsp;Green Yoga</Link>
+                    <Link className="brand-logo" to="/">&nbsp;&nbsp;Green Yoga</Link>
                     <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                     <ul className="right hide-on-med-and-down">
                       <li><Link to="/lessons">SCHEDULE</Link></li>
                       <li><Link to="/types">CLASS TYPES</Link></li>
                       <li><Link to="/locations">LOCATIONS</Link></li>
+                      <li><Link to="/gallery">GALLERY</Link></li>
                       {this.state.authenticated ? (
                         <span>
                           <li><Link to="/dashboard">DASHBOARD</Link></li>
@@ -229,6 +231,7 @@ class App extends Component {
                 <li><Link to="/lessons">SCHEDULE</Link></li>
                 <li><Link to="/types">CLASS TYPES</Link></li>
                 <li><Link to="/locations">LOCATIONS</Link></li>
+                <li><Link to="/gallery">GALLERY</Link></li>
                 {this.state.authenticated ? (
                   <span>
                     <li><Link to="/dashboard">DASHBOARD</Link></li>
@@ -265,6 +268,7 @@ class App extends Component {
                 <PropsRoute path="/lessons" component={Lessons} />
                 <PropsRoute path="/locations" component={Locations} />
                 <PropsRoute path="/types" component={Types} />
+                <PropsRoute path="/gallery" component={GalleryPage} />
 
                 {/* Logged out users routes */}
                 <LoggedOutRoute path="/login" component={LoginPage} />

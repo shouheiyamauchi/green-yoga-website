@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-import Auth from '../../modules/Auth';
 import ContactForm from './ContactForm.jsx';
 import Gallery from './Gallery.jsx';
+
+const images = [
+  // ['/images/front-page/thumb-1.jpg', '/images/front-page/1.jpg'],
+  // ['/images/front-page/thumb-2.jpg', '/images/front-page/2.jpg'],
+  ['/images/gallery/thumb-3.jpg', '/images/gallery/3.jpg'],
+  ['/images/gallery/thumb-4.jpg', '/images/gallery/4.jpg'],
+  ['/images/gallery/thumb-5.jpg', '/images/gallery/5.jpg'],
+  ['/images/gallery/thumb-6.jpg', '/images/gallery/6.jpg'],
+  ['/images/gallery/thumb-7.jpg', '/images/gallery/7.jpg'],
+  ['/images/gallery/thumb-8.jpg', '/images/gallery/8.jpg']
+];
 
 class HomePage extends Component {
   render() {
@@ -15,7 +25,7 @@ class HomePage extends Component {
         <div className="section"></div>
         <div className="floated"></div>
         <div className="center-align">
-          <img className="profile circle" src="/images/profile.jpg" />
+          <img className="profile circle" src="/images/profile.jpg" alt="" />
         </div>
         <br />
         Green moved to Sydney in 2013 to settle down with her partner. She was struggling to adjust to her new environment and went through a period of depression. During this time she was neglecting her health, became overweight, and was having issues with her relationships. She decided that she needs to make a change and was searching for something she can enjoy. This is when she remembered that at one point she really enjoyed practicing yoga.<br /><br />
@@ -25,10 +35,10 @@ class HomePage extends Component {
         Green completed the 200 hours teacher training course in February 2017 and has since completed additional teacher training courses which were the “Art of Alignment and Assists” and “Practical Teaching Skills” with Bodymindlife.
         <div className="section"></div>
         <div className="section"></div>
-        <Gallery />
+        <Gallery images={images} />
         <div className="section"></div>
         <div className="section"></div>
-        <ContactForm />
+        <ContactForm/>
       </div>
     )
   }

@@ -80,7 +80,7 @@ h4 {
 // @import url('https://fonts.googleapis.com/css?family=Satisfy');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
-.landing-2 {
+.landing {
   position: absolute;
   top: 10%;
   right: 5%;
@@ -361,6 +361,10 @@ nav .brand-logo {
   font-family: 'Amatic SC', serif;
   color: black;
   font-size: 20px;
+  // img {
+  //   height: 15px;
+  //   margin-left: 5px;
+  // }
 }
 
 .button-collapse {
