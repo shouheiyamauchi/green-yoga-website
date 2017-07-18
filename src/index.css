@@ -4,7 +4,7 @@
 @import url(~slick-carousel/slick/slick.css);
 @import url(~slick-carousel/slick/slick-theme.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300");
-@import url("https://fonts.googleapis.com/css?family=Josefin+Slab");
+@import url("https://fonts.googleapis.com/css?family=Fresca");
 @import url("https://fonts.googleapis.com/css?family=Sacramento");
 @import url("https://fonts.googleapis.com/css?family=Kalam:300,400,700");
 @import url("https://fonts.googleapis.com/css?family=Kristi");
@@ -32,10 +32,10 @@ a {
   color: #C0C0C0; }
 
 h4 {
-  font-family: 'Josefin Slab', serif; }
+  font-family: 'Fresca', serif; }
 
 .card-title {
-  font-family: 'Josefin Slab', serif; }
+  font-family: 'Fresca', serif; }
 
 .material-icons {
   font-family: 'Material Icons';

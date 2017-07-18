@@ -45,7 +45,7 @@ class LandingScreen extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
-      autoplay: false,
+      autoplay: true,
       autplaySpeed: 2000,
       pauseOnHover: false,
       draggable: false
@@ -65,7 +65,7 @@ class LandingScreen extends Component {
           </div>
         </div>
         <div>
-          <div style={this.setFullPageStyle('/images/landing/2.jpg')}>
+          <div style={this.setFullPageStyle('/images/landing/2.jpg')} className="mobile-full-page-style">
             <div className="landing">
               <div className="title">Welcome to Green Yoga<br /></div>
               <div className="subtitle">
@@ -75,7 +75,7 @@ class LandingScreen extends Component {
           </div>
         </div>
         <div>
-          <div style={this.setFullPageStyle('/images/landing/3.jpg')}>
+          <div style={this.setFullPageStyle('/images/landing/3.jpg')} className="mobile-full-page-style">
           <div className="landing">
             <div className="title">Welcome to Green Yoga<br /></div>
             <div className="subtitle">
