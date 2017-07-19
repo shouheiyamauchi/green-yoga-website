@@ -29,20 +29,20 @@ Notes were taken from each of the interaction I had with the client:
 ------
 ### Application Design
 
-##### User Stories
+#### User Stories
 Trello for planning out the functionalities, different user types, etc
 ![alt Planning](/public/README/trello.png?raw=true)
 
-##### Entity Relationship Diagram
+#### Entity Relationship Diagram
 Draw.io for the Entity Relationship Diagram
 ![alt Entity Relationship Diagram](/public/README/erd.jpg?raw=true)
 
-##### Inspirations
+#### Inspirations
 Body Mind Life and Yoga Works were provided some good examples on how to design a booking website for a yoga business
 ![alt Body Mind Life](/public/README/bodymindlife.png?raw=true)
 ![alt Yoga Works](/public/README/yogaworks.png?raw=true)
 
-##### Rough Notes
+#### Rough Notes
 I made sure to jot down any issues/ideas that I run into as I progressed with the project
 ![alt Rough Notes](/public/README/notes.png?raw=true)
 ------
