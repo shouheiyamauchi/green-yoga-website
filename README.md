@@ -42,7 +42,7 @@ Body Mind Life and Yoga Works were provided some good examples on how to design 
 ![alt Body Mind Life](/public/README/bodymindlife.png?raw=true)
 ![alt Yoga Works](/public/README/yogaworks.png?raw=true)
 
-#### Rough Notes
+#### Rough Notes  
 I made sure to jot down any issues/ideas that I run into as I progressed with the project
 ![alt Rough Notes](/public/README/notes.png?raw=true)
 ------
