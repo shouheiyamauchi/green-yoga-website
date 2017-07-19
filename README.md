@@ -1,10 +1,9 @@
 # Green Yoga (https://www.greenyoga.com.au)
-  - A front-end React JS application for Green Park's yoga business.
-  - The repository for the back-end (built on Node.js / Express.js) can be found at: https://github.com/shouheiyamauchi/green-yoga-server
+- A front-end React JS application for Green Park's yoga business.
+- The repository for the back-end (built on Node.js / Express.js) can be found at: https://github.com/shouheiyamauchi/green-yoga-server
 ------
 ### Project Brief
-
-You are to design, build, deploy and present an application built for a real world customer. Meet with the business owner or organisation manager to find out what challenges they face. Find a problem that you can solve with an application and present your ideas to the client.
+- You are to design, build, deploy and present an application built for a real world customer. Meet with the business owner or organisation manager to find out what challenges they face. Find a problem that you can solve with an application and present your ideas to the client.
 ------
 ### Background
 - As a recently certified yoga instructor, the client, Green Park required a website to promote herself
