@@ -42,14 +42,22 @@ Body Mind Life and Yoga Works were provided some good examples on how to design 
 ![alt Body Mind Life](/public/README/bodymindlife.png?raw=true)
 ![alt Yoga Works](/public/README/yogaworks.png?raw=true)
 
-#### Rough Notes  
+#### Rough Notes
+
 I made sure to jot down any issues/ideas that I run into as I progressed with the project
+
 ![alt Rough Notes](/public/README/notes.png?raw=true)
 ------
 ### Screenshots
+Landing page
 ![alt Landing Page](/public/README/landingpage.png?raw=true)
+Login page
 ![alt Login Page](/public/README/login.png?raw=true)
+Classes schedule where students can book classes
 ![alt Classes Schedule](/public/README/schedule.png?raw=true)
+Classes administration page where teachers/administrators can add classes
 ![alt Add Class](/public/README/addclass.png?raw=true)
+Dashboard where important information such as booked classes are summarised
 ![alt Dashboard](/public/README/dashboard.png?raw=true)
+Gallery section
 ![alt Gallery](/public/README/gallery.png?raw=true)
