@@ -28,14 +28,28 @@ Notes were taken from each of the interaction I had with the client:
 - A way for her students to book themselves into a class and a dashboard showing their upcoming classes
 ------
 ### Application Design
-- Used Trello for planning out, draw.io for the ERD, went through wireframing with client
-- Used Express.js for back-end with the API end points, React.js for front-end doing the API calls
 
 ##### User Stories
-![alt User Stories](/public/README/trello.png "Trello")
+Trello for planning out the functionalities, different user types, etc
+![alt Planning](/public/README/trello.png?raw=true)
 
 ##### Entity Relationship Diagram
-![alt Entity Relationship Diagram](/public/README/erd.jpg "ERD")
+Draw.io for the Entity Relationship Diagram
+![alt Entity Relationship Diagram](/public/README/erd.jpg?raw=true)
+
+##### Inspirations
+Body Mind Life and Yoga Works were provided some good examples on how to design a booking website for a yoga business
+![alt Body Mind Life](/public/README/bodymindlife.png?raw=true)
+![alt Yoga Works](/public/README/yogaworks.png?raw=true)
 
 ##### Rough Notes
-![alt Rough Notes](/public/README/notes.png "Rough Notes")
+I made sure to jot down any issues/ideas that I run into as I progressed with the project
+![alt Rough Notes](/public/README/notes.png?raw=true)
+------
+### Screenshots
+![alt Landing Page](/public/README/landingpage.png?raw=true)
+![alt Login Page](/public/README/login.png?raw=true)
+![alt Classes Schedule](/public/README/schedule.png?raw=true)
+![alt Add Class](/public/README/addclass.png?raw=true)
+![alt Dashboard](/public/README/dashboard.png?raw=true)
+![alt Gallery](/public/README/gallery.png?raw=true)
