@@ -201,9 +201,9 @@ class App extends Component {
                     <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                     <ul className="right hide-on-med-and-down">
                       <li><Link to="/">HOME</Link></li>
-                      <li><Link to="/lessons">SCHEDULE</Link></li>
+                      {/* <li><Link to="/lessons">SCHEDULE</Link></li> */}
                       <li><Link to="/types">CLASS TYPES</Link></li>
-                      <li><Link to="/locations">LOCATIONS</Link></li>
+                      {/* <li><Link to="/locations">LOCATIONS</Link></li> */}
                       <li><Link to="/gallery">GALLERY</Link></li>
                       {this.state.authenticated ? (
                         <span>
@@ -230,9 +230,9 @@ class App extends Component {
               </div>
               <ul className="side-nav" id="mobile-demo">
                 <li><Link to="/">HOME</Link></li>
-                <li><Link to="/lessons">SCHEDULE</Link></li>
+                {/* <li><Link to="/lessons">SCHEDULE</Link></li> */}
                 <li><Link to="/types">CLASS TYPES</Link></li>
-                <li><Link to="/locations">LOCATIONS</Link></li>
+                {/* <li><Link to="/locations">LOCATIONS</Link></li> */}
                 <li><Link to="/gallery">GALLERY</Link></li>
                 {this.state.authenticated ? (
                   <span>
