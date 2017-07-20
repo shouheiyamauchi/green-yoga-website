@@ -88,6 +88,8 @@ class ContactForm extends Component {
   render() {
     return (
       <div className="container">
+        <div className="section"></div>
+        <div className="section"></div>
         <div className="card">
           <div className="section"></div>
           <p className="message center-align">{this.state.message}</p>

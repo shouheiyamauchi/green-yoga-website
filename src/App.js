@@ -7,13 +7,13 @@ import {
   Route,
   Link,
   Redirect
-} from 'react-router-dom'
-import Slider from 'react-slick'
+} from 'react-router-dom';
+import Slider from 'react-slick';
 
 // import authentication storage functions
 import Auth from './modules/Auth';
 
-import PageChange from './PageChange.jsx'
+import PageChange from './PageChange.jsx';
 
 // import pages available to all visitors
 import LandingScreen from './public/containers/LandingScreen.jsx';
@@ -25,6 +25,7 @@ import Lessons from './public/containers/Lessons.jsx';
 import Locations from './public/containers/Locations.jsx';
 import Types from './public/containers/Types.jsx';
 import GalleryPage from './public/containers/GalleryPage.jsx';
+import ContactForm from './public/containers/ContactForm.jsx';
 
 // import pages available only for signed in users
 import Dashboard from './user/containers/Dashboard.jsx';
@@ -205,6 +206,7 @@ class App extends Component {
                       <li><Link to="/types">CLASS TYPES</Link></li>
                       {/* <li><Link to="/locations">LOCATIONS</Link></li> */}
                       <li><Link to="/gallery">GALLERY</Link></li>
+                      <li><Link to="/contact">CONTACT ME</Link></li>
                       {this.state.authenticated ? (
                         <span>
                           <li><Link to="/dashboard">DASHBOARD</Link></li>
@@ -234,6 +236,7 @@ class App extends Component {
                 <li><Link to="/types">CLASS TYPES</Link></li>
                 {/* <li><Link to="/locations">LOCATIONS</Link></li> */}
                 <li><Link to="/gallery">GALLERY</Link></li>
+                <li><Link to="/contact">CONTACT ME</Link></li>
                 {this.state.authenticated ? (
                   <span>
                     <li><Link to="/dashboard">DASHBOARD</Link></li>
@@ -271,6 +274,7 @@ class App extends Component {
                 <PropsRoute path="/locations" component={Locations} />
                 <PropsRoute path="/types" component={Types} />
                 <PropsRoute path="/gallery" component={GalleryPage} />
+                <PropsRoute path="/contact" component={ContactForm} />
 
                 {/* Logged out users routes */}
                 <LoggedOutRoute path="/login" component={LoginPage} />

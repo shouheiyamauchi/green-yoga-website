@@ -38,8 +38,6 @@ class HomePage extends Component {
         <div className="section"></div>
         <div className="section"></div>
         <Gallery images={images} />
-        <div className="section"></div>
-        <div className="section"></div>
         <ContactForm/>
       </div>
     )
