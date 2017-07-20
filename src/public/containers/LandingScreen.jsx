@@ -8,6 +8,10 @@ class LandingScreen extends Component {
     this.setFullPageStyle = this.setFullPageStyle.bind(this);
   };
 
+  componentDidMount() {
+    this.startTimeout();
+  }
+
   startTimeout() {
     // If autoplay is working we reset timeout and it will never end up inside.
     clearTimeout(this.timer);
@@ -17,7 +21,7 @@ class LandingScreen extends Component {
         // This will start play again, important here is to have a timeout that exceeds your "autoplaySpeed".
         this.slider.innerSlider.play();
       }
-    }, 2500);
+    }, 1750);
   }
 
   setFullPageStyle(image) {
@@ -41,12 +45,12 @@ class LandingScreen extends Component {
     var settings = {
       dots: false,
       infinite: true,
-      speed: 1500,
+      speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
       autoplay: true,
-      autplaySpeed: 2000,
+      autoplaySpeed: 1750,
       pauseOnHover: false,
       draggable: false
     };

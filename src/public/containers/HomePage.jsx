@@ -3,14 +3,12 @@ import ContactForm from './ContactForm.jsx';
 import Gallery from './Gallery.jsx';
 
 const images = [
-  // ['/images/front-page/thumb-1.jpg', '/images/front-page/1.jpg'],
-  // ['/images/front-page/thumb-2.jpg', '/images/front-page/2.jpg'],
   ['/images/gallery/thumb-3.jpg', '/images/gallery/3.jpg'],
-  ['/images/gallery/thumb-4.jpg', '/images/gallery/4.jpg'],
   ['/images/gallery/thumb-5.jpg', '/images/gallery/5.jpg'],
-  ['/images/gallery/thumb-6.jpg', '/images/gallery/6.jpg'],
-  ['/images/gallery/thumb-7.jpg', '/images/gallery/7.jpg'],
-  ['/images/gallery/thumb-8.jpg', '/images/gallery/8.jpg']
+  ['/images/gallery/thumb-27.jpg', '/images/gallery/27.jpg'],
+  ['/images/gallery/thumb-21.jpg', '/images/gallery/21.jpg'],
+  ['/images/gallery/thumb-11.jpg', '/images/gallery/11.jpg'],
+  ['/images/gallery/thumb-7.jpg', '/images/gallery/7.jpg']
 ];
 
 class HomePage extends Component {
@@ -32,7 +30,11 @@ class HomePage extends Component {
         She started to take classes at a local yoga studio and instantly fell in love with the Vinyasa yoga practice. As Green used to be an urban dancer during her high school years and currently practices breakdance, she interprets Vinyasa yoga not just as an exercise but also as a creative flow of movement. <br /><br />
         Green believes yoga has the power to change people's lives as she personally experienced dramatic improvement on her health and relationships as a result of her practice. She also practices meditation and breathing techniques every day and is very passionate to learn more about philosophy and the human body. <br /><br />
         Green’s teaching style is very energetic and focusing on each students’ body alignment. She loves to do hands-on assists to guide students to experience a deeper connection with their body.<br /><br />
-        Green completed the 200 hours teacher training course in February 2017 and has since completed additional teacher training courses which were the “Art of Alignment and Assists” and “Practical Teaching Skills” with Bodymindlife.
+
+        <strong>Certifications:</strong><br />
+        200 hrs yoga teacher training with Bodyminlife (Feb. 2017)<br />
+        50 hrs Art of Alignment and Assists with Bodymindlife (Jun. 2017)<br />
+        50 hrs Practical Teaching Skills with Bodymindlife (Jul. 2017)<br />
         <div className="section"></div>
         <div className="section"></div>
         <Gallery images={images} />
