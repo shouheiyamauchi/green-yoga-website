@@ -207,6 +207,12 @@ a:hover .material-icons {
   transition: 0.5s;
   cursor: pointer; }
 
+a i {
+  color: #616161; }
+
+a i:hover {
+  color: #212121; }
+
 .card {
   background-color: #FBF8F5; }
 

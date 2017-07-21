@@ -276,6 +276,16 @@ a:hover .material-icons {
   cursor: pointer;
 }
 
+a {
+  i {
+    color: #616161;
+  }
+
+  i:hover {
+    color: #212121;
+  }
+}
+
 .card {
   background-color: #FBF8F5;
 }

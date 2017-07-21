@@ -128,7 +128,13 @@ class ContactForm extends Component {
             </div>
           </div>
           <div className="center-align footer-icon">
-            <i className="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i className="fa fa-instagram" aria-hidden="true"></i>
+            <a href="https://www.facebook.com/greenyoga.com.au/" target="_blank">
+              <i className="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://www.instagram.com/yoginigreen/" target="_blank">
+              <i className="fa fa-instagram" aria-hidden="true"></i>
+            </a>
           </div>
           <div className="section"></div>
         </div>
