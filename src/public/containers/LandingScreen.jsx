@@ -21,7 +21,7 @@ class LandingScreen extends Component {
         // This will start play again, important here is to have a timeout that exceeds your "autoplaySpeed".
         this.slider.innerSlider.play();
       }
-    }, 1750);
+    }, 2250);
   }
 
   setFullPageStyle(image) {
@@ -45,12 +45,12 @@ class LandingScreen extends Component {
     var settings = {
       dots: false,
       infinite: true,
-      speed: 1000,
+      speed: 2000,
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
       autoplay: true,
-      autoplaySpeed: 1750,
+      autoplaySpeed: 2250,
       pauseOnHover: false,
       draggable: false
     };
